@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.alexstibbons.showcase"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":library:core")
+    implementation project(":library:ui-common")
+    implementation project(":library:repository")
+
+    implementation Dependencies.kotlin
+    implementation Dependencies.androidx_appcompat
+    implementation Dependencies.androidx_core
+    implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.androidx_material
+    implementation Dependencies.android_viewmodel_ktx
+    implementation Dependencies.lifecycle_extensions_ktx
+
+    implementation Dependencies.koin_android
+    implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewmodel
+
+    implementation Dependencies.dateLib
+
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.mockito_kotlin
+    androidTestImplementation Dependencies.androidx_junit
+    androidTestImplementation Dependencies.testandroidx_espressocore
+}

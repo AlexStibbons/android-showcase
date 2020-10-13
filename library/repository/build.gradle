@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+dependencies {
+    implementation project(":library:core")
+    implementation Dependencies.kotlin
+    implementation Dependencies.androidx_appcompat
+    implementation Dependencies.androidx_core
+
+    implementation Dependencies.koin_scope
+    implementation Dependencies.koin_android
+
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofit_gson_converter
+    implementation Dependencies.okhttp
+    implementation Dependencies.okhttp_logging_interceptor
+
+    implementation Dependencies.gson
+    implementation Dependencies.dateLib
+
+    implementation Dependencies.room_runtime
+    implementation Dependencies.room_ktx
+    kapt Dependencies.room_compiler
+    kapt Dependencies.room_persistence_compiler
+    androidTestImplementation Dependencies.room_testing
+
+    testImplementation Dependencies.robolectric
+    testImplementation Dependencies.mockk
+    testImplementation Dependencies.coroutines_core
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.koin_test
+    androidTestImplementation Dependencies.androidx_junit
+
+}
