@@ -1,7 +1,6 @@
 package com.alexstibbons.showcase.home
 
 import android.os.Bundle
-import android.util.Log
 import com.alexstibbons.showcase.ColoredSysBarActivity
 
 internal class HomeActivity : ColoredSysBarActivity() {

@@ -1,7 +1,6 @@
 package com.alexstibbons.showcase
 
 import android.os.Bundle
-import android.util.Log
 import com.alexstibbons.showcase.navigator.NavigateTo
 
 class SplashActivity : ColoredSysBarActivity() {
