@@ -1,3 +1,4 @@
+include ':library:navigator'
 include ':library:ui-common'
 include ':library:repository'
 include ':library:core'
