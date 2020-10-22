@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase
 
 import android.os.Bundle
+import com.alexstibbons.showcase.navigator.NavigateTo
 
 class SplashActivity : ColoredSysBarActivity() {
     override val systemBarColor: Int
@@ -10,5 +11,6 @@ class SplashActivity : ColoredSysBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        startActivity(NavigateTo.movieList(this))
     }
 }

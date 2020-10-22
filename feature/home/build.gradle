@@ -1,34 +1,8 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
-    defaultConfig {
-        applicationId "com.alexstibbons.showcase"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation project(":feature:home")
-
     implementation project(":library:core")
     implementation project(":library:ui-common")
     implementation project(":library:repository")
@@ -52,4 +26,5 @@ dependencies {
     testImplementation Dependencies.mockito_kotlin
     androidTestImplementation Dependencies.androidx_junit
     androidTestImplementation Dependencies.testandroidx_espressocore
+
 }

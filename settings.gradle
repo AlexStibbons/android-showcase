@@ -1,3 +1,4 @@
+include ':feature:home'
 include ':library:navigator'
 include ':library:ui-common'
 include ':library:repository'
