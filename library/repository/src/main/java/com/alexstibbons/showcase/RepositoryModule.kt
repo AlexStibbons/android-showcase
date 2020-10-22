@@ -9,10 +9,8 @@ import retrofit2.Retrofit
 val repositoryModule = module {
 
     factory<MovieRepository> {
-        val apiKey = getProperty<String>("API_KEY")
         MovieRepositoryImpl(
-            get<Retrofit>(named(MDB_SERVER)).movieApi(),
-            apiKey
+            get<Retrofit>(named(MDB_SERVER)).movieApi()
         )
     }
 }

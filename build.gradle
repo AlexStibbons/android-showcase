@@ -33,6 +33,10 @@ subprojects {
         if (project.hasProperty('android')) {
             apply plugin: "com.github.ben-manes.versions"
 
+            def apikeyPropertiesFile = rootProject.file("apikey.properties")
+            def apikeyProperties = new Properties()
+            apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
             android {
                 buildToolsVersion Config.buildTools
                 compileSdkVersion Config.compileSdk
@@ -41,6 +45,7 @@ subprojects {
                     minSdkVersion Config.minSdk
                     targetSdkVersion Config.targetSdk
                     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+                    buildConfigField("String", "MOVIE_DB_KEY", apikeyProperties['MOVIE_DB_KEY'])
                 }
 
                 compileOptions {
