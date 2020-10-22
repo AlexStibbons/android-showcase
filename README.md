@@ -2,7 +2,7 @@
 
 ## common libs
 
-[ ] core - failure, response, network response, common extensions & helper functions, generic methods, network module
+[x] core - failure, response, network response, common extensions & helper functions, generic methods, network module
 
 [ ] api - apis, in this case only one
 
