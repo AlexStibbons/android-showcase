@@ -24,6 +24,11 @@ dependencies {
 
     implementation Dependencies.androidx_constraintlayout
 
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofit_gson_converter
+    implementation Dependencies.okhttp
+    implementation Dependencies.okhttp_logging_interceptor
+
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockito_kotlin
     testImplementation Dependencies.mockitoAndroid
