@@ -11,5 +11,6 @@ internal class HomeActivity : ColoredSysBarActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        
     }
 }
