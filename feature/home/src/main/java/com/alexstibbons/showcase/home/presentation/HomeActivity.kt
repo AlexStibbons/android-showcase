@@ -41,7 +41,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
             renderState(state)
         })
 
-        bottomNav.setOnNavigationItemReselectedListener { item ->
+        bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_films -> fetchMedia(MediaType.FILM)
                 R.id.menu_tv -> fetchMedia(MediaType.TV)
