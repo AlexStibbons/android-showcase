@@ -26,4 +26,8 @@ internal class RecyclerAdapter(
     fun removeMedia(title: String) {
     }
 
+    fun clearList() {
+        mediaList.clear()
+        notifyDataSetChanged()
+    }
 }

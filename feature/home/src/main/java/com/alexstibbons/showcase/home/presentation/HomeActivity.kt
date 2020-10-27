@@ -43,9 +43,9 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
         bottomNav.setOnNavigationItemReselectedListener { item ->
             when (item.itemId) {
-                R.id.menu_films -> homeVM.fetchMediaList(MediaType.FILM)
-                R.id.menu_tv -> homeVM.fetchMediaList(MediaType.TV)
-                R.id.menu_fave -> homeVM.fetchMediaList(MediaType.FAVE)
+                R.id.menu_films -> fetchMedia(MediaType.FILM)
+                R.id.menu_tv -> fetchMedia(MediaType.TV)
+                R.id.menu_fave -> fetchMedia(MediaType.FAVE)
             }
 
             true
@@ -85,5 +85,10 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
     private fun hideLoading() {
 
+    }
+
+    private fun fetchMedia(type: MediaType) {
+        recyclerAdapter.clearList()
+        homeVM.fetchMediaList(type)
     }
 }
