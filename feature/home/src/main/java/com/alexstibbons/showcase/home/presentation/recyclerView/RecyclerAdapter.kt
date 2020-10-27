@@ -4,11 +4,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.home.MediaModel
 
-internal class RecyclerAdapter : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
+internal class RecyclerAdapter(
+    private val onMediaClicked: (String) -> Unit
+) : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
 
     private val mediaList: MutableList<MediaModel> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent, onMediaClicked)
 
     override fun getItemCount(): Int = mediaList.size
 

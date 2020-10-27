@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Showcase</string>
+
+    <string name="error_no_internet">No internet</string>
+    <string name="error_server">Server error</string>
+    <string name="error_empty_list">Nothing to show</string>
 </resources>

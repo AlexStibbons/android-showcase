@@ -1,5 +1,7 @@
 package com.alexstibbons.showcase.home
 
+import com.alexstibbons.showcase.home.domain.interactors.GetFilms
+import com.alexstibbons.showcase.home.domain.interactors.Interactor
 import com.alexstibbons.showcase.home.presentation.HomeViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
@@ -10,11 +12,18 @@ fun injectFeature() = loadModules
 private val loadModules by lazy {
     loadKoinModules(
         listOf(
-            homePresentationModule
+            homePresentationModule,
+            homeDomainModule
         )
     )
 }
 
 private val homePresentationModule = module {
-    viewModel { HomeViewModel() }
+    viewModel { HomeViewModel(get()) }
+}
+
+private val homeDomainModule = module {
+    factory { GetFilms(get(), get()) }
+
+    factory { Interactor(get()) }
 }

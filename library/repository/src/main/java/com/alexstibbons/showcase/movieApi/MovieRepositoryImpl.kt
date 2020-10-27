@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase.movieApi
 
 import com.alexstibbons.showcase.BuildConfig
+import com.alexstibbons.showcase.doWhenNull
 import com.alexstibbons.showcase.network.NetworkResponse
 import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.exhaustive
@@ -27,6 +28,23 @@ internal class MovieRepositoryImpl(
 
         return when (networkResponse) {
             is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MovieFailure.NoSuchMovie)
+            is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
+        }.exhaustive
+    }
+
+    override suspend fun getFilms(): Response<Failure, List<Movie>> {
+
+        val networkResponse = try {
+            movieApi
+                .getPopularMovies(page = 4, apiKey = apiKey)
+                .parseResponse()
+        } catch (e: Exception) {
+            return Response.failure(Failure.ServerError)
+        }
+
+        return when (networkResponse) {
+            is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value.results)
             is NetworkResponse.EmptyBodySuccess -> Response.failure(MovieFailure.NoSuchMovie)
             is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
         }.exhaustive

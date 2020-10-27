@@ -1,10 +1,14 @@
 package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexstibbons.showcase.ColoredSysBarActivity
-import com.alexstibbons.showcase.home.R
-import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.exhaustive
+import com.alexstibbons.showcase.home.*
+import com.alexstibbons.showcase.home.MediaModel
+import com.alexstibbons.showcase.home.MediaType
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
@@ -18,8 +22,10 @@ internal class HomeActivity : ColoredSysBarActivity() {
     private val homeVM: HomeViewModel by viewModel()
 
     private val recyclerAdapter: RecyclerAdapter by lazy {
-        RecyclerAdapter()
+        RecyclerAdapter(onMediaClick)
     }
+
+    private val onMediaClick: (String) -> Unit = {id -> showToast("clicked on an item: $id")}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +35,30 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
         initRecycler()
 
+        homeVM.observeState().observe(this, Observer { state ->
+            state ?: return@Observer
+
+            renderState(state)
+        })
+
         bottomNav.setOnNavigationItemReselectedListener { item ->
             when (item.itemId) {
-                R.id.menu_films -> showToast("clicked films")
-                R.id.menu_tv -> showToast("clicked tv")
-                R.id.menu_fave -> showToast("clicked faves")
+                R.id.menu_films -> homeVM.fetchMediaList(MediaType.FILM)
+                R.id.menu_tv -> homeVM.fetchMediaList(MediaType.TV)
+                R.id.menu_fave -> homeVM.fetchMediaList(MediaType.FAVE)
             }
 
             true
         }
         bottomNav.selectedItemId = R.id.menu_films
+    }
+
+    private fun renderState(state: HomeViewModel.ViewState) {
+        when (state) {
+            is HomeViewModel.ViewState.Loading -> showLoading()
+            is HomeViewModel.ViewState.Error -> showError()
+            is HomeViewModel.ViewState.Success -> populateRecycler(state.data.toMediaModelList())
+        }.exhaustive
     }
 
     private fun initRecycler() {
@@ -47,5 +67,23 @@ internal class HomeActivity : ColoredSysBarActivity() {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             setHasFixedSize(true)
         }
+    }
+
+    private fun showError() {
+        hideLoading()
+        showToast("error")
+    }
+
+    private fun showLoading() {
+
+    }
+
+    private fun populateRecycler(data: List<MediaModel>) {
+        recyclerAdapter.addMedia(data)
+        hideLoading()
+    }
+
+    private fun hideLoading() {
+
     }
 }
