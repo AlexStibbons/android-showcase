@@ -63,4 +63,4 @@ private fun Scope.okHttpClient(serverUrl: String): OkHttpClient {
 const val MDB_SERVER = "movieDbServer"
 val Scope.movieDbServerUrl: String get() = getProperty("MOVIE_SERVER_URL")
 
-fun Retrofit.movieApi() = this.create(MovieApi::class.java)
+fun Retrofit.movieApi(): MovieApi = this.create(MovieApi::class.java)

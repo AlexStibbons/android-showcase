@@ -3,7 +3,7 @@
     package="com.alexstibbons.showcase.home">
 
     <application>
-        <activity android:name=".HomeActivity"
+        <activity android:name=".presentation.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>

@@ -4,7 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 
 /**
@@ -30,6 +34,13 @@ inline fun Context.showToast(message: String) {
 
 inline fun Context.showToast(@StringRes messageRes: Int) {
     Toast.makeText(applicationContext, messageRes, Toast.LENGTH_LONG).show()
+}
+
+/**
+ * layout extensions
+ * */
+inline fun ViewGroup.inflate(@LayoutRes layout: Int): View {
+    return LayoutInflater.from(context).inflate(layout, this, false)
 }
 
 /**
