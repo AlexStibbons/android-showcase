@@ -51,7 +51,7 @@ fun <F: Failure, S: Any> Response<F, S>.getSuccessOrThrow(message: String = "Res
 
 fun <F: Failure, S: Any, T: Any> Response<F, S>.mapper(onSuccess: (S) -> (T)): Response<F, T> {
     return when (this) {
-        is Response.Failure -> Response.failure(this.failure)
+        is Response.Failure -> this
         is Response.Success -> Response.success(onSuccess(this.success))
     }.exhaustive
 }

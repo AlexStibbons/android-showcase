@@ -56,7 +56,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
     private fun renderState(state: HomeViewModel.ViewState) {
         when (state) {
             is HomeViewModel.ViewState.Loading -> showLoading()
-            is HomeViewModel.ViewState.Error -> showError()
+            is HomeViewModel.ViewState.Error -> showError(state.message)
             is HomeViewModel.ViewState.Success -> populateRecycler(state.data.toMediaModelList())
         }.exhaustive
     }
@@ -69,9 +69,10 @@ internal class HomeActivity : ColoredSysBarActivity() {
         }
     }
 
-    private fun showError() {
+    private fun showError(message: Int) {
+        val error = getString(message)
         hideLoading()
-        showToast("error")
+        showToast("error: $error")
     }
 
     private fun showLoading() {

@@ -70,7 +70,7 @@ internal class HomeViewModel(
     sealed class ViewState {
         object Loading: ViewState()
         data class Success(val data: List<Movie>): ViewState()
-        sealed class Error(@StringRes message: Int) : ViewState() {
+        sealed class Error(@StringRes val message: Int) : ViewState() {
             object NoInternet : Error(R.string.error_no_internet)
             object EmptyList: Error(R.string.error_empty_list)
             object ServerError: Error(R.string.error_server)
