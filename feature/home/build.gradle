@@ -22,6 +22,9 @@ dependencies {
 
     implementation Dependencies.dateLib
 
+    implementation Dependencies.glide
+    annotationProcessor Dependencies.glide_compiler
+
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockito_kotlin
     androidTestImplementation Dependencies.androidx_junit

@@ -3,6 +3,7 @@ package com.alexstibbons.showcase
 import com.alexstibbons.showcase.movieApi.MovieApi
 import com.alexstibbons.showcase.network.NetworkHandler
 import com.alexstibbons.showcase.network.NetworkHandlerImpl
+import com.alexstibbons.showcase.tvApi.TvApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -63,4 +64,5 @@ private fun Scope.okHttpClient(serverUrl: String): OkHttpClient {
 const val MDB_SERVER = "movieDbServer"
 val Scope.movieDbServerUrl: String get() = getProperty("MOVIE_SERVER_URL")
 
-fun Retrofit.movieApi() = this.create(MovieApi::class.java)
+fun Retrofit.movieApi(): MovieApi = this.create(MovieApi::class.java)
+fun Retrofit.tvApi(): TvApi = this.create(TvApi::class.java)
