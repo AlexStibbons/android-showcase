@@ -57,7 +57,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
         when (state) {
             is HomeViewModel.ViewState.Loading -> showLoading()
             is HomeViewModel.ViewState.Error -> showError(state.message)
-            is HomeViewModel.ViewState.Success -> populateRecycler(state.data.toMediaModelList())
+            is HomeViewModel.ViewState.Success -> populateRecycler(state.data.data)
         }.exhaustive
     }
 

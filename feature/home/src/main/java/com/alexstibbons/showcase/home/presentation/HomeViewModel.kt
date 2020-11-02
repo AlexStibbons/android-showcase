@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.MediaType
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.domain.MovieListDomain
 import com.alexstibbons.showcase.home.domain.interactors.Interactor
 import com.alexstibbons.showcase.movieApi.MovieFailure
 import com.alexstibbons.showcase.movieApi.model.Movie
+import com.alexstibbons.showcase.movieApi.model.MovieListResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 
@@ -30,7 +32,7 @@ internal class HomeViewModel(
     }
 
 
-    private fun renderSuccess(success: List<Movie>) {
+    private fun renderSuccess(success: MovieListDomain) {
         _state.value = ViewState.Success(success)
     }
 
@@ -69,7 +71,7 @@ internal class HomeViewModel(
 
     sealed class ViewState {
         object Loading: ViewState()
-        data class Success(val data: List<Movie>): ViewState()
+        data class Success(val data: MovieListDomain): ViewState()
         sealed class Error(@StringRes val message: Int) : ViewState() {
             object NoInternet : Error(R.string.error_no_internet)
             object EmptyList: Error(R.string.error_empty_list)
