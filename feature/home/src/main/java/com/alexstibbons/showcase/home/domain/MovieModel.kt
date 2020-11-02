@@ -1,13 +1,15 @@
 package com.alexstibbons.showcase.home.domain
 
+import com.alexstibbons.showcase.home.MediaList
 import com.alexstibbons.showcase.home.MediaModel
+import com.alexstibbons.showcase.mapToListOf
 import com.alexstibbons.showcase.movieApi.model.Movie
 import com.alexstibbons.showcase.movieApi.model.MovieListResponse
 
 internal data class MovieListDomain(
-    val page: Int,
-    val data: List<MovieDomain>
-)
+    override val page: Int,
+    override val data: List<MovieDomain>
+): MediaList(page, data)
 
 internal data class MovieDomain(
     override val id: Int,
@@ -21,7 +23,7 @@ internal data class MovieDomain(
 
 internal fun MovieListResponse.toMovieListdomain() = MovieListDomain(
     page,
-    results.toMovieListDomain()
+    results.mapToListOf { it.toMovieDomain() }
 )
 
 internal fun Movie.toMovieDomain() = MovieDomain(
@@ -30,12 +32,3 @@ internal fun Movie.toMovieDomain() = MovieDomain(
     overview,
     poster_path
 )
-
-internal fun List<Movie>.toMovieListDomain(): List<MovieDomain> {
-    val list = mutableListOf<MovieDomain>()
-    this.forEach {
-        list.add(it.toMovieDomain())
-    }
-    return list.toList()
-}
-

@@ -21,6 +21,15 @@ fun <T> T?.doWhenNull(fn: () -> Unit) = this ?: fn()
 
 inline fun <reified T : Any> simpleName() = T::class.java.simpleName
 
+inline fun <T, R> List<T>.mapToListOf(fn: (T) -> R): List<R> {
+    val list = mutableListOf<R>()
+    this.forEach {
+        list.add(fn(it))
+    }
+    return list.toList()
+}
+
+
 /**
  * activity extensions
  * */

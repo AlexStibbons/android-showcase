@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.exhaustive
+import com.alexstibbons.showcase.home.MediaList
 import com.alexstibbons.showcase.home.MediaType
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.domain.MovieListDomain
@@ -32,7 +33,7 @@ internal class HomeViewModel(
     }
 
 
-    private fun renderSuccess(success: MovieListDomain) {
+    private fun renderSuccess(success: MediaList) {
         _state.value = ViewState.Success(success)
     }
 
@@ -48,7 +49,12 @@ internal class HomeViewModel(
     }
 
     private fun fetchTv(page: Int) {
-
+        interactor.getTv { response ->
+            when (response) {
+                is Response.Failure -> renderError(response.failure)
+                is Response.Success -> renderSuccess(response.success)
+            }.exhaustive
+        }
     }
 
     private fun fetchFilms(page: Int) {
@@ -71,7 +77,7 @@ internal class HomeViewModel(
 
     sealed class ViewState {
         object Loading: ViewState()
-        data class Success(val data: MovieListDomain): ViewState()
+        data class Success(val data: MediaList): ViewState()
         sealed class Error(@StringRes val message: Int) : ViewState() {
             object NoInternet : Error(R.string.error_no_internet)
             object EmptyList: Error(R.string.error_empty_list)
