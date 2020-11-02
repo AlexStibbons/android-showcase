@@ -37,7 +37,7 @@ internal class MovieRepositoryImpl(
 
         val networkResponse = try {
             movieApi
-                .getPopularMovies(page = 4, apiKey = apiKey)
+                .getPopularMovies(page = 1, apiKey = apiKey)
                 .parseResponse()
         } catch (e: Exception) {
             return Response.failure(Failure.ServerError)
