@@ -3,6 +3,8 @@ package com.alexstibbons.showcase.details.domain
 import com.alexstibbons.showcase.movieApi.model.Movie
 import com.alexstibbons.showcase.tvApi.model.TvShow
 
+private const val IMDB_BASE = "https://www.imdb.com/title/"
+
 internal sealed class MediaModel(
     open val title: String,
     open val overview: String,
@@ -28,7 +30,7 @@ internal fun Movie.toFilmDetails() = MediaModel.FilmDetails(
     title,
     overview,
     poster_path,
-    imdb_id
+    IMDB_BASE+imdb_id
 )
 
 internal fun TvShow.toTvDetails() = MediaModel.TvDetails(
