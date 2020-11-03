@@ -14,5 +14,5 @@ private val loadModules by lazy {
 }
 
 private val detailsPresentationModule = module {
-    viewModel { (mediaType: MediaType, mediaId: Int) -> MediaDetailsViewModel(mediaType, mediaId) }
+    viewModel { (mediaTypeId: Int, mediaId: Int) -> MediaDetailsViewModel(MediaType.from(mediaTypeId), mediaId) }
 }
