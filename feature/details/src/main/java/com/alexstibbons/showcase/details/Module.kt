@@ -12,7 +12,8 @@ internal fun injectFeature() = loadModules
 
 private val loadModules by lazy {
     loadKoinModules(listOf(
-        detailsPresentationModule
+        detailsPresentationModule,
+        detailsDomainModule
     ))
 }
 

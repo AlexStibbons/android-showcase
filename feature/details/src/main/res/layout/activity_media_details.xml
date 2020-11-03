@@ -8,4 +8,32 @@
     tools:context=".MediaDetailsActivity"
     android:id="@+id/details_base">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/details_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="some title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/details_overview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="some overview"
+        app:layout_constraintStart_toStartOf="@id/details_title"
+        app:layout_constraintTop_toBottomOf="@id/details_title"
+        app:layout_constraintEnd_toEndOf="@id/details_title"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/details_imdb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="some link"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/details_overview"
+        app:layout_constraintTop_toBottomOf="@id/details_overview"
+        app:layout_constraintEnd_toEndOf="@id/details_overview"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

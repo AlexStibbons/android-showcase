@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     implementation project(":library:core")
@@ -24,9 +25,6 @@ dependencies {
     implementation Dependencies.dateLib
 
     implementation Dependencies.glide
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     annotationProcessor Dependencies.glide_compiler
 
     testImplementation Dependencies.junit
