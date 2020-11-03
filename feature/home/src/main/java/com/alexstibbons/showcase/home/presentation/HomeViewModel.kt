@@ -4,15 +4,12 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.alexstibbons.showcase.MediaList
+import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.exhaustive
-import com.alexstibbons.showcase.home.MediaList
-import com.alexstibbons.showcase.home.MediaType
 import com.alexstibbons.showcase.home.R
-import com.alexstibbons.showcase.home.domain.MovieListDomain
 import com.alexstibbons.showcase.home.domain.interactors.Interactor
 import com.alexstibbons.showcase.movieApi.MovieFailure
-import com.alexstibbons.showcase.movieApi.model.Movie
-import com.alexstibbons.showcase.movieApi.model.MovieListResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 

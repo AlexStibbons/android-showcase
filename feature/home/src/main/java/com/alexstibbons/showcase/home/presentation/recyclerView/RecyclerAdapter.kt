@@ -2,7 +2,7 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alexstibbons.showcase.home.MediaModel
+import com.alexstibbons.showcase.MediaModel
 
 internal class RecyclerAdapter(
     private val onMediaClicked: (String) -> Unit

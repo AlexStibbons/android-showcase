@@ -3,8 +3,11 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.BASE_IMG_URL
-import com.alexstibbons.showcase.home.MediaModel
+import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.domain.MovieDomain
+import com.alexstibbons.showcase.home.domain.TvShowDomain
 import com.alexstibbons.showcase.inflate
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_media.view.*
@@ -35,7 +38,11 @@ internal class MediaViewHolder(
             .into(image)
 
         itemView.setOnClickListener {
-            onMediaClicked(model.title)
+            when (model) {
+                is MovieDomain -> onMediaClicked("Movie ${model.title}")
+                is TvShowDomain -> onMediaClicked("Tv show ${model.title}")
+                else -> error("Unknown media")
+            }
         }
     }
 
