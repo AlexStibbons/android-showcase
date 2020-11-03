@@ -7,6 +7,7 @@ import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.home.*
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
+import com.alexstibbons.showcase.navigator.NavigateTo
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.activity_home.activity_home_bottom_nav as bottomNav
@@ -21,7 +22,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
         RecyclerAdapter(onMediaClick)
     }
 
-    private val onMediaClick: (String) -> Unit = {id -> showToast("clicked on an item: $id")}
+    private val onMediaClick: (Int, Int) -> Unit = {mediaType, mediaId -> startActivity(NavigateTo.mediaDetails(this, mediaType, mediaId))}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
