@@ -1,6 +1,9 @@
 package com.alexstibbons.showcase.details
 
 import com.alexstibbons.showcase.MediaType
+import com.alexstibbons.showcase.details.domain.interactor.GetFilmDetails
+import com.alexstibbons.showcase.details.domain.interactor.GetTvDetails
+import com.alexstibbons.showcase.details.domain.interactor.Interactor
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -14,5 +17,12 @@ private val loadModules by lazy {
 }
 
 private val detailsPresentationModule = module {
-    viewModel { (mediaTypeId: Int, mediaId: Int) -> MediaDetailsViewModel(MediaType.from(mediaTypeId), mediaId) }
+    viewModel { (mediaTypeId: Int, mediaId: Int) -> MediaDetailsViewModel(MediaType.from(mediaTypeId), mediaId, get()) }
+}
+
+private val detailsDomainModule = module {
+    factory { GetFilmDetails(get(), get()) }
+    factory { GetTvDetails(get(), get()) }
+
+    factory { Interactor(get(), get()) }
 }

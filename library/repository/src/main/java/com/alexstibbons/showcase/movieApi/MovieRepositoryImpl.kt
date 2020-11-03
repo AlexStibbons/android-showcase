@@ -1,7 +1,6 @@
 package com.alexstibbons.showcase.movieApi
 
 import com.alexstibbons.showcase.BuildConfig
-import com.alexstibbons.showcase.doWhenNull
 import com.alexstibbons.showcase.network.NetworkResponse
 import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.exhaustive
@@ -29,7 +28,7 @@ internal class MovieRepositoryImpl(
 
         return when (networkResponse) {
             is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
-            is NetworkResponse.EmptyBodySuccess -> Response.failure(MovieFailure.NoSuchMovie)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.NoSuchMedia)
             is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
         }.exhaustive
     }
@@ -46,7 +45,7 @@ internal class MovieRepositoryImpl(
 
         return when (networkResponse) {
             is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
-            is NetworkResponse.EmptyBodySuccess -> Response.failure(MovieFailure.NoSuchMovie)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.NoSuchMedia)
             is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
         }.exhaustive
     }

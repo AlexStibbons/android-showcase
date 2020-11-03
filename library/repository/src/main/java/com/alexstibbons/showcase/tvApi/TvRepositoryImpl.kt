@@ -2,12 +2,13 @@ package com.alexstibbons.showcase.tvApi
 
 import com.alexstibbons.showcase.BuildConfig
 import com.alexstibbons.showcase.exhaustive
-import com.alexstibbons.showcase.movieApi.MovieFailure
+import com.alexstibbons.showcase.movieApi.MediaFailure
 import com.alexstibbons.showcase.network.NetworkResponse
 import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
+import com.alexstibbons.showcase.tvApi.model.TvShow
 import java.lang.Exception
 
 internal class TvRepositoryImpl(
@@ -28,7 +29,24 @@ internal class TvRepositoryImpl(
 
         return when (networkResponse) {
             is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
-            is NetworkResponse.EmptyBodySuccess -> Response.failure(MovieFailure.EmptyMovieList)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.EmptyMediaList)
+            is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
+        }.exhaustive
+    }
+
+    override suspend fun getTvShowDetails(id: Int): Response<Failure, TvShow> {
+
+        val networkResponse: NetworkResponse<TvShow> = try {
+            api
+                .getTvShow(id, apiKey)
+                .parseResponse()
+        } catch (e: Exception) {
+            return Response.failure(Failure.ServerError)
+        }
+
+        return when (networkResponse) {
+            is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.NoSuchMedia)
             is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
         }.exhaustive
     }
