@@ -1,7 +1,7 @@
 package com.alexstibbons.showcase.home.domain
 
-import com.alexstibbons.showcase.home.MediaList
-import com.alexstibbons.showcase.home.MediaModel
+import com.alexstibbons.showcase.MediaList
+import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.mapToListOf
 import com.alexstibbons.showcase.movieApi.model.Movie
 import com.alexstibbons.showcase.movieApi.model.MovieListResponse

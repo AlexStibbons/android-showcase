@@ -2,10 +2,10 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alexstibbons.showcase.home.MediaModel
+import com.alexstibbons.showcase.MediaModel
 
 internal class RecyclerAdapter(
-    private val onMediaClicked: (String) -> Unit
+    private val onMediaClicked: (Int, Int) -> Unit
 ) : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
 
     private val mediaList: MutableList<MediaModel> = ArrayList()
