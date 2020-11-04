@@ -39,7 +39,11 @@ internal class HomeActivity : ColoredSysBarActivity() {
         activity_home_bottom_nav.selectedItemId = R.id.menu_films
 
         searchIcon.setOnClickListener {
-            showToast("Search bottom dialogue pops up here now")
+            when (activity_home_viewPager.currentItem) {
+                0 -> showToast("search for films")
+                1 -> showToast("search for tv")
+                2 -> showToast("search for faves")
+            }
         }
     }
 }

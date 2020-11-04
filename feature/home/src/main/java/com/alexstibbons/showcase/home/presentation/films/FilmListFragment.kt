@@ -24,9 +24,21 @@ internal class FilmListFragment : Fragment(R.layout.fragment_base) {
     private val baseViewModel: HomeViewModel by sharedViewModel()
     private val filmViewModel: FilmListViewModel by viewModel()
 
-    private val recyclerLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(requireActivity()) }
+    private val recyclerLayoutManager: LinearLayoutManager by lazy {
+        LinearLayoutManager(
+            requireActivity()
+        )
+    }
 
-    private val onMediaClick: (Int, Int) -> Unit = {mediaType, mediaId -> startActivity(NavigateTo.mediaDetails(requireActivity(), mediaType, mediaId))}
+    private val onMediaClick: (Int, Int) -> Unit = { mediaType, mediaId ->
+        startActivity(
+            NavigateTo.mediaDetails(
+                requireActivity(),
+                mediaType,
+                mediaId
+            )
+        )
+    }
 
     private val recyclerAdapter: RecyclerAdapter by lazy {
         RecyclerAdapter(onMediaClick)
