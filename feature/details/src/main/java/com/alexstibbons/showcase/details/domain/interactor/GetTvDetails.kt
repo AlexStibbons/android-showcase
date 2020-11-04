@@ -6,7 +6,7 @@ import com.alexstibbons.showcase.interactors.QueryUseCase
 import com.alexstibbons.showcase.network.NetworkHandler
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
-import com.alexstibbons.showcase.responses.mapper
+import com.alexstibbons.showcase.responses.mapSuccessTo
 import com.alexstibbons.showcase.tvApi.TvRepository
 
 internal data class GetTvDetails(
@@ -19,7 +19,7 @@ internal data class GetTvDetails(
 
         val response = tvRepository.getTvShowDetails(params)
 
-        return response.mapper { it.toTvDetails() }
+        return response.mapSuccessTo { it.toTvDetails() }
     }
 
 }

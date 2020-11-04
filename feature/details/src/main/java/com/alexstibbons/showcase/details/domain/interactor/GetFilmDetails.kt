@@ -7,7 +7,7 @@ import com.alexstibbons.showcase.movieApi.MovieRepository
 import com.alexstibbons.showcase.network.NetworkHandler
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
-import com.alexstibbons.showcase.responses.mapper
+import com.alexstibbons.showcase.responses.mapSuccessTo
 
 internal data class GetFilmDetails(
     private val networkHandler: NetworkHandler,
@@ -20,6 +20,6 @@ internal data class GetFilmDetails(
 
         val response = filmRepo.getMovie(params)
 
-        return response.mapper { it.toFilmDetails() }
+        return response.mapSuccessTo { it.toFilmDetails() }
     }
 }
