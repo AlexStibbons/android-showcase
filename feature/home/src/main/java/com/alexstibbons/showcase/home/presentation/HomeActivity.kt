@@ -1,31 +1,23 @@
 package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.alexstibbons.showcase.*
-import com.alexstibbons.showcase.home.*
+import com.alexstibbons.showcase.ColoredSysBarActivity
+import com.alexstibbons.showcase.MediaType
+import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
-import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
-import com.alexstibbons.showcase.navigator.NavigateTo
+import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home_temp.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import kotlinx.android.synthetic.main.activity_home.activity_home_bottom_nav as bottomNav
+import kotlinx.android.synthetic.main.activity_home.activity_home_search as searchIcon
 
 internal class HomeActivity : ColoredSysBarActivity() {
-    override val systemBarColor: Int
-        get() = R.color.white
+    override val systemBarColor: Int = R.color.white
 
-    private val homeVM: HomeViewModel by viewModel()
+    private val fragmentAdapter by lazy { HomeViewPagerAdapter(this) }
 
-    private val recyclerAdapter: RecyclerAdapter by lazy {
-        RecyclerAdapter(onMediaClick)
-    }
-
-    private val recyclerLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
-
-    private val onMediaClick: (Int, Int) -> Unit = {mediaType, mediaId -> startActivity(NavigateTo.mediaDetails(this, mediaType, mediaId))}
+    private val baseViewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,92 +25,25 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
         injectFeature()
 
-        initRecycler()
-        infiniteScroll(recyclerLayoutManager)
+        activity_home_viewPager.adapter = fragmentAdapter
 
-        homeVM.observeState().observe(this, Observer { state ->
-            state ?: return@Observer
-
-            renderState(state)
-        })
-
-        bottomNav.setOnNavigationItemSelectedListener { item ->
+        activity_home_bottom_nav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.menu_films -> {
-                    homeVM.setCurrentType(MediaType.FILM)
-                    fetchMedia()
-                }
-                R.id.menu_tv -> {
-                    homeVM.setCurrentType(MediaType.TV)
-                    fetchMedia()
-                }
-                R.id.menu_fave -> {
-                    homeVM.setCurrentType(MediaType.FAVE)
-                    fetchMedia()
-                }
+                R.id.menu_films -> activity_home_viewPager.setCurrentItem(0, false)
+                R.id.menu_tv -> activity_home_viewPager.setCurrentItem(1, false)
+                R.id.menu_fave -> activity_home_viewPager.setCurrentItem(2, false)
             }
 
             true
         }
-        bottomNav.selectedItemId = R.id.menu_films
-    }
+        activity_home_bottom_nav.selectedItemId = R.id.menu_films
 
-    private fun renderState(state: HomeViewModel.ViewState) {
-        when (state) {
-            is HomeViewModel.ViewState.Loading -> showLoading()
-            is HomeViewModel.ViewState.Error -> showError(state.message)
-            is HomeViewModel.ViewState.Success -> populateRecycler(state.data.data)
-        }.exhaustive
-    }
-
-    private fun initRecycler() {
-        activity_home_recycler.apply {
-            adapter = recyclerAdapter
-            layoutManager = recyclerLayoutManager
-            setHasFixedSize(true)
-        }
-    }
-
-    private fun showError(message: Int) {
-        val error = getString(message)
-        hideLoading()
-        showToast("error: $error")
-    }
-
-    private fun showLoading() {
-
-    }
-
-    private fun populateRecycler(data: List<MediaModel>) {
-        recyclerAdapter.addMedia(data)
-        hideLoading()
-    }
-
-    private fun hideLoading() {
-
-    }
-
-    private fun fetchMedia() {
-        recyclerAdapter.clearList()
-        homeVM.resetCurrentPage()
-        homeVM.fetchMediaList()
-    }
-
-    private fun infiniteScroll(layoutManager: LinearLayoutManager) {
-        val listener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val currentItem = layoutManager.childCount
-                val totalItems = layoutManager.itemCount
-                val scrollOutItems = layoutManager.findFirstVisibleItemPosition()
-
-                if (currentItem + scrollOutItems == totalItems - 5) {
-                    homeVM.fetchMediaList()
-                }
+        searchIcon.setOnClickListener {
+            when (activity_home_viewPager.currentItem) {
+                0 -> showToast("search for films")
+                1 -> showToast("search for tv")
+                2 -> showToast("search for faves")
             }
         }
-
-        activity_home_recycler.addOnScrollListener(listener)
     }
 }

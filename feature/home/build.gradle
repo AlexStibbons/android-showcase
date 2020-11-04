@@ -25,6 +25,8 @@ dependencies {
     implementation Dependencies.glide
     annotationProcessor Dependencies.glide_compiler
 
+    implementation Dependencies.androidx_view_pager_two
+
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockito_kotlin
     androidTestImplementation Dependencies.androidx_junit
