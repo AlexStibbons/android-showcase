@@ -1,4 +1,4 @@
-package com.alexstibbons.showcase.home.presentation.films
+package com.alexstibbons.showcase.home.presentation.tv
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
@@ -12,18 +12,18 @@ import com.alexstibbons.showcase.movieApi.MediaFailure
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 
-internal class FilmListViewModel(
+internal class TvListViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
     private var currentPage = 0
 
-    private val _state = MutableLiveData<FilmListState>()
-    fun observeFilms(): LiveData<FilmListState> = _state
+    private val _state = MutableLiveData<TvListState>()
+    fun observeFilms(): LiveData<TvListState> = _state
 
     init {
-        _state.value = FilmListState.Loading
-        fetchFilms()
+        _state.value = TvListState.Loading
+        fetchTv()
     }
 
     override fun onCleared() {
@@ -31,9 +31,9 @@ internal class FilmListViewModel(
         super.onCleared()
     }
 
-    fun fetchFilms() {
+    fun fetchTv() {
         currentPage += 1
-        interactor.getFilms(currentPage) { response ->
+        interactor.getTv(currentPage) { response ->
             when (response) {
                 is Response.Failure -> renderError(response.failure)
                 is Response.Success -> renderSuccess(response.success)
@@ -42,14 +42,14 @@ internal class FilmListViewModel(
     }
 
     private fun renderSuccess(success: MediaList) {
-        _state.value = FilmListState.Success(success)
+        _state.value = TvListState.Success(success)
     }
 
     private fun renderError(failure: Failure) {
         val state = when (failure) {
-            is Failure.ServerError -> FilmListState.Error.ServerError
-            is Failure.NetworkConnection ->  FilmListState.Error.NoInternet
-            is MediaFailure.NoSuchMedia, MediaFailure.EmptyMediaList ->  FilmListState.Error.EmptyList
+            is Failure.ServerError -> TvListState.Error.ServerError
+            is Failure.NetworkConnection ->  TvListState.Error.NoInternet
+            is MediaFailure.NoSuchMedia, MediaFailure.EmptyMediaList ->  TvListState.Error.EmptyList
             is Failure.FeatureSpecificFailure -> error("Feature failure must be implemented")
         }.exhaustive
 
@@ -57,10 +57,10 @@ internal class FilmListViewModel(
     }
 
 
-    sealed class FilmListState {
-        object Loading: FilmListState()
-        data class Success(val data: MediaList): FilmListState()
-        sealed class Error(@StringRes val message: Int) : FilmListState() {
+    sealed class TvListState {
+        object Loading: TvListState()
+        data class Success(val data: MediaList): TvListState()
+        sealed class Error(@StringRes val message: Int) : TvListState() {
             object NoInternet : Error(R.string.error_no_internet)
             object EmptyList: Error(R.string.error_empty_list)
             object ServerError: Error(R.string.error_server)

@@ -2,6 +2,7 @@ package com.alexstibbons.showcase.home.presentation.films
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +44,7 @@ internal class FilmListFragment : Fragment(R.layout.fragment_base) {
         initRecycler()
         infiniteScroll(recyclerLayoutManager)
 
-        temp_text.text = "FILM LIST"
+        temp_text.isVisible = false
 
         filmViewModel.observeFilms().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
