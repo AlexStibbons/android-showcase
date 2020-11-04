@@ -6,9 +6,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application>
-        <activity android:name=".presentation.HomeActivity"
+        <activity android:name=".presentation.HomeActivityTemp"
             android:theme="@style/AppTheme.NoActionBar">
 
+            <intent-filter>
+                <action android:name="com.alexstibbons.showcase.home_temp.open"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".presentation.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.alexstibbons.showcase.home.open"/>
                 <category android:name="android.intent.category.DEFAULT"/>
