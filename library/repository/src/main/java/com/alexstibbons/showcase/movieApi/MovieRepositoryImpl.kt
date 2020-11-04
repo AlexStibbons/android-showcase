@@ -33,11 +33,11 @@ internal class MovieRepositoryImpl(
         }.exhaustive
     }
 
-    override suspend fun getFilms(): Response<Failure, MovieListResponse> {
+    override suspend fun getFilms(page: Int): Response<Failure, MovieListResponse> {
 
         val networkResponse = try {
             movieApi
-                .getPopularMovies(page = 1, apiKey = apiKey)
+                .getPopularMovies(page = page, apiKey = apiKey)
                 .parseResponse()
         } catch (e: Exception) {
             return Response.failure(Failure.ServerError)

@@ -12,12 +12,13 @@ import com.alexstibbons.showcase.tvApi.TvRepository
 internal data class GetTv(
     private val networkHandler: NetworkHandler,
     private val tvRepo: TvRepository
-): QueryUseCase<TvListDomain, Unit>() {
+): QueryUseCase<TvListDomain, Int>() {
 
-    override suspend fun run(params: Unit?): Response<Failure, TvListDomain> {
+    override suspend fun run(params: Int?): Response<Failure, TvListDomain> {
+        require(params != null) { "Page number cannot be null" }
         if (!networkHandler.isConnected) return Response.failure(Failure.NetworkConnection)
 
-        val response = tvRepo.getPopular(1)
+        val response = tvRepo.getPopular(params)
 
         return response.mapper { it.toTvListDomain() }
     }

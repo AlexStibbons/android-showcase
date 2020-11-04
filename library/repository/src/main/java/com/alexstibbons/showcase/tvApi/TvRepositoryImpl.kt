@@ -21,7 +21,7 @@ internal class TvRepositoryImpl(
 
         val networkResponse: NetworkResponse<TvListResponse> = try {
             api
-                .getPopularTvShows(apiKey = apiKey, page = 1)
+                .getPopularTvShows(apiKey = apiKey, page = page)
                 .parseResponse()
         } catch (e: Exception) {
             return Response.failure(Failure.ServerError)

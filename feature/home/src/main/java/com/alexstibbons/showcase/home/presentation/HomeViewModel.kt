@@ -17,15 +17,23 @@ internal class HomeViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
+    private var currentPage = 0
+    private var currentType = MediaType.FILM
+
     private val _state = MutableLiveData<ViewState>()
     fun observeState(): LiveData<ViewState> = _state
 
 
-    fun fetchMediaList(type: MediaType, page: Int = 1) {
-        when (type) {
-            MediaType.FILM -> fetchFilms(page)
-            MediaType.TV -> fetchTv(page)
-            MediaType.FAVE -> fetchFaves(page)
+    fun setCurrentType(type: MediaType) {
+        currentType = type
+    }
+
+    fun fetchMediaList() {
+        currentPage += 1
+        when (currentType) {
+            MediaType.FILM -> fetchFilms(currentPage)
+            MediaType.TV -> fetchTv(currentPage)
+            MediaType.FAVE -> fetchFaves(currentPage)
         }.exhaustive
     }
 
@@ -46,7 +54,7 @@ internal class HomeViewModel(
     }
 
     private fun fetchTv(page: Int) {
-        interactor.getTv { response ->
+        interactor.getTv(page) { response ->
             when (response) {
                 is Response.Failure -> renderError(response.failure)
                 is Response.Success -> renderSuccess(response.success)
@@ -55,7 +63,7 @@ internal class HomeViewModel(
     }
 
     private fun fetchFilms(page: Int) {
-        interactor.getFilms { response ->
+        interactor.getFilms(page) { response ->
             when (response) {
                 is Response.Failure -> renderError(response.failure)
                 is Response.Success -> renderSuccess(response.success)
@@ -70,6 +78,10 @@ internal class HomeViewModel(
     override fun onCleared() {
         interactor.clear()
         super.onCleared()
+    }
+
+    fun resetCurrentPage() {
+        currentPage = 0
     }
 
     sealed class ViewState {

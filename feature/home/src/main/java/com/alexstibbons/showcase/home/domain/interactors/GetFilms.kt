@@ -12,12 +12,14 @@ import com.alexstibbons.showcase.responses.mapper
 internal class GetFilms(
     private val networkHandler: NetworkHandler,
     private val filmRepository: MovieRepository
-) : QueryUseCase<MovieListDomain, Unit>() {
+) : QueryUseCase<MovieListDomain, Int>() {
 
-    override suspend fun run(params: Unit?): Response<Failure, MovieListDomain> {
+    override suspend fun run(params: Int?): Response<Failure, MovieListDomain> {
+        require( params != null) { "Page number cannot be null" }
+
         if (!networkHandler.isConnected) return Response.failure(Failure.NetworkConnection)
 
-        val response = filmRepository.getFilms()
+        val response = filmRepository.getFilms(params)
 
         return response.mapper { it.toMovieListdomain() }
     }

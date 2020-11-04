@@ -3,6 +3,7 @@ package com.alexstibbons.showcase.home.presentation
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.home.*
 import com.alexstibbons.showcase.home.R
@@ -22,6 +23,8 @@ internal class HomeActivity : ColoredSysBarActivity() {
         RecyclerAdapter(onMediaClick)
     }
 
+    private val recyclerLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
+
     private val onMediaClick: (Int, Int) -> Unit = {mediaType, mediaId -> startActivity(NavigateTo.mediaDetails(this, mediaType, mediaId))}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
         injectFeature()
 
         initRecycler()
+        infiniteScroll(recyclerLayoutManager)
 
         homeVM.observeState().observe(this, Observer { state ->
             state ?: return@Observer
@@ -40,9 +44,18 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.menu_films -> fetchMedia(MediaType.FILM)
-                R.id.menu_tv -> fetchMedia(MediaType.TV)
-                R.id.menu_fave -> fetchMedia(MediaType.FAVE)
+                R.id.menu_films -> {
+                    homeVM.setCurrentType(MediaType.FILM)
+                    fetchMedia()
+                }
+                R.id.menu_tv -> {
+                    homeVM.setCurrentType(MediaType.TV)
+                    fetchMedia()
+                }
+                R.id.menu_fave -> {
+                    homeVM.setCurrentType(MediaType.FAVE)
+                    fetchMedia()
+                }
             }
 
             true
@@ -61,7 +74,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
     private fun initRecycler() {
         activity_home_recycler.apply {
             adapter = recyclerAdapter
-            layoutManager = LinearLayoutManager(this@HomeActivity)
+            layoutManager = recyclerLayoutManager
             setHasFixedSize(true)
         }
     }
@@ -85,8 +98,27 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
     }
 
-    private fun fetchMedia(type: MediaType) {
+    private fun fetchMedia() {
         recyclerAdapter.clearList()
-        homeVM.fetchMediaList(type)
+        homeVM.resetCurrentPage()
+        homeVM.fetchMediaList()
+    }
+
+    private fun infiniteScroll(layoutManager: LinearLayoutManager) {
+        val listener = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val currentItem = layoutManager.childCount
+                val totalItems = layoutManager.itemCount
+                val scrollOutItems = layoutManager.findFirstVisibleItemPosition()
+
+                if (currentItem + scrollOutItems == totalItems - 5) {
+                    homeVM.fetchMediaList()
+                }
+            }
+        }
+
+        activity_home_recycler.addOnScrollListener(listener)
     }
 }
