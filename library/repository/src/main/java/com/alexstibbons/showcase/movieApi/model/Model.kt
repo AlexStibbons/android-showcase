@@ -19,7 +19,7 @@ data class Movie(
 
     val overview: String,
 
-    val poster_path: String,
+    val poster_path: String?,
 
     val imdb_id: String?
 

@@ -30,5 +30,5 @@ internal fun Movie.toMovieDomain() = MovieDomain(
     id,
     title,
     overview,
-    poster_path
+    poster_path ?: ""
 )
