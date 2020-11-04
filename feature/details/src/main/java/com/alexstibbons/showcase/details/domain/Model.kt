@@ -29,7 +29,7 @@ internal sealed class MediaModel(
 internal fun Movie.toFilmDetails() = MediaModel.FilmDetails(
     title,
     overview,
-    poster_path,
+    poster_path ?: "",
     IMDB_BASE+imdb_id
 )
 
