@@ -24,6 +24,7 @@ interface MovieApi {
     @GET("movie/{id}")
     suspend fun getMovie(
         @Path("id") id: Int,
+        @Query("append_to_response") videos: String = "videos",
         @Query("api_key") apiKey: String
     ): Response<MovieListItem>
 }

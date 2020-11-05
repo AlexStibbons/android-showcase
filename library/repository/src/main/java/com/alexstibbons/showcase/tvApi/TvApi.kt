@@ -18,6 +18,7 @@ interface TvApi {
     @GET("tv/{tv_id}")
     suspend fun getTvShow(
         @Path("tv_id") id: Int,
+        @Query("append_to_response") videos: String = "videos",
         @Query("api_key") apiKey: String
     ): Response<TvShowListItem>
 }

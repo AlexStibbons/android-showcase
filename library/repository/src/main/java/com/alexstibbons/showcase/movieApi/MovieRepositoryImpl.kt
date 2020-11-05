@@ -20,7 +20,7 @@ internal class MovieRepositoryImpl(
 
         val networkResponse = try {
             movieApi
-                .getMovie(id, apiKey)
+                .getMovie(id = id, apiKey = apiKey)
                 .parseResponse()
         } catch (e: Exception) {
             return Response.failure(Failure.ServerError)
