@@ -5,8 +5,7 @@ abstract class MediaModel(
     open val title: String,
     open val promo: String,
     open val imageUrl: String,
-    open val filmGenreList: List<FilmGenre>?,
-    open val tvGenreList: List<TvGenre>?
+    open val genreList: List<Genre>?
 )
 
 abstract class MediaList(

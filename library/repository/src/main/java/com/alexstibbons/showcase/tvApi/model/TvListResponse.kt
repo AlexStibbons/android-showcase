@@ -2,20 +2,20 @@ package com.alexstibbons.showcase.tvApi.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.alexstibbons.showcase.TvGenre
+import com.alexstibbons.showcase.Genre
 import com.alexstibbons.showcase.mapToListOf
-import com.alexstibbons.showcase.movieApi.model.Genre
-import com.alexstibbons.showcase.movieApi.model.toTvGenreEnum
+import com.alexstibbons.showcase.movieApi.model.GenreEntity
+import com.alexstibbons.showcase.movieApi.model.VideoWrapper
 
 
 data class TvListResponse(
     val page: Int,
     val total_results: Int,
     val total_pages: Int,
-    val results: List<TvShowListItem>)
+    val results: List<TvShowListItemEntity>)
 
 @Entity
-data class TvShowListItem(
+data class TvShowListItemEntity(
 
     @PrimaryKey
     val id: Int,
@@ -30,5 +30,16 @@ data class TvShowListItem(
 
 ){
     override fun toString(): String = "$name"
-    fun toGenreEnum() = genre_ids.mapToListOf { TvGenre.from(it) }
+    fun toGenresEnum() = genre_ids.mapToListOf { Genre.from(it) }
+}
+
+data class TvShowDetailsEntity(
+    val id: Int,
+    val name: String,
+    val overview: String,
+    val genres: List<GenreEntity>,
+    val poster_path: String?,
+    val videos: VideoWrapper
+) {
+    fun toGenresEnum() = genres.mapToListOf { Genre.from(it.id) }
 }

@@ -29,7 +29,7 @@ internal class MediaViewHolder(
     override fun bind(model: MediaModel) {
         title.text = model.title
         hook.text = model.promo
-        val genreString: String = model.filmGenreList?.joinToString { it.title } ?: model.tvGenreList?.joinToString { it.title } ?: ""
+        val genreString: String = model.genreList?.joinToString { it.title } ?: "unknown"
 
         if (genreString.isNotBlank()) {
             genres.text = "Genres: $genreString"
