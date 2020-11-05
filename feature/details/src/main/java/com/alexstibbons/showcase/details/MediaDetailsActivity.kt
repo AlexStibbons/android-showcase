@@ -1,12 +1,13 @@
 package com.alexstibbons.showcase.details
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.alexstibbons.showcase.ColoredSysBarActivity
 import com.alexstibbons.showcase.argumentOrThrow
-import com.alexstibbons.showcase.details.domain.MediaModel
+import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_ID
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
@@ -33,7 +34,7 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
 
         detailsViewModel.observeViewState().observe(this, Observer { state ->
             state ?: return@Observer
-
+           
             renderState(state)
         })
     }
@@ -46,7 +47,8 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
         }.exhaustive
     }
 
-    private fun populateViews(data: MediaModel) {
+    private fun populateViews(data: MediaDetailsModel) {
+        Log.e("received model", "$data")
         details_title.text = data.title
         details_overview.text = data.overview
         data.imdbUrl?.let {

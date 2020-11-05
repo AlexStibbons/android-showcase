@@ -4,8 +4,8 @@ import com.alexstibbons.showcase.FilmGenre
 import com.alexstibbons.showcase.MediaList
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.mapToListOf
-import com.alexstibbons.showcase.movieApi.model.MovieListItem
-import com.alexstibbons.showcase.movieApi.model.MovieListResponse
+import com.alexstibbons.showcase.movieApi.model.FilmListItemEntity
+import com.alexstibbons.showcase.movieApi.model.FilmListResponse
 
 internal data class MovieListDomain(
     override val page: Int,
@@ -23,12 +23,12 @@ internal data class MovieDomain(
     override fun toString(): String = "$title"
 }
 
-internal fun MovieListResponse.toMovieListdomain() = MovieListDomain(
+internal fun FilmListResponse.toMovieListdomain() = MovieListDomain(
     page,
     results.mapToListOf { it.toMovieDomain() }
 )
 
-internal fun MovieListItem.toMovieDomain() = MovieDomain(
+internal fun FilmListItemEntity.toMovieDomain() = MovieDomain(
     id,
     title,
     overview,

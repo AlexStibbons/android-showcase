@@ -1,13 +1,11 @@
 package com.alexstibbons.showcase.details
 
-import android.util.Log
-import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.MediaType
-import com.alexstibbons.showcase.details.domain.MediaModel
+import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.domain.interactor.Interactor
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.movieApi.MediaFailure
@@ -42,7 +40,7 @@ internal class MediaDetailsViewModel(
         }
     }
 
-    private fun parseResponse(response: Response<Failure, MediaModel>) {
+    private fun parseResponse(response: Response<Failure, MediaDetailsModel>) {
         when (response) {
             is Response.Failure -> renderError(response.failure)
             is Response.Success -> _viewState.value = ViewState.Success(response.success)
@@ -66,10 +64,15 @@ internal class MediaDetailsViewModel(
         }
     }
 
+    override fun onCleared() {
+        interactor.clear()
+        super.onCleared()
+    }
+
 
     sealed class ViewState {
         object Loading: ViewState()
-        data class Success(val data: MediaModel): ViewState()
+        data class Success(val data: MediaDetailsModel): ViewState()
         sealed class Error(@StringRes val message: Int) : ViewState() {
             object NoInternet : Error(R.string.error_no_internet)
             object NoSuchMedia : Error(R.string.error_empty_list)

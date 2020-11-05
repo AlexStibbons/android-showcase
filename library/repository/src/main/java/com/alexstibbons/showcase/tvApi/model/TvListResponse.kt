@@ -4,8 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.alexstibbons.showcase.TvGenre
 import com.alexstibbons.showcase.mapToListOf
-import com.alexstibbons.showcase.movieApi.model.Genre
-import com.alexstibbons.showcase.movieApi.model.toTvGenreEnum
 
 
 data class TvListResponse(

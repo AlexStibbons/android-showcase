@@ -1,6 +1,6 @@
 package com.alexstibbons.showcase.details.domain.interactor
 
-import com.alexstibbons.showcase.details.domain.MediaModel
+import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.domain.toTvDetails
 import com.alexstibbons.showcase.interactors.QueryUseCase
 import com.alexstibbons.showcase.network.NetworkHandler
@@ -12,8 +12,8 @@ import com.alexstibbons.showcase.tvApi.TvRepository
 internal data class GetTvDetails(
     private val networkHandler: NetworkHandler,
     private val tvRepository: TvRepository
-) : QueryUseCase<MediaModel.TvDetails, Int>() {
-    override suspend fun run(params: Int?): Response<Failure, MediaModel.TvDetails> {
+) : QueryUseCase<MediaDetailsModel.TvDetails, Int>() {
+    override suspend fun run(params: Int?): Response<Failure, MediaDetailsModel.TvDetails> {
         require(params != null) { "Media id cannot be null" }
         if (!networkHandler.isConnected) return Response.failure(Failure.NetworkConnection)
 
