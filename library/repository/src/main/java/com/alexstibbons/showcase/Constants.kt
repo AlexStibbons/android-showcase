@@ -48,6 +48,9 @@ enum class TvGenre(val id: Int, val title: String) {
     FAMILY(FilmGenre.FAMILY.id, FilmGenre.FAMILY.title),
     MYSTERY(FilmGenre.MYSTERY.id, FilmGenre.MYSTERY.title),
     WESTERN(FilmGenre.WESTERN.id, FilmGenre.WESTERN.title),
+    FANTASY(14, "Fantasy"),
+    HORROR(27, "Horror"),
+    ROMANCE(10749, "Romance"),
     UNKNOWN(-1, "Unknown");
 
     companion object {
