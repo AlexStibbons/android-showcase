@@ -4,7 +4,7 @@ import com.alexstibbons.showcase.BuildConfig
 import com.alexstibbons.showcase.network.NetworkResponse
 import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.exhaustive
-import com.alexstibbons.showcase.movieApi.model.Movie
+import com.alexstibbons.showcase.movieApi.model.MovieListItem
 import com.alexstibbons.showcase.movieApi.model.MovieListResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
@@ -16,7 +16,7 @@ internal class MovieRepositoryImpl(
 
     private val apiKey = BuildConfig.MOVIE_DB_KEY
 
-    override suspend fun getMovie(id: Int): Response<Failure, Movie> {
+    override suspend fun getMovie(id: Int): Response<Failure, MovieListItem> {
 
         val networkResponse = try {
             movieApi

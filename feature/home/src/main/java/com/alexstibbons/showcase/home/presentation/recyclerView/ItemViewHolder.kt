@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase.home.presentation.recyclerView
 
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.home.R
@@ -23,10 +24,17 @@ internal class MediaViewHolder(
     private val title = itemView.item_title
     private val image = itemView.item_image
     private val hook = itemView.item_promo
+    private val genres = itemView.item_genres
 
     override fun bind(model: MediaModel) {
         title.text = model.title
         hook.text = model.promo
+        val genreString: String = model.filmGenreList?.joinToString { it.title } ?: model.tvGenreList?.joinToString { it.title } ?: ""
+
+        if (genreString.isNotBlank()) {
+            genres.text = "Genres: $genreString"
+            genres.isVisible = true
+        }
 
         Glide.with(itemView.context)
             .asBitmap()

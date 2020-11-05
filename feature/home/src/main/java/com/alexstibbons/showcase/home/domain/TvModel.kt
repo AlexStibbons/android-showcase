@@ -5,7 +5,7 @@ import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.TvGenre
 import com.alexstibbons.showcase.mapToListOf
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
-import com.alexstibbons.showcase.tvApi.model.TvShow
+import com.alexstibbons.showcase.tvApi.model.TvShowListItem
 
 internal data class TvListDomain(
     override val page: Int,
@@ -23,7 +23,7 @@ internal data class TvShowDomain(
     override fun toString(): String = title
 }
 
-internal fun TvShow.toTvShowDomain() = TvShowDomain(
+internal fun TvShowListItem.toTvShowDomain() = TvShowDomain(
     id,
     name,
     overview,

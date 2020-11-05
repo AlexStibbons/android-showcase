@@ -7,7 +7,7 @@ const val BASE_YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v="
 enum class FilmGenre(val id: Int, val title: String) {
     ACTION(28, "Action"),
     ADVENTURE(12, "Adventure"),
-    ANIMATION(16, "Aimation"),
+    ANIMATION(16, "Animation"),
     COMEDY(35, "Comedy"),
     CRIME(80, "Crime"),
     DOCUMENTARY(99, "Documentary"),
@@ -23,10 +23,11 @@ enum class FilmGenre(val id: Int, val title: String) {
     TV_MOVIE(10770, "TV Movie"),
     THRILLER(53, "Thriller"),
     WAR(10752, "War"),
-    WESTERN(37, "Western");
+    WESTERN(37, "Western"),
+    UNKNOWN(-1, "Unknown");
 
     companion object {
-        fun from(id: Int) = values().find { it.id == id } ?: error("No such film genre")
+        fun from(id: Int) = values().find { it.id == id } ?: UNKNOWN
     }
 }
 
@@ -46,9 +47,10 @@ enum class TvGenre(val id: Int, val title: String) {
     DRAMA(FilmGenre.DRAMA.id, FilmGenre.DRAMA.title),
     FAMILY(FilmGenre.FAMILY.id, FilmGenre.FAMILY.title),
     MYSTERY(FilmGenre.MYSTERY.id, FilmGenre.MYSTERY.title),
-    WESTERN(FilmGenre.WESTERN.id, FilmGenre.WESTERN.title);
+    WESTERN(FilmGenre.WESTERN.id, FilmGenre.WESTERN.title),
+    UNKNOWN(-1, "Unknown");
 
     companion object {
-        fun from(id: Int) = values().find { it.id == id } ?: error("No such tv genre")
+        fun from(id: Int) = values().find { it.id == id } ?: UNKNOWN
     }
 }

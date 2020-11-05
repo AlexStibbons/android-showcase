@@ -10,10 +10,10 @@ data class MovieListResponse(
     val page: Int,
     val total_results: Int,
     val total_pages: Int,
-    val results: List<Movie>)
+    val results: List<MovieListItem>)
 
 @Entity
-data class Movie(
+data class MovieListItem(
 
     @PrimaryKey
     val id: Int,
@@ -26,11 +26,11 @@ data class Movie(
 
     val imdb_id: String?,
 
-    val genres: List<Genre>
+    val genre_ids: List<Int>
 
 ){
     override fun toString(): String = "$title"
-    fun toGenresEnum() = genres.mapToListOf { it.toFilmGenreEnum() }
+    fun toGenresEnum() = genre_ids.mapToListOf { FilmGenre.from(it) }
 }
 
 data class Genre(

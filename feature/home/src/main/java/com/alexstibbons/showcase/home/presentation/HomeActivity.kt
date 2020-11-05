@@ -2,13 +2,10 @@ package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
 import com.alexstibbons.showcase.ColoredSysBarActivity
-import com.alexstibbons.showcase.MediaType
-import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_home_temp.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.activity_home.activity_home_search as searchIcon
 

@@ -1,6 +1,6 @@
 package com.alexstibbons.showcase.movieApi
 
-import com.alexstibbons.showcase.movieApi.model.Movie
+import com.alexstibbons.showcase.movieApi.model.MovieListItem
 import com.alexstibbons.showcase.movieApi.model.MovieListResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -25,5 +25,5 @@ interface MovieApi {
     suspend fun getMovie(
         @Path("id") id: Int,
         @Query("api_key") apiKey: String
-    ): Response<Movie>
+    ): Response<MovieListItem>
 }

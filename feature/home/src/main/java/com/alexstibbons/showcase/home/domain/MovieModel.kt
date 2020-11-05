@@ -4,7 +4,7 @@ import com.alexstibbons.showcase.FilmGenre
 import com.alexstibbons.showcase.MediaList
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.mapToListOf
-import com.alexstibbons.showcase.movieApi.model.Movie
+import com.alexstibbons.showcase.movieApi.model.MovieListItem
 import com.alexstibbons.showcase.movieApi.model.MovieListResponse
 
 internal data class MovieListDomain(
@@ -28,7 +28,7 @@ internal fun MovieListResponse.toMovieListdomain() = MovieListDomain(
     results.mapToListOf { it.toMovieDomain() }
 )
 
-internal fun Movie.toMovieDomain() = MovieDomain(
+internal fun MovieListItem.toMovieDomain() = MovieDomain(
     id,
     title,
     overview,

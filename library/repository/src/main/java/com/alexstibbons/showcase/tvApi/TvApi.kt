@@ -1,8 +1,7 @@
 package com.alexstibbons.showcase.tvApi
 
-import com.alexstibbons.showcase.movieApi.model.Movie
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
-import com.alexstibbons.showcase.tvApi.model.TvShow
+import com.alexstibbons.showcase.tvApi.model.TvShowListItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,5 +19,5 @@ interface TvApi {
     suspend fun getTvShow(
         @Path("tv_id") id: Int,
         @Query("api_key") apiKey: String
-    ): Response<TvShow>
+    ): Response<TvShowListItem>
 }

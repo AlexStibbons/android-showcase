@@ -1,7 +1,7 @@
 package com.alexstibbons.showcase.details.domain
 
-import com.alexstibbons.showcase.movieApi.model.Movie
-import com.alexstibbons.showcase.tvApi.model.TvShow
+import com.alexstibbons.showcase.movieApi.model.MovieListItem
+import com.alexstibbons.showcase.tvApi.model.TvShowListItem
 
 private const val IMDB_BASE = "https://www.imdb.com/title/"
 
@@ -26,14 +26,14 @@ internal sealed class MediaModel(
 }
 
 
-internal fun Movie.toFilmDetails() = MediaModel.FilmDetails(
+internal fun MovieListItem.toFilmDetails() = MediaModel.FilmDetails(
     title,
     overview,
     poster_path ?: "",
     IMDB_BASE+imdb_id
 )
 
-internal fun TvShow.toTvDetails() = MediaModel.TvDetails(
+internal fun TvShowListItem.toTvDetails() = MediaModel.TvDetails(
     name,
     overview,
     poster_path ?: ""
