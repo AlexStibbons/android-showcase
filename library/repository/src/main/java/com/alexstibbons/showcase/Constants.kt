@@ -4,7 +4,7 @@ const val BASE_IMG_URL = "https://image.tmdb.org/t/p/w500"
 
 const val BASE_YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v="
 
-enum class FilmGenre(val id: Int, val title: String) {
+enum class Genre(val id: Int, val title: String) {
     ACTION(28, "Action"),
     ADVENTURE(12, "Adventure"),
     ANIMATION(16, "Animation"),
@@ -24,14 +24,6 @@ enum class FilmGenre(val id: Int, val title: String) {
     THRILLER(53, "Thriller"),
     WAR(10752, "War"),
     WESTERN(37, "Western"),
-    UNKNOWN(-1, "Unknown");
-
-    companion object {
-        fun from(id: Int) = values().find { it.id == id } ?: UNKNOWN
-    }
-}
-
-enum class TvGenre(val id: Int, val title: String) {
     ACTION_ADVENTURE(10759, "Action & Adventure"),
     KIDS(10762, "Kids"),
     NEWS(10763, "News"),
@@ -40,17 +32,6 @@ enum class TvGenre(val id: Int, val title: String) {
     SOAP(10766, "Soap"),
     TALK(10767, "Talk"),
     POLITICS(10768, "War & Politics"),
-    ANIMATION(FilmGenre.ANIMATION.id, FilmGenre.ANIMATION.title),
-    COMEDY(FilmGenre.COMEDY.id, FilmGenre.COMEDY.title),
-    CRIME(FilmGenre.CRIME.id, FilmGenre.CRIME.title),
-    DOCUMENTARY(FilmGenre.DOCUMENTARY.id, FilmGenre.DOCUMENTARY.title),
-    DRAMA(FilmGenre.DRAMA.id, FilmGenre.DRAMA.title),
-    FAMILY(FilmGenre.FAMILY.id, FilmGenre.FAMILY.title),
-    MYSTERY(FilmGenre.MYSTERY.id, FilmGenre.MYSTERY.title),
-    WESTERN(FilmGenre.WESTERN.id, FilmGenre.WESTERN.title),
-    FANTASY(14, "Fantasy"),
-    HORROR(27, "Horror"),
-    ROMANCE(10749, "Romance"),
     UNKNOWN(-1, "Unknown");
 
     companion object {

@@ -34,7 +34,7 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
 
         detailsViewModel.observeViewState().observe(this, Observer { state ->
             state ?: return@Observer
-           
+
             renderState(state)
         })
     }

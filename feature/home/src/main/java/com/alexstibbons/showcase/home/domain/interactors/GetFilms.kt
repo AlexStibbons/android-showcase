@@ -1,7 +1,7 @@
 package com.alexstibbons.showcase.home.domain.interactors
 
 import com.alexstibbons.showcase.home.domain.MovieListDomain
-import com.alexstibbons.showcase.home.domain.toMovieListdomain
+import com.alexstibbons.showcase.home.domain.toMovieListDomain
 import com.alexstibbons.showcase.interactors.QueryUseCase
 import com.alexstibbons.showcase.movieApi.MovieRepository
 import com.alexstibbons.showcase.network.NetworkHandler
@@ -21,7 +21,7 @@ internal class GetFilms(
 
         val response = filmRepository.getFilms(params)
 
-        return response.mapSuccessTo { it.toMovieListdomain() }
+        return response.mapSuccessTo { it.toMovieListDomain() }
     }
 
 }

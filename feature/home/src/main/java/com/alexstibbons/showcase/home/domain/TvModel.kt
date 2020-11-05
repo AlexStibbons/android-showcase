@@ -1,9 +1,6 @@
 package com.alexstibbons.showcase.home.domain
 
-import com.alexstibbons.showcase.MediaList
-import com.alexstibbons.showcase.MediaModel
-import com.alexstibbons.showcase.TvGenre
-import com.alexstibbons.showcase.mapToListOf
+import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
 import com.alexstibbons.showcase.tvApi.model.TvShowListItem
 
@@ -17,8 +14,8 @@ internal data class TvShowDomain(
     override val title: String,
     override val promo: String,
     override val imageUrl: String,
-    override val tvGenreList: List<TvGenre>?
-): MediaModel(id, title, promo, imageUrl, null, tvGenreList) {
+    override val genreList: List<Genre>?
+): MediaModel(id, title, promo, imageUrl, genreList ) {
 
     override fun toString(): String = title
 }
@@ -28,7 +25,7 @@ internal fun TvShowListItem.toTvShowDomain() = TvShowDomain(
     name,
     overview,
     poster_path ?: "",
-    tvGenreList = this.toGenreEnum()
+    genreList = this.toGenresEnum()
 )
 
 internal fun TvListResponse.toTvListDomain() = TvListDomain(

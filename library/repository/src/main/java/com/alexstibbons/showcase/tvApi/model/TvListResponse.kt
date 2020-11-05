@@ -2,7 +2,7 @@ package com.alexstibbons.showcase.tvApi.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.alexstibbons.showcase.TvGenre
+import com.alexstibbons.showcase.Genre
 import com.alexstibbons.showcase.mapToListOf
 
 
@@ -28,5 +28,5 @@ data class TvShowListItem(
 
 ){
     override fun toString(): String = "$name"
-    fun toGenreEnum() = genre_ids.mapToListOf { TvGenre.from(it) }
+    fun toGenresEnum() = genre_ids.mapToListOf { Genre.from(it) }
 }

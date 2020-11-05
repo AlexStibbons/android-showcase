@@ -1,6 +1,6 @@
 package com.alexstibbons.showcase.home.domain
 
-import com.alexstibbons.showcase.FilmGenre
+import com.alexstibbons.showcase.Genre
 import com.alexstibbons.showcase.MediaList
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.mapToListOf
@@ -17,13 +17,13 @@ internal data class MovieDomain(
     override val title: String,
     override val promo: String,
     override val imageUrl: String,
-    override val filmGenreList: List<FilmGenre>
-): MediaModel(id, title, promo, imageUrl, filmGenreList, null) {
+    override val genreList: List<Genre>
+): MediaModel(id, title, promo, imageUrl, genreList) {
 
     override fun toString(): String = "$title"
 }
 
-internal fun FilmListResponse.toMovieListdomain() = MovieListDomain(
+internal fun FilmListResponse.toMovieListDomain() = MovieListDomain(
     page,
     results.mapToListOf { it.toMovieDomain() }
 )
@@ -33,5 +33,5 @@ internal fun FilmListItemEntity.toMovieDomain() = MovieDomain(
     title,
     overview,
     poster_path ?: "",
-    filmGenreList = this.toGenresEnum()
+    genreList = this.toGenresEnum()
 )

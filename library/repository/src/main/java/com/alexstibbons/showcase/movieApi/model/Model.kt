@@ -3,8 +3,7 @@ package com.alexstibbons.showcase.movieApi.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.alexstibbons.showcase.BASE_YOUTUBE_VIDEO_URL
-import com.alexstibbons.showcase.FilmGenre
-import com.alexstibbons.showcase.TvGenre
+import com.alexstibbons.showcase.Genre
 import com.alexstibbons.showcase.mapToListOf
 
 data class FilmListResponse(
@@ -31,7 +30,7 @@ data class FilmListItemEntity(
 
 ){
     override fun toString(): String = "$title"
-    fun toGenresEnum() = genre_ids.mapToListOf { FilmGenre.from(it) }
+    fun toGenresEnum() = genre_ids.mapToListOf { Genre.from(it) }
 }
 
 data class GenreEntity(
@@ -49,7 +48,7 @@ data class FilmDetailsEntity(
     val poster_path: String?,
     val videos: VideoWrapper
 ) {
-    fun toGenresEnum() = genres.mapToListOf { FilmGenre.from(it.id) }
+    fun toGenresEnum() = genres.mapToListOf { Genre.from(it.id) }
 }
 
 data class VideoWrapper(
@@ -65,6 +64,5 @@ data class VideoEntity(
     fun youtubeLink(): String = if (site.equals("YouTube", ignoreCase = true)) "$BASE_YOUTUBE_VIDEO_URL$key" else ""
 }
 
-internal fun GenreEntity.toFilmGenreEnum() = FilmGenre.from(this.id)
-internal fun GenreEntity.toTvGenreEnum() = TvGenre.from(this.id)
+internal fun GenreEntity.toGenreEnum() = Genre.from(this.id)
 
