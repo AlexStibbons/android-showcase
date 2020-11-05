@@ -2,6 +2,9 @@ package com.alexstibbons.showcase.tvApi.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.alexstibbons.showcase.mapToListOf
+import com.alexstibbons.showcase.movieApi.model.Genre
+import com.alexstibbons.showcase.movieApi.model.toTvGenreEnum
 
 
 data class TvListResponse(
@@ -20,8 +23,11 @@ data class TvShow(
 
     val overview: String,
 
-    val poster_path: String?
+    val poster_path: String?,
+
+    val genres: List<Genre>
 
 ){
     override fun toString(): String = "$name"
+    fun toGenreEnum() = genres.mapToListOf { it.toTvGenreEnum() }
 }

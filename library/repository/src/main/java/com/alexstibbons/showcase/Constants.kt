@@ -23,7 +23,11 @@ enum class FilmGenre(val id: Int, val title: String) {
     TV_MOVIE(10770, "TV Movie"),
     THRILLER(53, "Thriller"),
     WAR(10752, "War"),
-    WESTERN(37, "Western")
+    WESTERN(37, "Western");
+
+    companion object {
+        fun from(id: Int) = values().find { it.id == id } ?: error("No such film genre")
+    }
 }
 
 enum class TvGenre(val id: Int, val title: String) {
@@ -42,5 +46,9 @@ enum class TvGenre(val id: Int, val title: String) {
     DRAMA(FilmGenre.DRAMA.id, FilmGenre.DRAMA.title),
     FAMILY(FilmGenre.FAMILY.id, FilmGenre.FAMILY.title),
     MYSTERY(FilmGenre.MYSTERY.id, FilmGenre.MYSTERY.title),
-    WESTERN(FilmGenre.WESTERN.id, FilmGenre.WESTERN.title)
+    WESTERN(FilmGenre.WESTERN.id, FilmGenre.WESTERN.title);
+
+    companion object {
+        fun from(id: Int) = values().find { it.id == id } ?: error("No such tv genre")
+    }
 }
