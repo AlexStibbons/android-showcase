@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.details.domain
 
+import com.alexstibbons.showcase.BASE_IMG_URL
 import com.alexstibbons.showcase.Genre
 import com.alexstibbons.showcase.movieApi.model.FilmDetailsEntity
 import com.alexstibbons.showcase.tvApi.model.TvShowDetailsEntity
@@ -40,7 +41,7 @@ internal fun FilmDetailsEntity.toFilmDetails() = MediaDetailsModel.FilmDetails(
     title,
     tagline,
     overview,
-    poster_path ?: "",
+    BASE_IMG_URL+poster_path ?: "",
     IMDB_BASE+imdb_id,
     if (this.videos.results[0] != null) {
         Trailer(videos.results[0].name, videos.results[0].youtubeLink())
@@ -51,7 +52,7 @@ internal fun FilmDetailsEntity.toFilmDetails() = MediaDetailsModel.FilmDetails(
 internal fun TvShowDetailsEntity.toTvDetails() = MediaDetailsModel.TvDetails(
     name,
     overview,
-    poster_path ?: "",
+    BASE_IMG_URL+poster_path ?: "",
     if (this.videos.results[0] != null) {
         Trailer(videos.results[0].name, videos.results[0].youtubeLink())
     } else null,

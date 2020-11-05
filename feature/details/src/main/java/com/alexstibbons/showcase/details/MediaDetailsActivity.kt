@@ -12,6 +12,7 @@ import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_ID
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
 import com.alexstibbons.showcase.showToast
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_media_details.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -48,12 +49,33 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
     }
 
     private fun populateViews(data: MediaDetailsModel) {
-        Log.e("received model", "$data")
         details_title.text = data.title
         details_overview.text = data.overview
+        data.tagline?.let {
+            details_tagline.text = it
+            details_tagline.isVisible = true
+        }
         data.imdbUrl?.let {
             details_imdb.text = data.imdbUrl
             details_imdb.isVisible = true
+        }
+        data.trailer?.let {
+            details_youtube.text = it.youtubeLink
+            details_youtube.isVisible = true
+        }
+
+        data.genres?.let { genres ->
+            details_genres.text = genres.joinToString { it.title }
+            details_genres.isVisible = true
+        }
+
+        data.imageUrl?.let {url ->
+            Glide
+                .with(this@MediaDetailsActivity)
+                .asBitmap()
+                .load(url)
+                .centerInside()
+                .into(details_image)
         }
         hideLoading()
     }
