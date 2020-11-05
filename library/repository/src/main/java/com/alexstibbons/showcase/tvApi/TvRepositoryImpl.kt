@@ -8,7 +8,8 @@ import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
-import com.alexstibbons.showcase.tvApi.model.TvShowListItem
+import com.alexstibbons.showcase.tvApi.model.TvShowDetailsEntity
+import com.alexstibbons.showcase.tvApi.model.TvShowListItemEntity
 import java.lang.Exception
 
 internal class TvRepositoryImpl(
@@ -34,9 +35,9 @@ internal class TvRepositoryImpl(
         }.exhaustive
     }
 
-    override suspend fun getTvShowDetails(id: Int): Response<Failure, TvShowListItem> {
+    override suspend fun getTvShowDetails(id: Int): Response<Failure, TvShowDetailsEntity> {
 
-        val networkResponse: NetworkResponse<TvShowListItem> = try {
+        val networkResponse: NetworkResponse<TvShowDetailsEntity> = try {
             api
                 .getTvShow(id = id, apiKey = apiKey)
                 .parseResponse()

@@ -2,7 +2,7 @@ package com.alexstibbons.showcase.home.domain
 
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
-import com.alexstibbons.showcase.tvApi.model.TvShowListItem
+import com.alexstibbons.showcase.tvApi.model.TvShowListItemEntity
 
 internal data class TvListDomain(
     override val page: Int,
@@ -20,7 +20,7 @@ internal data class TvShowDomain(
     override fun toString(): String = title
 }
 
-internal fun TvShowListItem.toTvShowDomain() = TvShowDomain(
+internal fun TvShowListItemEntity.toTvShowDomain() = TvShowDomain(
     id,
     name,
     overview,
