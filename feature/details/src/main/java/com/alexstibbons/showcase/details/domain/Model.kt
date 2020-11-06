@@ -53,7 +53,7 @@ internal fun TvShowDetailsEntity.toTvDetails() = MediaDetailsModel.TvDetails(
     name,
     overview,
     BASE_IMG_URL+poster_path ?: "",
-    if (this.videos.results[0] != null) {
+    if (this.videos.results.isNotEmpty()) {
         Trailer(videos.results[0].name, videos.results[0].youtubeLink())
     } else null,
     this.toGenresEnum()

@@ -74,12 +74,10 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
             details_tagline.isVisible = true
         }
         data.imdbUrl?.let {
-            details_imdb.text = data.imdbUrl
             details_imdb.setOnClickListener { onLinkClick.openInBrowser(data.imdbUrl!!) }
             details_imdb.isVisible = true
         }
         data.trailer?.let {
-            details_youtube.text = it.youtubeLink
             details_youtube.setOnClickListener { onLinkClick.openInBrowser(data!!.trailer!!.youtubeLink) }
             details_youtube.isVisible = true
         }
