@@ -19,6 +19,7 @@ class ShowcaseApplication : Application() {
             androidFileProperties()
             loadKoinModules(
                 listOf(
+                    appModule,
                     networkModule,
                     repositoryModule,
                     openLinkModule
