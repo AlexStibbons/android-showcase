@@ -3,22 +3,32 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.home.presentation.AddRemoveFave
 
 internal interface ToggleFaves {
-    fun addFave(id: Int): Boolean
+    fun addFave(media: MediaModel): Boolean
     fun removeFave(id:Int): Boolean
 }
 
 internal class RecyclerAdapter(
-    private val onMediaClicked: (Int, Int) -> Unit
+    private val onMediaClicked: (Int, Int) -> Unit,
+    private val addRemoveFave: AddRemoveFave
 ) : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
 
     private val mediaList: MutableList<MediaModel> = ArrayList()
     private val favesList = mutableListOf<Int>()
 
     private val faveListener = object: ToggleFaves {
-        override fun addFave(id: Int) = favesList.add(id)
-        override fun removeFave(id: Int) = favesList.remove(id)
+        override fun addFave(media: MediaModel): Boolean {
+            favesList.add(media.id)
+            addRemoveFave.addFave(media)
+            return true
+        }
+        override fun removeFave(id: Int): Boolean {
+            favesList.remove(id)
+            addRemoveFave.removeFave(id)
+            return true
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent, onMediaClicked, faveListener, favesList)

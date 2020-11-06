@@ -1,6 +1,5 @@
 package com.alexstibbons.showcase.home.presentation.recyclerView
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -57,7 +56,7 @@ internal class MediaViewHolder(
 
         faveBtn.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                faveListener.addFave(model.id)
+                faveListener.addFave(model)
                 faveBtn.isChecked = true
                 context.showToast("${model.title} is a fave!")
             } else {

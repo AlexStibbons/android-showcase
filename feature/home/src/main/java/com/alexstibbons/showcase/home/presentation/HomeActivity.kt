@@ -2,12 +2,18 @@ package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
 import com.alexstibbons.showcase.ColoredSysBarActivity
+import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.activity_home.activity_home_search as searchIcon
+
+internal interface AddRemoveFave {
+    fun addFave(fave: MediaModel)
+    fun removeFave(id: Int)
+}
 
 internal class HomeActivity : ColoredSysBarActivity() {
     override val systemBarColor: Int = R.color.white

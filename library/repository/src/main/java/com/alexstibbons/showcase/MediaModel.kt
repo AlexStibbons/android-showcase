@@ -25,7 +25,7 @@ enum class MediaType(val id: Int) {
 }
 
 
-internal fun MediaModel.toFaveEntity() = FaveEntity(
+fun MediaModel.toFaveEntity() = FaveEntity(
     id,
     title,
     promo,

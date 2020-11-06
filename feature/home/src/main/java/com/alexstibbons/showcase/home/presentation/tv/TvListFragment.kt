@@ -11,6 +11,7 @@ import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.home.presentation.AddRemoveFave
 import com.alexstibbons.showcase.home.presentation.HomeViewModel
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.navigator.NavigateTo
@@ -40,8 +41,18 @@ internal class TvListFragment : Fragment(R.layout.fragment_base) {
         )
     }
 
+    private val addRemoveFave = object: AddRemoveFave {
+        override fun addFave(fave: MediaModel) {
+
+        }
+
+        override fun removeFave(id: Int) {
+
+        }
+    }
+
     private val recyclerAdapter: RecyclerAdapter by lazy {
-        RecyclerAdapter(onMediaClick)
+        RecyclerAdapter(onMediaClick, addRemoveFave)
     }
 
     companion object {
