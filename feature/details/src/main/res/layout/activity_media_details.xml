@@ -15,7 +15,6 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_logo_big"
             app:layout_constraintBottom_toTopOf="@id/horizontal_guidline"
             app:layout_constraintDimensionRatio="H, 4:3.05"
             app:layout_constraintEnd_toEndOf="parent"
