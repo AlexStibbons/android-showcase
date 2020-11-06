@@ -25,7 +25,7 @@ internal object DependencyVersions {
 
     const val kotlin_coroutines = "1.3.3"
 
-    const val koin_version = "2.0.1"
+    const val koin_version = "2.2.0-rc-4"
 
     const val dateLib = "1.2.3"
 
