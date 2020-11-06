@@ -20,7 +20,8 @@ class ShowcaseApplication : Application() {
             loadKoinModules(
                 listOf(
                     networkModule,
-                    repositoryModule
+                    repositoryModule,
+                    openLinkModule
                 )
             )
         }

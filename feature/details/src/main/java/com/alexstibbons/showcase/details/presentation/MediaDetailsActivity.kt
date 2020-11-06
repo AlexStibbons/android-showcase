@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.alexstibbons.showcase.ColoredSysBarActivity
 import com.alexstibbons.showcase.argumentOrThrow
-import com.alexstibbons.showcase.details.LinkResource
+import com.alexstibbons.showcase.LinkResource
 import com.alexstibbons.showcase.details.R
 import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.injectFeature

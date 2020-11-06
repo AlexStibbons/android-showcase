@@ -1,4 +1,4 @@
-package com.alexstibbons.showcase.details
+package com.alexstibbons.showcase
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 
 
-internal interface LinkResource {
+interface LinkResource {
     fun openInBrowser(url: String)
 }
 

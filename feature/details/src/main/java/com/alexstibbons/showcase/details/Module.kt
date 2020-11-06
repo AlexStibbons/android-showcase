@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase.details
 
 import android.content.Context
+import com.alexstibbons.showcase.LinkResource
 import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.details.domain.interactor.GetFilmDetails
 import com.alexstibbons.showcase.details.domain.interactor.GetTvDetails
@@ -27,8 +28,6 @@ private val detailsPresentationModule = module {
             get()
         )
     }
-
-    factory<LinkResource> { (context: Context) -> LinkResourceImpl(context) }
 }
 
 private val detailsDomainModule = module {
