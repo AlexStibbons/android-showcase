@@ -1,21 +1,16 @@
 package com.alexstibbons.showcase.home.presentation.films
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.MediaList
-import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
-import com.alexstibbons.showcase.home.domain.MovieDomain
 import com.alexstibbons.showcase.home.domain.interactors.Interactor
 import com.alexstibbons.showcase.movieApi.MediaFailure
-import com.alexstibbons.showcase.movieApi.model.FilmListItemEntity
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
-import com.alexstibbons.showcase.toFaveEntity
 
 internal class FilmListViewModel(
     private val interactor: Interactor
@@ -60,17 +55,6 @@ internal class FilmListViewModel(
 
         _state.value = state
     }
-
-    fun addFave(media: MediaModel) {
-       interactor.saveFave(media.toFaveEntity()) {response ->
-           Log.e("response to save is", "$response")
-       }
-    }
-
-    fun removeFave(id: Int) {
-
-    }
-
 
     sealed class FilmListState {
         object Loading: FilmListState()
