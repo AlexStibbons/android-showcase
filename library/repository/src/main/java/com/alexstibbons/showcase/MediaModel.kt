@@ -1,11 +1,14 @@
 package com.alexstibbons.showcase
 
+import com.alexstibbons.showcase.database.FaveEntity
+
 abstract class MediaModel(
     open val id: Int,
     open val title: String,
     open val promo: String,
     open val imageUrl: String,
-    open val genreList: List<Genre>?
+    open val genreList: List<Genre>?,
+    open val type: MediaType
 )
 
 abstract class MediaList(
@@ -20,3 +23,12 @@ enum class MediaType(val id: Int) {
         fun from(id: Int) = values().find { it.id == id } ?: throw error("No such media type")
     }
 }
+
+
+internal fun MediaModel.toFaveEntity() = FaveEntity(
+    id,
+    title,
+    promo,
+    genreList?.joinToString { it.title } ?: "",
+    type.id
+)
