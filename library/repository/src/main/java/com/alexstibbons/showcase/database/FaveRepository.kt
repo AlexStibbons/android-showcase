@@ -18,14 +18,14 @@ internal class FaveRepositoryImpl(
     override suspend fun getFaves(): Response<Failure, List<FaveEntity>> {
         val dbResponse = cache.getFaves()
 
-        return if (dbResponse.isNullOrEmpty()) Response.failure(MediaFailure.EmptyMediaList) else Response.success(dbResponse)
+        return if (dbResponse.isNullOrEmpty()) Response.success(emptyList()) else Response.success(dbResponse)
     }
 
 
     override suspend fun getFavesIds(): Response<Failure, List<Int>> {
         val dbResponse = cache.getFavesIds()
 
-        return if (dbResponse.isNullOrEmpty()) Response.failure(MediaFailure.EmptyMediaList) else Response.success(dbResponse)
+        return if (dbResponse.isNullOrEmpty()) Response.success(emptyList()) else Response.success(dbResponse)
 
     }
 
