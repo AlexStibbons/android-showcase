@@ -1,23 +1,25 @@
-package com.alexstibbons.showcase.details
+package com.alexstibbons.showcase.details.presentation
 
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.alexstibbons.showcase.ColoredSysBarActivity
 import com.alexstibbons.showcase.argumentOrThrow
+import com.alexstibbons.showcase.details.LinkResource
+import com.alexstibbons.showcase.details.R
 import com.alexstibbons.showcase.details.domain.MediaDetailsModel
+import com.alexstibbons.showcase.details.injectFeature
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_ID
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
 import com.alexstibbons.showcase.showToast
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_media_details.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -31,6 +33,8 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
     private val mediaId: Int by argumentOrThrow(MEDIA_ID)
 
     private val detailsViewModel: MediaDetailsViewModel by viewModel { parametersOf(mediaTypeId, mediaId) }
+
+    private val onLinkClick: LinkResource by inject { parametersOf(this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +75,12 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
         }
         data.imdbUrl?.let {
             details_imdb.text = data.imdbUrl
+            details_imdb.setOnClickListener { onLinkClick.openInBrowser(data.imdbUrl!!) }
             details_imdb.isVisible = true
         }
         data.trailer?.let {
             details_youtube.text = it.youtubeLink
+            details_youtube.setOnClickListener { onLinkClick.openInBrowser(data!!.trailer!!.youtubeLink) }
             details_youtube.isVisible = true
         }
 

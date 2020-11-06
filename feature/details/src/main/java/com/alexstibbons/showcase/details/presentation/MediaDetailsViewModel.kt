@@ -1,10 +1,11 @@
-package com.alexstibbons.showcase.details
+package com.alexstibbons.showcase.details.presentation
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.MediaType
+import com.alexstibbons.showcase.details.R
 import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.domain.interactor.Interactor
 import com.alexstibbons.showcase.exhaustive
@@ -22,7 +23,8 @@ internal class MediaDetailsViewModel(
     fun observeViewState(): LiveData<ViewState> = _viewState
 
     init {
-        _viewState.value = ViewState.Loading
+        _viewState.value =
+            ViewState.Loading
         fetchDetailsFor(mediaType)
     }
 
@@ -43,7 +45,10 @@ internal class MediaDetailsViewModel(
     private fun parseResponse(response: Response<Failure, MediaDetailsModel>) {
         when (response) {
             is Response.Failure -> renderError(response.failure)
-            is Response.Success -> _viewState.value = ViewState.Success(response.success)
+            is Response.Success -> _viewState.value =
+                ViewState.Success(
+                    response.success
+                )
         }.exhaustive
     }
 
@@ -74,9 +79,15 @@ internal class MediaDetailsViewModel(
         object Loading: ViewState()
         data class Success(val data: MediaDetailsModel): ViewState()
         sealed class Error(@StringRes val message: Int) : ViewState() {
-            object NoInternet : Error(R.string.error_no_internet)
-            object NoSuchMedia : Error(R.string.error_empty_list)
-            object ServerError : Error(R.string.error_server)
+            object NoInternet : Error(
+                R.string.error_no_internet
+            )
+            object NoSuchMedia : Error(
+                R.string.error_empty_list
+            )
+            object ServerError : Error(
+                R.string.error_server
+            )
         }
     }
 }
