@@ -42,5 +42,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
                 2 -> showToast("search for faves")
             }
         }
+
+        activity_home_about.setOnClickListener { showToast("Open about page") }
     }
 }
