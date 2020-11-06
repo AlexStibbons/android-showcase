@@ -42,11 +42,9 @@ internal class FilmListFragment : Fragment(R.layout.fragment_base) {
     }
 
     private val addRemoveFave = object: AddRemoveFave {
-        override fun addFave(fave: MediaModel) = filmViewModel.addFave(fave)
+        override fun addFave(fave: MediaModel) = baseViewModel.addFave(fave)
 
-        override fun removeFave(id: Int) {
-            TODO("Not yet implemented")
-        }
+        override fun removeFave(id: Int) = baseViewModel.removeFave(id)
 
     }
 
