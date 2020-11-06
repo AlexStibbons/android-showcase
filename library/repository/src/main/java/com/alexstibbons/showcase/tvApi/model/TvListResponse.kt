@@ -1,6 +1,8 @@
 package com.alexstibbons.showcase.tvApi.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.alexstibbons.showcase.Genre
 import com.alexstibbons.showcase.mapToListOf
@@ -14,10 +16,8 @@ data class TvListResponse(
     val total_pages: Int,
     val results: List<TvShowListItemEntity>)
 
-@Entity
 data class TvShowListItemEntity(
 
-    @PrimaryKey
     val id: Int,
 
     val name: String,
@@ -33,13 +33,15 @@ data class TvShowListItemEntity(
     fun toGenresEnum() = genre_ids.mapToListOf { Genre.from(it) }
 }
 
+@Entity
 data class TvShowDetailsEntity(
+    @PrimaryKey
     val id: Int,
     val name: String,
     val overview: String,
-    val genres: List<GenreEntity>,
+    @Ignore val genres: List<GenreEntity>,
     val poster_path: String?,
-    val videos: VideoWrapper
+    @Ignore val videos: VideoWrapper
 ) {
     fun toGenresEnum() = genres.mapToListOf { Genre.from(it.id) }
 }

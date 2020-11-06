@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase.movieApi.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.alexstibbons.showcase.BASE_YOUTUBE_VIDEO_URL
 import com.alexstibbons.showcase.Genre
@@ -12,10 +13,8 @@ data class FilmListResponse(
     val total_pages: Int,
     val results: List<FilmListItemEntity>)
 
-@Entity
 data class FilmListItemEntity(
 
-    @PrimaryKey
     val id: Int,
 
     val title: String,
@@ -37,16 +36,17 @@ data class GenreEntity(
     val id: Int,
     val name: String
 )
-
+@Entity
 data class FilmDetailsEntity(
+    @PrimaryKey
     val id: Int,
     val title: String,
     val tagline: String,
     val overview: String,
-    val genres: List<GenreEntity>,
+    @Ignore val genres: List<GenreEntity>,
     val imdb_id: String?,
     val poster_path: String?,
-    val videos: VideoWrapper
+    @Ignore val videos: VideoWrapper
 ) {
     fun toGenresEnum() = genres.mapToListOf { Genre.from(it.id) }
 }
