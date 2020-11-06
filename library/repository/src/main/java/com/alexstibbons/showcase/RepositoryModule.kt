@@ -1,5 +1,8 @@
 package com.alexstibbons.showcase
 
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.alexstibbons.showcase.database.FaveDatabase
 import com.alexstibbons.showcase.movieApi.MovieRepository
 import com.alexstibbons.showcase.movieApi.MovieRepositoryImpl
 import com.alexstibbons.showcase.tvApi.TvRepository
@@ -21,4 +24,7 @@ val repositoryModule = module {
             get<Retrofit>(named(MDB_SERVER)).tvApi()
         )
     }
+
+    single<RoomDatabase> { Room.databaseBuilder(get(), FaveDatabase::class.java, "fave_database").build() }
+    single { get<FaveDatabase>().faveDao() }
 }

@@ -6,8 +6,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-internal interface FaveDao {
-    
+interface FaveDao {
+
     @Query("SELECT * FROM faveentity")
     suspend fun getFaves(): List<FaveEntity>
 
