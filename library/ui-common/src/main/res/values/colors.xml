@@ -8,4 +8,5 @@
     <color name="light_green">#90cea1</color>
     <color name="dark_blue">@color/colorPrimary</color>
     <color name="light_blue">@color/colorAccent</color>
+    <color name="transparent">#00000000</color>
 </resources>

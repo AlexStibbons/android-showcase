@@ -9,16 +9,31 @@
         android:id="@+id/activity_home_search"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_logo_big"
+        android:src="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <ImageView
+        android:id="@+id/activity_home_about"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_logo_long_big"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/activity_home_search"
         android:layout_margin="12dp"
+        android:paddingEnd="70dp"
         />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/activity_home_viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_home_search"
         app:layout_constraintBottom_toTopOf="@id/activity_home_bottom_nav"

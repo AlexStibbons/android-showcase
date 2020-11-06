@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".MediaDetailsActivity"
+            android:name=".presentation.MediaDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.alexstibbons.showcase.details.open"/>
