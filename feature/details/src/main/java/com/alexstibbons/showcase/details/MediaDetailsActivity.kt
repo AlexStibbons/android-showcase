@@ -1,7 +1,11 @@
 package com.alexstibbons.showcase.details
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -17,10 +21,11 @@ import kotlinx.android.synthetic.main.activity_media_details.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
+
 internal class MediaDetailsActivity : ColoredSysBarActivity() {
 
     override val systemBarColor: Int
-        get() = R.color.white
+        get() = R.color.transparent
 
     private val mediaTypeId: Int by argumentOrThrow(MEDIA_TYPE_ID)
     private val mediaId: Int by argumentOrThrow(MEDIA_ID)
@@ -30,6 +35,7 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_media_details)
+        setTransparentSystemBar()
 
         injectFeature()
 
@@ -38,6 +44,14 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
 
             renderState(state)
         })
+    }
+
+    private fun setTransparentSystemBar() {
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = Color.TRANSPARENT
+        }
     }
 
     private fun renderState(state: MediaDetailsViewModel.ViewState) {
