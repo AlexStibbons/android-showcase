@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.home.presentation.films
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -11,13 +12,19 @@ import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.home.presentation.AttachListener
 import com.alexstibbons.showcase.home.presentation.HomeViewModel
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
+import com.alexstibbons.showcase.home.presentation.tv.Search
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+
+internal interface SearchFilm: Search {
+    fun open()
+}
 
 internal class FilmListFragment : Fragment(R.layout.fragment_base) {
 
@@ -31,21 +38,29 @@ internal class FilmListFragment : Fragment(R.layout.fragment_base) {
     }
 
     private val onMediaClick: (Int, Int) -> Unit = { mediaType, mediaId ->
-        startActivity(
-            NavigateTo.mediaDetails(
-                requireActivity(),
-                mediaType,
-                mediaId
-            )
-        )
+        startActivity(NavigateTo.mediaDetails(requireActivity(), mediaType, mediaId))
     }
 
     private val recyclerAdapter: RecyclerAdapter by lazy {
         RecyclerAdapter(onMediaClick)
     }
 
+    private val filmSearch: SearchFilm = object: SearchFilm {
+        override fun open() {
+            requireActivity().showToast("Search film film film")
+        }
+    }
+
+    private var attachListener: AttachListener? = null
+
     companion object {
         fun newInstance() = FilmListFragment()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        attachListener = requireActivity() as? AttachListener
+        attachListener?.attach(filmSearch)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

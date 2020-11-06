@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.home.presentation.tv
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.home.presentation.AttachListener
 import com.alexstibbons.showcase.home.presentation.HomeViewModel
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.navigator.NavigateTo
@@ -18,6 +20,12 @@ import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+
+internal interface Search
+
+internal interface SearchTv: Search {
+    fun open()
+}
 
 internal class TvListFragment : Fragment(R.layout.fragment_base) {
 
@@ -31,21 +39,30 @@ internal class TvListFragment : Fragment(R.layout.fragment_base) {
     }
 
     private val onMediaClick: (Int, Int) -> Unit = { mediaType, mediaId ->
-        startActivity(
-            NavigateTo.mediaDetails(
-                requireActivity(),
-                mediaType,
-                mediaId
-            )
-        )
+        startActivity(NavigateTo.mediaDetails(requireActivity(), mediaType, mediaId))
     }
 
     private val recyclerAdapter: RecyclerAdapter by lazy {
         RecyclerAdapter(onMediaClick)
     }
 
+    private var attachListener: AttachListener? = null
+
+    private val tvSearch: SearchTv = object : SearchTv {
+        override fun open() {
+            requireActivity().showToast("Search tv")
+        }
+
+    }
+
     companion object {
         fun newInstance() = TvListFragment()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        attachListener = requireActivity() as? AttachListener
+        attachListener?.attach(tvSearch)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
