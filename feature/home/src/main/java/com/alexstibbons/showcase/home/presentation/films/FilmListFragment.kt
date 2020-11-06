@@ -12,6 +12,7 @@ import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
 import com.alexstibbons.showcase.home.presentation.AddRemoveFave
+import com.alexstibbons.showcase.home.presentation.BaseFragment
 import com.alexstibbons.showcase.home.presentation.HomeViewModel
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.navigator.NavigateTo
@@ -20,37 +21,9 @@ import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
-internal class FilmListFragment : Fragment(R.layout.fragment_base) {
+internal class FilmListFragment : BaseFragment() {
 
-    private val baseViewModel: HomeViewModel by sharedViewModel()
     private val filmViewModel: FilmListViewModel by viewModel()
-
-    private val recyclerLayoutManager: LinearLayoutManager by lazy {
-        LinearLayoutManager(
-            requireActivity()
-        )
-    }
-
-    private val onMediaClick: (Int, Int) -> Unit = { mediaType, mediaId ->
-        startActivity(
-            NavigateTo.mediaDetails(
-                requireActivity(),
-                mediaType,
-                mediaId
-            )
-        )
-    }
-
-    private val addRemoveFave = object: AddRemoveFave {
-        override fun addFave(fave: MediaModel) = baseViewModel.addFave(fave)
-
-        override fun removeFave(id: Int) = baseViewModel.removeFave(id)
-
-    }
-
-    private val recyclerAdapter: RecyclerAdapter by lazy {
-        RecyclerAdapter(onMediaClick, addRemoveFave)
-    }
 
     companion object {
         fun newInstance() = FilmListFragment()
@@ -59,12 +32,8 @@ internal class FilmListFragment : Fragment(R.layout.fragment_base) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        injectFeature()
 
-        initRecycler()
-        infiniteScroll(recyclerLayoutManager)
-
-        temp_text.isVisible = false
+        infiniteScroll(recyclerLayoutManager) { filmViewModel.fetchFilms() }
 
         filmViewModel.observeFilms().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
@@ -87,42 +56,16 @@ internal class FilmListFragment : Fragment(R.layout.fragment_base) {
         requireActivity().showToast("error: $error")
     }
 
-    private fun initRecycler() {
-        fragment_recycler.apply {
-            adapter = recyclerAdapter
-            layoutManager = recyclerLayoutManager
-            setHasFixedSize(true)
-        }
-    }
-
-    private fun populateRecycler(data: List<MediaModel>) {
+    override fun populateRecycler(data: List<MediaModel>) {
         recyclerAdapter.addMedia(data)
         hideLoading()
     }
 
-    private fun infiniteScroll(layoutManager: LinearLayoutManager) {
-        val listener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                val currentItem = layoutManager.childCount
-                val totalItems = layoutManager.itemCount
-                val scrollOutItems = layoutManager.findFirstVisibleItemPosition()
-
-                if (currentItem + scrollOutItems == totalItems - 5) {
-                    filmViewModel.fetchFilms()
-                }
-            }
-        }
-
-        fragment_recycler.addOnScrollListener(listener)
-    }
 
     private fun hideLoading() {
 
     }
 
     private fun showLoading() {
-
     }
 }
