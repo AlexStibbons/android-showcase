@@ -34,5 +34,5 @@ private val detailsDomainModule = module {
     factory { GetFilmDetails(get(), get()) }
     factory { GetTvDetails(get(), get()) }
 
-    factory { Interactor(get(), get()) }
+    factory { Interactor(get(), get(), get(), get(), get()) }
 }
