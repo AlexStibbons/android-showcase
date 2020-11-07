@@ -51,8 +51,6 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
 
         initRecycler()
 
-        temp_text.isVisible = false
-
     }
 
     private fun initRecycler() {

@@ -14,8 +14,9 @@ internal data class TvShowDomain(
     override val title: String,
     override val promo: String,
     override val imageUrl: String,
-    override val genreList: List<Genre>?
-): MediaModel(id, title, promo, imageUrl, genreList, MediaType.TV) {
+    override val genreList: List<Genre>?,
+    override val type: MediaType = MediaType.TV
+): MediaModel(id, title, promo, imageUrl, genreList, type) {
 
     override fun toString(): String = title
 }
