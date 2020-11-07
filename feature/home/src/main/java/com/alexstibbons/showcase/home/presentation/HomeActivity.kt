@@ -31,7 +31,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        Log.e("in home", "$cachedFaveIds")
+
         injectFeature()
 
         val faves = baseViewModel.cachedIds()

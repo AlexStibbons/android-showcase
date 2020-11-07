@@ -59,11 +59,9 @@ internal class MediaViewHolder(
             if (isChecked) {
                 faveListener.addFave(model)
                 faveBtn.isChecked = true
-                context.showToast("${model.title} is a fave!")
             } else {
                 faveListener.removeFave(model.id)
                 faveBtn.isChecked = false
-                context.showToast("${model.title} is no longer a fave")
             }
         }
 
