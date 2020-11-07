@@ -43,6 +43,10 @@ internal class FaveListViewModel(
         _state.value = ViewState.Success(FaveList(1, media))
     }
 
+    fun updateFaves() {
+        fetchFaves()
+    }
+
 
     sealed class ViewState {
         object Loading: ViewState()
