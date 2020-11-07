@@ -56,7 +56,6 @@ internal class FilmListViewModel(
         _state.value = state
     }
 
-
     sealed class FilmListState {
         object Loading: FilmListState()
         data class Success(val data: MediaList): FilmListState()

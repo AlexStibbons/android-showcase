@@ -1,26 +1,10 @@
 package com.alexstibbons.showcase.home.presentation.recyclerView
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.home.presentation.AddRemoveFave
 
-internal interface ToggleFaves {
-    fun addFave(media: MediaModel): Boolean
-    fun removeFave(id:Int): Boolean
-}
-
-internal abstract class RecyclerAdapterBase(
-    open val onMediaClicked: (Int, Int) -> Unit,
-    open val addRemoveFave: AddRemoveFave,
-    open val isMediaInFaveCache: (Int) -> Boolean
-) : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
-    abstract fun addMedia(newMedia: List<MediaModel>)
-    abstract fun updateFaves(newFaves: List<Int>)
-    abstract fun clearMedia()
-}
-
-internal class RecyclerAdapter(
+internal class FaveRecyclerAdapter(
     override val onMediaClicked: (Int, Int) -> Unit,
     override val addRemoveFave: AddRemoveFave,
     override val isMediaInFaveCache: (Int) -> Boolean
@@ -55,12 +39,14 @@ internal class RecyclerAdapter(
     }
 
     override fun addMedia(newMedia: List<MediaModel>) {
+        mediaList.clear()
         mediaList.addAll(newMedia)
         notifyDataSetChanged()
     }
 
     override fun clearMedia() {
         mediaList.clear()
+        favesListLocal.clear()
         notifyDataSetChanged()
     }
 

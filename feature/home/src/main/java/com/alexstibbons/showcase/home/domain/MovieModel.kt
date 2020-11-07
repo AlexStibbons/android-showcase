@@ -1,9 +1,7 @@
 package com.alexstibbons.showcase.home.domain
 
-import com.alexstibbons.showcase.Genre
-import com.alexstibbons.showcase.MediaList
-import com.alexstibbons.showcase.MediaModel
-import com.alexstibbons.showcase.mapToListOf
+import com.alexstibbons.showcase.*
+import com.alexstibbons.showcase.database.FaveEntity
 import com.alexstibbons.showcase.movieApi.model.FilmListItemEntity
 import com.alexstibbons.showcase.movieApi.model.FilmListResponse
 
@@ -17,8 +15,9 @@ internal data class MovieDomain(
     override val title: String,
     override val promo: String,
     override val imageUrl: String,
-    override val genreList: List<Genre>
-): MediaModel(id, title, promo, imageUrl, genreList) {
+    override val genreList: List<Genre>,
+    override val type: MediaType = MediaType.FILM
+): MediaModel(id, title, promo, imageUrl, genreList, type) {
 
     override fun toString(): String = "$title"
 }

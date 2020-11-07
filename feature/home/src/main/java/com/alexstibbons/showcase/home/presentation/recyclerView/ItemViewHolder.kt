@@ -1,6 +1,5 @@
 package com.alexstibbons.showcase.home.presentation.recyclerView
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,7 @@ internal class MediaViewHolder(
     parent: ViewGroup,
     private val onMediaClicked: (Int, Int) -> Unit,
     private val faveListener: ToggleFaves,
-    private val faveList: List<Int>
+    private val isMediaFave: (Int) -> Boolean
 ) : ItemViewHolder<MediaModel>(parent) {
 
     private val title = itemView.item_title
@@ -36,7 +35,7 @@ internal class MediaViewHolder(
 
         faveBtn.setOnCheckedChangeListener(null)
         faveBtn.isChecked = false
-        if (faveList.contains(model.id)) {
+        if (isMediaFave(model.id)) {
             faveBtn.isChecked = true
         }
 
@@ -52,18 +51,17 @@ internal class MediaViewHolder(
         Glide.with(itemView.context)
             .asBitmap()
             .load(BASE_IMG_URL + model.imageUrl)
+            .placeholder(R.drawable.ic_logo_big)
             .circleCrop()
             .into(image)
 
         faveBtn.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                faveListener.addFave(model.id)
+                faveListener.addFave(model)
                 faveBtn.isChecked = true
-                context.showToast("${model.title} is a fave!")
             } else {
                 faveListener.removeFave(model.id)
                 faveBtn.isChecked = false
-                context.showToast("${model.title} is no longer a fave")
             }
         }
 
