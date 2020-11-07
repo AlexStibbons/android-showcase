@@ -3,6 +3,10 @@ package com.alexstibbons.showcase.home.domain
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.database.FaveEntity
 
+internal class FaveList(
+    override val page: Int,
+    override val data: List<MediaModel>
+): MediaList(page, data)
 
 internal fun FaveEntity.toMediaModel(): MediaModel {
     val mediaType = MediaType.from(this.mediaType)

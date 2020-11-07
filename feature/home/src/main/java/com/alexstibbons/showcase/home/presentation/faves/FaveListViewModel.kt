@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.database.FaveEntity
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.domain.FaveList
 import com.alexstibbons.showcase.home.domain.interactors.Interactor
 import com.alexstibbons.showcase.home.domain.toMediaModel
 import com.alexstibbons.showcase.responses.Failure
@@ -53,8 +54,3 @@ internal class FaveListViewModel(
         }
     }
 }
-
-internal class FaveList(
-    override val page: Int,
-    override val data: List<MediaModel>
-): MediaList(page, data)
