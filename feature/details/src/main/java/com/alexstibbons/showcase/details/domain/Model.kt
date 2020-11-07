@@ -48,7 +48,7 @@ internal fun FilmDetailsEntity.toFilmDetails() = MediaDetailsModel.FilmDetails(
     title,
     tagline,
     overview,
-    BASE_IMG_URL+poster_path ?: "",
+    poster_path ?: "",
     IMDB_BASE+imdb_id,
     if (this.videos.results.isNotEmpty()) {
         Trailer(videos.results[0].name, videos.results[0].youtubeLink())
@@ -60,7 +60,7 @@ internal fun TvShowDetailsEntity.toTvDetails() = MediaDetailsModel.TvDetails(
     id,
     name,
     overview,
-    BASE_IMG_URL+poster_path ?: "",
+    poster_path ?: "",
     if (this.videos.results.isNotEmpty()) {
         Trailer(videos.results[0].name, videos.results[0].youtubeLink())
     } else null,

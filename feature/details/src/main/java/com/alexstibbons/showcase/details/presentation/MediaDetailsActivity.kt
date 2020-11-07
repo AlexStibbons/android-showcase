@@ -8,16 +8,12 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import com.alexstibbons.showcase.ColoredSysBarActivity
-import com.alexstibbons.showcase.argumentOrThrow
-import com.alexstibbons.showcase.LinkResource
+import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.details.R
 import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.injectFeature
-import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_ID
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
-import com.alexstibbons.showcase.showToast
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_media_details.*
 import org.koin.android.ext.android.inject
@@ -92,7 +88,7 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
             Glide
                 .with(this@MediaDetailsActivity)
                 .asBitmap()
-                .load(url)
+                .load(BASE_IMG_URL+url)
                 .centerInside()
                 .into(details_image)
         }
