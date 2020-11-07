@@ -12,6 +12,7 @@ data class FaveEntity(
     val title: String,
     val overview: String,
     val genreString: String,
+    val imageUrl: String,
     val mediaType: MediaType
 )
 

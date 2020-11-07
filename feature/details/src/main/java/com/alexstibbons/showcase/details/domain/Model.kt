@@ -77,5 +77,6 @@ internal fun MediaDetailsModel.toFaveEntity() = FaveEntity(
     title,
     overview,
     genres?.joinToString { it.title } ?: "",
+    imageUrl,
     if (this is MediaDetailsModel.FilmDetails) MediaType.FILM.id else MediaType.TV.id
 )

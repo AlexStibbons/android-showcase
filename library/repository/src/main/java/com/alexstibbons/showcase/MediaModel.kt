@@ -30,5 +30,6 @@ fun MediaModel.toFaveEntity() = FaveEntity(
     title,
     promo,
     genreList?.joinToString { it.title } ?: "",
+    imageUrl,
     type.id
 )

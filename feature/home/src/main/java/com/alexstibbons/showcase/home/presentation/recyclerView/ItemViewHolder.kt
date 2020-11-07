@@ -51,6 +51,7 @@ internal class MediaViewHolder(
         Glide.with(itemView.context)
             .asBitmap()
             .load(BASE_IMG_URL + model.imageUrl)
+            .placeholder(R.drawable.ic_logo_big)
             .circleCrop()
             .into(image)
 

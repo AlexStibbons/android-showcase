@@ -11,7 +11,7 @@ interface FaveCache {
 
 @Database(
     entities = [FaveEntity::class],
-    version = 1
+    version = 2
 )
 internal abstract class FaveCacheImpl : RoomDatabase(), FaveCache {
     abstract fun faveDao(): FaveDao
