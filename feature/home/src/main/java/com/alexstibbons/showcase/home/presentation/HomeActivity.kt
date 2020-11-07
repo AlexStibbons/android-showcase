@@ -1,10 +1,13 @@
 package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
+import android.util.Log
 import com.alexstibbons.showcase.ColoredSysBarActivity
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.argumentOrThrow
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.FAVE_IDS_ARRAY
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -18,6 +21,8 @@ internal interface AddRemoveFave {
 internal class HomeActivity : ColoredSysBarActivity() {
     override val systemBarColor: Int = R.color.white
 
+    private val list: ArrayList<Int> by argumentOrThrow(FAVE_IDS_ARRAY)
+
     private val fragmentAdapter by lazy { HomeViewPagerAdapter(this) }
 
     private val baseViewModel: HomeViewModel by viewModel()
@@ -25,7 +30,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        Log.e("in home", "$list")
         injectFeature()
 
         activity_home_viewPager.adapter = fragmentAdapter

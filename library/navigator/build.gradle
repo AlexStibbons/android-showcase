@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 
 dependencies {
+
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_core
 
