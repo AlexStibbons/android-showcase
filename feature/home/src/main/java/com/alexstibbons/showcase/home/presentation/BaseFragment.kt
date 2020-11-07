@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
+
     protected val baseViewModel: HomeViewModel by sharedViewModel()
 
     protected val recyclerLayoutManager: LinearLayoutManager by lazy {
@@ -41,7 +42,11 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
     }
 
     protected val recyclerAdapter: RecyclerAdapter by lazy {
-        RecyclerAdapter(onMediaClick, addRemoveFave)
+        RecyclerAdapter(onMediaClick, addRemoveFave, isMediaInFaveCache)
+    }
+
+    protected val isMediaInFaveCache: (Int) -> Boolean = { mediaId ->
+        baseViewModel.cachedFaveId.contains(mediaId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

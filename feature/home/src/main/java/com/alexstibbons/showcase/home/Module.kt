@@ -23,7 +23,7 @@ private val loadModules by lazy {
 }
 
 private val homePresentationModule = module {
-    viewModel { HomeViewModel(get()) }
+    viewModel { (faveIds: List<Int>) -> HomeViewModel(get(), faveIds) }
     viewModel { FilmListViewModel(get()) }
     viewModel { TvListViewModel(get()) }
     viewModel { FaveListViewModel(get()) }

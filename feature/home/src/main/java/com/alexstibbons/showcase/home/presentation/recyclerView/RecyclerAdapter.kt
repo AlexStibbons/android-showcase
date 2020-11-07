@@ -12,26 +12,31 @@ internal interface ToggleFaves {
 
 internal class RecyclerAdapter(
     private val onMediaClicked: (Int, Int) -> Unit,
-    private val addRemoveFave: AddRemoveFave
+    private val addRemoveFave: AddRemoveFave,
+    private val isMediaInFaveCache: (Int) -> Boolean
 ) : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
 
     private val mediaList: MutableList<MediaModel> = ArrayList()
-    private val favesList = mutableListOf<Int>()
+    private val favesListLocal = mutableListOf<Int>()
 
     private val faveListener = object: ToggleFaves {
         override fun addFave(media: MediaModel): Boolean {
-            favesList.add(media.id)
+            favesListLocal.add(media.id)
             addRemoveFave.addFave(media)
             return true
         }
         override fun removeFave(id: Int): Boolean {
-            favesList.remove(id)
+            favesListLocal.remove(id)
             addRemoveFave.removeFave(id)
             return true
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent, onMediaClicked, faveListener, favesList)
+    private val isMediaFave: (Int) -> Boolean = { mediaId ->
+        favesListLocal.contains(mediaId) || isMediaInFaveCache(mediaId)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent, onMediaClicked, faveListener, isMediaFave)
 
     override fun getItemCount(): Int = mediaList.size
 

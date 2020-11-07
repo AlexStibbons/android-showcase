@@ -13,7 +13,8 @@ import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 
 internal class HomeViewModel(
-    private val interactor: Interactor
+    private val interactor: Interactor,
+    val cachedFaveId: List<Int>
 ) : ViewModel() {
 
 

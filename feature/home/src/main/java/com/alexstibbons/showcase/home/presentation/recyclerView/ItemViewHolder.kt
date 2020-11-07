@@ -20,7 +20,7 @@ internal class MediaViewHolder(
     parent: ViewGroup,
     private val onMediaClicked: (Int, Int) -> Unit,
     private val faveListener: ToggleFaves,
-    private val faveList: List<Int>
+    private val isMediaFave: (Int) -> Boolean
 ) : ItemViewHolder<MediaModel>(parent) {
 
     private val title = itemView.item_title
@@ -35,7 +35,7 @@ internal class MediaViewHolder(
 
         faveBtn.setOnCheckedChangeListener(null)
         faveBtn.isChecked = false
-        if (faveList.contains(model.id)) {
+        if (isMediaFave(model.id)) {
             faveBtn.isChecked = true
         }
 

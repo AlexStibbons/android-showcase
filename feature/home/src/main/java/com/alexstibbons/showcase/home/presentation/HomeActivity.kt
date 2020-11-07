@@ -11,6 +11,7 @@ import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.FAVE_IDS_ARRAY
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import kotlinx.android.synthetic.main.activity_home.activity_home_search as searchIcon
 
 internal interface AddRemoveFave {
@@ -21,18 +22,19 @@ internal interface AddRemoveFave {
 internal class HomeActivity : ColoredSysBarActivity() {
     override val systemBarColor: Int = R.color.white
 
-    private val list: ArrayList<Int> by argumentOrThrow(FAVE_IDS_ARRAY)
+    private val cachedFaveIds: ArrayList<Int> by argumentOrThrow(FAVE_IDS_ARRAY)
 
     private val fragmentAdapter by lazy { HomeViewPagerAdapter(this) }
 
-    private val baseViewModel: HomeViewModel by viewModel()
+    private val baseViewModel: HomeViewModel by viewModel { parametersOf(cachedFaveIds) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        Log.e("in home", "$list")
+        Log.e("in home", "$cachedFaveIds")
         injectFeature()
 
+        val faves = baseViewModel.cachedFaveId
         activity_home_viewPager.adapter = fragmentAdapter
 
         activity_home_bottom_nav.setOnNavigationItemSelectedListener { item ->
