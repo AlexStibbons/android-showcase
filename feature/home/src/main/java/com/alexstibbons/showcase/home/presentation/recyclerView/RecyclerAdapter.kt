@@ -17,6 +17,7 @@ internal abstract class RecyclerAdapterBase(
 ) : RecyclerView.Adapter<ItemViewHolder<MediaModel>>() {
     abstract fun addMedia(newMedia: List<MediaModel>)
     abstract fun updateFaves(newFaves: List<Int>)
+    abstract fun clearMedia()
 }
 
 internal class RecyclerAdapter(
@@ -58,10 +59,7 @@ internal class RecyclerAdapter(
         notifyDataSetChanged()
     }
 
-    fun removeMedia(title: String) {
-    }
-
-    fun clearList() {
+    override fun clearMedia() {
         mediaList.clear()
         notifyDataSetChanged()
     }

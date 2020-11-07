@@ -1,10 +1,8 @@
 package com.alexstibbons.showcase.home.presentation.recyclerView
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.home.presentation.AddRemoveFave
-
 
 internal class FaveRecyclerAdapter(
     override val onMediaClicked: (Int, Int) -> Unit,
@@ -46,11 +44,9 @@ internal class FaveRecyclerAdapter(
         notifyDataSetChanged()
     }
 
-    fun removeMedia(title: String) {
-    }
-
-    fun clearList() {
+    override fun clearMedia() {
         mediaList.clear()
+        favesListLocal.clear()
         notifyDataSetChanged()
     }
 

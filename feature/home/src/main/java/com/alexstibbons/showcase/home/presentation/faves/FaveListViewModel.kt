@@ -34,7 +34,9 @@ internal class FaveListViewModel(
     private fun renderResponse(response: Response<Failure, List<FaveEntity>>) {
       when (response) {
             is Response.Failure -> _state.value = ViewState.Error.ServerError
-            is Response.Success -> if (response.success.isEmpty()) ViewState.Error.EmptyList else transformData(response.success)
+            is Response.Success -> if (response.success.isEmpty()) {
+                _state.value = ViewState.Success(FaveList(1, emptyList()))
+            } else transformData(response.success)
         }.exhaustive
     }
 
