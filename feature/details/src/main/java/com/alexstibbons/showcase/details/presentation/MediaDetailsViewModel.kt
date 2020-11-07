@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.details.presentation
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,7 @@ import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.details.R
 import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.domain.interactor.Interactor
+import com.alexstibbons.showcase.details.domain.toFaveEntity
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.movieApi.MediaFailure
 import com.alexstibbons.showcase.responses.Failure
@@ -31,6 +33,18 @@ internal class MediaDetailsViewModel(
     }
 
     fun isFave() = cachedFaveIds.contains(mediaId)
+
+    fun addFave(data: MediaDetailsModel) {
+        interactor.saveFave(data.toFaveEntity()) {response ->
+            Log.e("save from details", "$response")
+        }
+    }
+
+    fun removeFave(id: Int) {
+        interactor.removeFave(id) {response ->
+            Log.e("remove from details", "$response")
+        }
+    }
 
     private fun fetchFaveIds() {
         interactor.getFaves {response ->

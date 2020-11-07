@@ -97,6 +97,17 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
         }
 
         if (detailsViewModel.isFave()) details_btn_fave.isChecked = true
+
+        details_btn_fave.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                detailsViewModel.addFave(data)
+                details_btn_fave.isChecked = true
+            } else {
+                detailsViewModel.removeFave(data.id)
+                details_btn_fave.isChecked = false
+            }
+        }
+
         hideLoading()
     }
 
