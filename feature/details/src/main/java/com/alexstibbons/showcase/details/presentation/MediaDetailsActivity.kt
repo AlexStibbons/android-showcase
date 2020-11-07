@@ -95,6 +95,8 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
                 .centerInside()
                 .into(details_image)
         }
+
+        if (detailsViewModel.isFave()) details_btn_fave.isChecked = true
         hideLoading()
     }
 

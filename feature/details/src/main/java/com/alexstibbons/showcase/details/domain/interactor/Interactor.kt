@@ -1,6 +1,6 @@
 package com.alexstibbons.showcase.details.domain.interactor
 
-import com.alexstibbons.showcase.database.domain.GetFaves
+import com.alexstibbons.showcase.database.domain.GetFaveIds
 import com.alexstibbons.showcase.database.domain.RemoveFave
 import com.alexstibbons.showcase.database.domain.SaveFave
 
@@ -9,7 +9,7 @@ internal data class Interactor(
     val getTvDetails: GetTvDetails,
     val saveFave: SaveFave,
     val removeFave: RemoveFave,
-    val getFaves: GetFaves
+    val getFaves: GetFaveIds
 ) {
     fun clear() {
         saveFave.cancel()

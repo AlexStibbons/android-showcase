@@ -19,13 +19,24 @@ internal class MediaDetailsViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
+    private val cachedFaveIds = mutableListOf<Int>()
+
     private var _viewState = MutableLiveData<ViewState>()
     fun observeViewState(): LiveData<ViewState> = _viewState
 
     init {
         _viewState.value =
             ViewState.Loading
-        fetchDetailsFor(mediaType)
+        fetchFaveIds()
+    }
+
+    fun isFave() = cachedFaveIds.contains(mediaId)
+
+    private fun fetchFaveIds() {
+        interactor.getFaves {response ->
+            cachedFaveIds.addAll((response as Response.Success).success)
+            fetchDetailsFor(mediaType)
+        }
     }
 
     private fun fetchDetailsFor(mediaType: MediaType) {
