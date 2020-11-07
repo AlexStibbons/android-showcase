@@ -56,4 +56,10 @@ internal class RecyclerAdapter(
         mediaList.clear()
         notifyDataSetChanged()
     }
+
+    fun updateFaves(newFaves: List<Int>) {
+        favesListLocal.clear()
+        favesListLocal.addAll(newFaves)
+        notifyDataSetChanged()
+    }
 }

@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.details.presentation
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -102,9 +103,11 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
             if (isChecked) {
                 detailsViewModel.addFave(data)
                 details_btn_fave.isChecked = true
+                sendBroadcast(Intent("fave_change"))
             } else {
                 detailsViewModel.removeFave(data.id)
                 details_btn_fave.isChecked = false
+                sendBroadcast(Intent("fave_change"))
             }
         }
 

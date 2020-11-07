@@ -34,7 +34,7 @@ internal class HomeActivity : ColoredSysBarActivity() {
         Log.e("in home", "$cachedFaveIds")
         injectFeature()
 
-        val faves = baseViewModel.cachedFaveId
+        val faves = baseViewModel.cachedIds()
         activity_home_viewPager.adapter = fragmentAdapter
 
         activity_home_bottom_nav.setOnNavigationItemSelectedListener { item ->

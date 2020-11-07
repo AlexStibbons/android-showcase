@@ -33,5 +33,5 @@ private val homeDomainModule = module {
     factory { GetTv(get(), get()) }
     factory { GetFilms(get(), get()) }
 
-    factory { Interactor(get(), get(), get(), get(), get()) }
+    factory { Interactor(get(), get(), get(), get(), get(), get()) }
 }

@@ -14,24 +14,16 @@ import com.alexstibbons.showcase.responses.Response
 
 internal class HomeViewModel(
     private val interactor: Interactor,
-    val cachedFaveId: List<Int>
+    private val initialFaveId: List<Int>
 ) : ViewModel() {
 
+    private var _cachedFaveId = initialFaveId.toMutableList()
+
+    fun cachedIds(): List<Int> = _cachedFaveId
 
     private val _state = MutableLiveData<ViewState>()
     fun observeState(): LiveData<ViewState> = _state
 
-
-    private fun renderError(failure: Failure) {
-        val state = when (failure) {
-            is Failure.ServerError -> ViewState.Error.ServerError
-            is Failure.NetworkConnection -> ViewState.Error.NoInternet
-            is MediaFailure.NoSuchMedia, MediaFailure.EmptyMediaList -> ViewState.Error.EmptyList
-            is Failure.FeatureSpecificFailure -> error("Feature failure must be implemented")
-        }.exhaustive
-
-        _state.value = state
-    }
 
     fun addFave(media: MediaModel) {
         interactor.saveFave(media.toFaveEntity()) {response ->
@@ -50,10 +42,18 @@ internal class HomeViewModel(
         super.onCleared()
     }
 
+    fun updateCachedFaves() {
+        interactor.getFaveIds { response ->
+            val ids = (response as Response.Success).success
+            _cachedFaveId.clear()
+            _cachedFaveId.addAll(ids)
+            _state.value = ViewState.NewFaves(ids)
+        }
+    }
 
     sealed class ViewState {
         object Loading: ViewState()
-        data class Success(val data: MediaList): ViewState()
+        data class NewFaves(val data: List<Int>): ViewState()
         sealed class Error(@StringRes val message: Int) : ViewState() {
             object NoInternet : Error(R.string.error_no_internet)
             object EmptyList: Error(R.string.error_empty_list)
