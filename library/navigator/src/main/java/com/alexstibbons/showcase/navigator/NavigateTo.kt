@@ -22,6 +22,10 @@ object NavigateTo {
         .putExtra(MEDIA_TYPE_ID, typeId)
         .putExtra(MEDIA_ID, mediaId)
 
+    fun about(
+        context: Context
+    ) = internalIntent(context, "com.alexstibbons.showcase.about.open")
+
     private fun internalIntent(context: Context, action: String): Intent =
         Intent(action).setPackage(context.packageName)
 

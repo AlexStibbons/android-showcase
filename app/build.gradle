@@ -29,6 +29,7 @@ dependencies {
 
     implementation project(":feature:home")
     implementation project(":feature:details")
+    implementation project(":feature:about")
 
     implementation project(":library:core")
     implementation project(":library:ui-common")

@@ -7,6 +7,7 @@ import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.argumentOrThrow
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.FAVE_IDS_ARRAY
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
@@ -56,6 +57,6 @@ internal class HomeActivity : ColoredSysBarActivity() {
             }
         }
 
-        activity_home_about.setOnClickListener { showToast("Open about page") }
+        activity_home_about.setOnClickListener { startActivity(NavigateTo.about(this)) }
     }
 }

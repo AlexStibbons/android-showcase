@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+apply plugin: 'kotlin-android-extensions'
+
+dependencies {
+    implementation project(":library:core")
+    implementation project(":library:ui-common")
+    implementation project(":library:navigator")
+
+    implementation Dependencies.kotlin
+    implementation Dependencies.androidx_appcompat
+    implementation Dependencies.androidx_core
+    implementation Dependencies.androidx_constraintlayout
+    implementation Dependencies.androidx_material
+    implementation Dependencies.android_viewmodel_ktx
+    implementation Dependencies.lifecycle_extensions_ktx
+
+    implementation Dependencies.koin_android
+    implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewmodel
+
+    implementation Dependencies.glide
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    annotationProcessor Dependencies.glide_compiler
+
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.mockito_kotlin
+    androidTestImplementation Dependencies.androidx_junit
+    androidTestImplementation Dependencies.testandroidx_espressocore
+}
