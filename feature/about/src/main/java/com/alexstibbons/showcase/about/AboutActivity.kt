@@ -3,8 +3,10 @@ package com.alexstibbons.showcase.about
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import com.alexstibbons.showcase.ColoredSysBarActivity
+import kotlinx.android.synthetic.main.activity_about.*
 
 internal class AboutActivity : ColoredSysBarActivity() {
     override val systemBarColor: Int = R.color.transparent
@@ -14,6 +16,8 @@ internal class AboutActivity : ColoredSysBarActivity() {
         setContentView(R.layout.activity_about)
 
         setTransparentSystemBar()
+
+        about_first_parag.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun setTransparentSystemBar() {
