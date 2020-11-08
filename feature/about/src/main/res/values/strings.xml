@@ -1,1 +1,10 @@
-<resources></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="about_welcome">Welcome!</string>
+    <string name="about_intro">If you got this app, it means you either downloaded it at random, or you\'re interested in the quality of my work.</string>
+    <string name="about_image_text">Of all the gin joints,\nin all the towns,\nin all the world, you walk into mine.</string>
+    <string name="about_second_parag">This is yet another watchlist app, except this one is mine. I won\'t bore you with the details - we all now how favouriting items works and I\'m sure you\'ll figure it out.</string>
+    <string name="about_third_parag">Now, grab some popcorn and a tall glass of cool lemonade, relax, and forget the world for a time.</string>
+    <string name="about_outro">Here\'s looking at you, kid.</string>
+</resources>

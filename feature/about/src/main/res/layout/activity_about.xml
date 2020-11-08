@@ -6,10 +6,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AboutActivity">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AboutActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".AboutActivity">
+
+        <ImageView
+            android:id="@+id/about_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/bogart_about"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="H, 4:3"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="309dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_image_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:letterSpacing="0.1"
+            android:text="@string/about_image_text"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/about_image"
+            app:layout_constraintEnd_toEndOf="@id/about_image"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/about_image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_first_parag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/com.showcase.details.Paragraph"
+            android:text="@string/about_intro"
+            app:layout_constraintTop_toBottomOf="@id/about_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_welcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/com.showcase.details.Paragraph"
+            android:text="@string/about_welcome"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/about_first_parag"
+            app:layout_constraintStart_toStartOf="@id/about_first_parag"
+            app:layout_constraintEnd_toEndOf="@id/about_first_parag"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_second_parag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/com.showcase.details.Paragraph"
+            android:text="@string/about_second_parag"
+            app:layout_constraintTop_toBottomOf="@id/about_welcome"
+            app:layout_constraintStart_toStartOf="@id/about_first_parag"
+            app:layout_constraintEnd_toEndOf="@id/about_first_parag"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_third_parag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/com.showcase.details.Paragraph"
+            android:text="@string/about_third_parag"
+            app:layout_constraintTop_toBottomOf="@id/about_second_parag"
+            app:layout_constraintStart_toStartOf="@id/about_first_parag"
+            app:layout_constraintEnd_toEndOf="@id/about_first_parag"
+            android:layout_marginTop="16dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/about_outro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/com.showcase.details.Paragraph"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/about_outro"
+            app:layout_constraintTop_toBottomOf="@id/about_third_parag"
+            app:layout_constraintEnd_toEndOf="@id/about_first_parag"
+            android:layout_marginTop="16dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
