@@ -63,13 +63,7 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
 
         activity_home_about.setOnClickListener { startActivity(NavigateTo.about(this)) }
 
-        activity_home_bottom_nav.setOnNavigationItemReselectedListener { item ->
-            when (item.itemId) {
-                R.id.menu_films -> searchFilm?.scrollToTop()
-                R.id.menu_tv -> searchTv?.scrollToTop()
-                R.id.menu_fave -> searchFaves?.scrollToTop()
-            }
-        }
+        
     }
 
     override fun attach(listener: Search) {
