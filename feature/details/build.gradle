@@ -28,8 +28,12 @@ dependencies {
     annotationProcessor Dependencies.glide_compiler
 
     testImplementation Dependencies.junit
-    testImplementation Dependencies.mockito_kotlin
+    testImplementation Dependencies.mockk
     androidTestImplementation Dependencies.androidx_junit
+    androidTestImplementation Dependencies.mockk
     androidTestImplementation Dependencies.testandroidx_espressocore
-
+    androidTestImplementation Dependencies.testandroidx_runner
+    androidTestImplementation Dependencies.testandroidx_rules
+    androidTestImplementation Dependencies.koin_test
+    testImplementation Dependencies.testandroidx_core
 }

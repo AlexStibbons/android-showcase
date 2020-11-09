@@ -9,6 +9,7 @@ object Config {
 }
 
 internal object DependencyVersions {
+    const val androidx_arch_testing_core = "2.1.0"
     const val androidx_core = "1.3.0-alpha01"
     const val androidx_recyclerview = "1.0.0"
     const val androidx_constraintLayout = "2.0.0-beta7"
@@ -24,6 +25,7 @@ internal object DependencyVersions {
     const val kotlin_version = "1.3.72"
 
     const val kotlin_coroutines = "1.3.3"
+    const val kotlinx_coroutines_test = "1.4.0"
 
     const val koin_version = "2.2.0-rc-4"
 
@@ -107,6 +109,8 @@ object Dependencies {
     const val lifecycle_extensions_ktx =
         "android.arch.lifecycle:extensions:${DependencyVersions.ktx_lifecycle}"
 
+    const val kotlinx_coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${DependencyVersions.kotlinx_coroutines_test}"
+    const val testandroidx_core = "androidx.arch.core:core-testing:${DependencyVersions.androidx_arch_testing_core}"
     const val androidx_core_testing =
         "androidx.arch.core:core-testing:${DependencyVersions.androidx_core_testing}"
     const val testandroidx_rules = "androidx.test:rules:${DependencyVersions.androidx_testing}"
