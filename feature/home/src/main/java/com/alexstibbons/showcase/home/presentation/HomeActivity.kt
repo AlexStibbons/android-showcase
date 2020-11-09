@@ -2,6 +2,7 @@ package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
 import android.util.Log
+import androidx.viewpager2.widget.ViewPager2
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
@@ -33,6 +34,18 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
     private var searchTv: SearchTv? = null
     private var searchFaves: SearchFaves? = null
 
+    private val onPageSelected = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            Log.e("selected page is", "$position")
+
+            when (position) {
+                0 -> activity_home_bottom_nav.selectedItemId = R.id.menu_films
+                1 -> activity_home_bottom_nav.selectedItemId = R.id.menu_tv
+                2 -> activity_home_bottom_nav.selectedItemId = R.id.menu_fave
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -41,6 +54,7 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
 
         val faves = baseViewModel.cachedIds()
         activity_home_viewPager.adapter = fragmentAdapter
+        activity_home_viewPager.registerOnPageChangeCallback(onPageSelected)
 
         activity_home_bottom_nav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -63,7 +77,14 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
 
         activity_home_about.setOnClickListener { startActivity(NavigateTo.about(this)) }
 
-        
+
+        activity_home_bottom_nav.setOnNavigationItemReselectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_films -> searchFilm?.scrollToTop()
+                R.id.menu_tv -> searchTv?.scrollToTop()
+                R.id.menu_fave -> searchFaves?.scrollToTop()
+            }
+        }
     }
 
     override fun attach(listener: Search) {
@@ -73,5 +94,10 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
             is SearchFaves -> searchFaves = listener
             else -> error("error when attaching listener")
         }.exhaustive
+    }
+
+    override fun onDestroy() {
+        activity_home_viewPager.unregisterOnPageChangeCallback(onPageSelected)
+        super.onDestroy()
     }
 }
