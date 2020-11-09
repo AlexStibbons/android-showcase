@@ -26,6 +26,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 internal interface SearchFilm: Search {
     fun open()
+    fun scrollToTop()
 }
 
 internal class FilmListFragment : BaseFragment() {
@@ -39,6 +40,10 @@ internal class FilmListFragment : BaseFragment() {
     override val search: Search= object: SearchFilm {
         override fun open() {
             requireActivity().showToast("Search film film film")
+        }
+
+        override fun scrollToTop() {
+            fragment_recycler.smoothScrollToPosition(0)
         }
     }
 

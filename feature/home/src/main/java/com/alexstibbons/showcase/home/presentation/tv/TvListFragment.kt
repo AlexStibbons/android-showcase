@@ -26,6 +26,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 internal interface SearchTv: Search {
     fun open()
+    fun scrollToTop()
 }
 
 
@@ -40,6 +41,10 @@ internal class TvListFragment : BaseFragment() {
     override val search: Search = object : SearchTv {
         override fun open() {
             requireActivity().showToast("Search tv")
+        }
+
+        override fun scrollToTop() {
+            fragment_recycler.smoothScrollToPosition(0)
         }
     }
 

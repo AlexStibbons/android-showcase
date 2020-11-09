@@ -26,6 +26,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 internal interface SearchFaves: Search {
     fun open()
+    fun scrollToTop()
 }
 
 internal class FaveListFragment : BaseFragment() {
@@ -38,6 +39,10 @@ internal class FaveListFragment : BaseFragment() {
     override val search: Search = object: SearchFaves {
         override fun open() {
             requireActivity().showToast("fave fave fave")
+        }
+
+        override fun scrollToTop() {
+            fragment_recycler.smoothScrollToPosition(0)
         }
     }
 
