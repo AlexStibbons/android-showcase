@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.presentation.AttachListener
 import com.alexstibbons.showcase.home.presentation.BaseFragment
+import com.alexstibbons.showcase.home.presentation.Search
 import com.alexstibbons.showcase.home.presentation.recyclerView.FaveRecyclerAdapter
 import com.alexstibbons.showcase.home.presentation.recyclerView.ItemViewHolder
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
@@ -21,12 +23,22 @@ import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+
+internal interface SearchFaves: Search {
+    fun open()
+}
+
 internal class FaveListFragment : BaseFragment() {
 
     private val faveVm: FaveListViewModel by viewModel()
 
     override val recyclerAdapter: RecyclerAdapterBase by lazy {
         FaveRecyclerAdapter(onMediaClick, addRemoveFave, isMediaInFaveCache)
+    }
+    override val search: Search = object: SearchFaves {
+        override fun open() {
+            requireActivity().showToast("fave fave fave")
+        }
     }
 
     override val broadcastReceiver = object : BroadcastReceiver() {
@@ -41,6 +53,13 @@ internal class FaveListFragment : BaseFragment() {
     companion object {
         fun newInstance() = FaveListFragment()
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        attachListener = requireActivity() as? AttachListener
+        attachListener?.attach(search)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

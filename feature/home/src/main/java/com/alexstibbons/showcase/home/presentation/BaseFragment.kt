@@ -25,6 +25,10 @@ const val BROADCAST_CHANGE = "fave_change"
 
 internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
 
+    protected abstract val search: Search
+
+    protected var attachListener: AttachListener? = null
+
     protected val baseViewModel: HomeViewModel by sharedViewModel()
 
     protected val recyclerLayoutManager: LinearLayoutManager by lazy {

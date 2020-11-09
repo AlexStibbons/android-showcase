@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.home.presentation.tv
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -11,9 +12,10 @@ import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
-import com.alexstibbons.showcase.home.presentation.AddRemoveFave
+import com.alexstibbons.showcase.home.presentation.*
+import com.alexstibbons.showcase.home.presentation.AttachListener
 import com.alexstibbons.showcase.home.presentation.BaseFragment
-import com.alexstibbons.showcase.home.presentation.HomeViewModel
+import com.alexstibbons.showcase.home.presentation.Search
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
@@ -21,12 +23,30 @@ import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
+
+internal interface SearchTv: Search {
+    fun open()
+}
+
+
 internal class TvListFragment : BaseFragment() {
 
     private val tvViewModel: TvListViewModel by viewModel()
 
     companion object {
         fun newInstance() = TvListFragment()
+    }
+
+    override val search: Search = object : SearchTv {
+        override fun open() {
+            requireActivity().showToast("Search tv")
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        attachListener = requireActivity() as? AttachListener
+        attachListener?.attach(search)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -2,14 +2,14 @@ package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
 import android.util.Log
-import com.alexstibbons.showcase.ColoredSysBarActivity
-import com.alexstibbons.showcase.MediaModel
-import com.alexstibbons.showcase.argumentOrThrow
+import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
+import com.alexstibbons.showcase.home.presentation.faves.SearchFaves
+import com.alexstibbons.showcase.home.presentation.films.SearchFilm
+import com.alexstibbons.showcase.home.presentation.tv.SearchTv
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.FAVE_IDS_ARRAY
-import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -20,7 +20,7 @@ internal interface AddRemoveFave {
     fun removeFave(id: Int)
 }
 
-internal class HomeActivity : ColoredSysBarActivity() {
+internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
     override val systemBarColor: Int = R.color.white
 
     private val cachedFaveIds: ArrayList<Int> by argumentOrThrow(FAVE_IDS_ARRAY)
@@ -28,6 +28,10 @@ internal class HomeActivity : ColoredSysBarActivity() {
     private val fragmentAdapter by lazy { HomeViewPagerAdapter(this) }
 
     private val baseViewModel: HomeViewModel by viewModel { parametersOf(cachedFaveIds) }
+
+    private var searchFilm: SearchFilm? = null
+    private var searchTv: SearchTv? = null
+    private var searchFaves: SearchFaves? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +55,21 @@ internal class HomeActivity : ColoredSysBarActivity() {
 
         searchIcon.setOnClickListener {
             when (activity_home_viewPager.currentItem) {
-                0 -> showToast("search for films")
-                1 -> showToast("search for tv")
-                2 -> showToast("search for faves")
+                0 -> searchFilm?.open()
+                1 -> searchTv?.open()
+                2 -> searchFaves?.open()
             }
         }
 
         activity_home_about.setOnClickListener { startActivity(NavigateTo.about(this)) }
+    }
+
+    override fun attach(listener: Search) {
+        when (listener) {
+            is SearchFilm -> searchFilm = listener
+            is SearchTv -> searchTv = listener
+            is SearchFaves -> searchFaves = listener
+            else -> error("error when attaching listener")
+        }.exhaustive
     }
 }
