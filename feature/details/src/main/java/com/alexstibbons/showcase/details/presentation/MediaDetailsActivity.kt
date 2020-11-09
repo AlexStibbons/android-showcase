@@ -40,6 +40,8 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
 
         injectFeature()
 
+        details_back.setOnClickListener { super.onBackPressed() }
+
         detailsViewModel.observeViewState().observe(this, Observer { state ->
             state ?: return@Observer
 

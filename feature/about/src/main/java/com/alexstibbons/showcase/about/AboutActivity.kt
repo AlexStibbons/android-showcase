@@ -18,6 +18,8 @@ internal class AboutActivity : ColoredSysBarActivity() {
         setTransparentSystemBar()
 
         about_first_parag.movementMethod = LinkMovementMethod.getInstance()
+
+        about_back.setOnClickListener { super.onBackPressed() }
     }
 
     private fun setTransparentSystemBar() {
