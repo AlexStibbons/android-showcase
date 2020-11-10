@@ -3,7 +3,6 @@
     package="com.alexstibbons.showcase.search">
 
     <application>
-        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
