@@ -1,13 +1,15 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
 apply plugin: 'kotlin-android-extensions'
 
 dependencies {
+
     implementation project(":library:core")
     implementation project(":library:ui-common")
     implementation project(":library:repository")
     implementation project(":library:navigator")
-    implementation project(":library:search")
 
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_appcompat
@@ -25,8 +27,6 @@ dependencies {
 
     implementation Dependencies.glide
     annotationProcessor Dependencies.glide_compiler
-
-    implementation Dependencies.androidx_view_pager_two
 
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockk

@@ -36,8 +36,6 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
 
     private val onPageSelected = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
-            Log.e("selected page is", "$position")
-
             when (position) {
                 0 -> activity_home_bottom_nav.selectedItemId = R.id.menu_films
                 1 -> activity_home_bottom_nav.selectedItemId = R.id.menu_tv

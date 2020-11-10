@@ -13,7 +13,7 @@ internal object DependencyVersions {
     const val androidx_core = "1.3.0-alpha01"
     const val androidx_recyclerview = "1.0.0"
     const val androidx_constraintLayout = "2.0.0-beta7"
-    const val material = "1.3.0-alpha01"
+    const val material = "1.3.0-alpha03"
     const val ktx_lifecycle = "2.2.0"
 
     const val pin_view = "1.4.3"

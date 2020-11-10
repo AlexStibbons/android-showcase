@@ -2,6 +2,7 @@ package com.alexstibbons.showcase.home.presentation.tv
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
@@ -18,6 +20,8 @@ import com.alexstibbons.showcase.home.presentation.BaseFragment
 import com.alexstibbons.showcase.home.presentation.Search
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.navigator.NavigateTo
+import com.alexstibbons.showcase.search.NotifySearchSelected
+import com.alexstibbons.showcase.search.SearchTerms
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -30,7 +34,7 @@ internal interface SearchTv: Search {
 }
 
 
-internal class TvListFragment : BaseFragment() {
+internal class TvListFragment : BaseFragment(), NotifySearchSelected {
 
     private val tvViewModel: TvListViewModel by viewModel()
 
@@ -40,7 +44,7 @@ internal class TvListFragment : BaseFragment() {
 
     override val search: Search = object : SearchTv {
         override fun open() {
-            requireActivity().showToast("Search tv")
+            searchDialogue.newInstance(MediaType.TV).show(childFragmentManager, "Tv search")
         }
 
         override fun scrollToTop() {
@@ -92,5 +96,9 @@ internal class TvListFragment : BaseFragment() {
     }
 
     private fun showLoading() {
+    }
+
+    override fun onSearchTermsFilled(data: SearchTerms) {
+        Log.e("in tv search terms", "$data")
     }
 }
