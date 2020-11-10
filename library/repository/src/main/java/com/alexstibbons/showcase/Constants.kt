@@ -37,5 +37,6 @@ enum class Genre(val id: Int, val title: String) {
     companion object {
         fun from(id: Int) = values().find { it.id == id } ?: UNKNOWN
         fun from(title: String) = values().find { it.title == title } ?: UNKNOWN
+        fun toList(): List<Genre> = values().toList()
     }
 }

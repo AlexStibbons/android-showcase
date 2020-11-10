@@ -14,5 +14,17 @@ interface NotifySearchSelected {
 data class SearchTerms(
     val mediaType: MediaType,
     val title: String = "",
-    val genreList: List<Genre> = emptyList()
+    val genreList: List<Genre>
+)
+
+internal data class SearchTermsBase(
+    val mediaType: MediaType,
+    val title: String = "",
+    val genreList: MutableList<Genre> = mutableListOf()
+)
+
+internal fun SearchTermsBase.toSearchTerms() = SearchTerms(
+    mediaType,
+    title,
+    genreList.toList()
 )
