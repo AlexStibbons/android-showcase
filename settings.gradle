@@ -1,3 +1,4 @@
+include ':library:search'
 include ':feature:about'
 include ':feature:details'
 include ':feature:home'

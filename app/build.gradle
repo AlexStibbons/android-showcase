@@ -35,6 +35,7 @@ dependencies {
     implementation project(":library:ui-common")
     implementation project(":library:repository")
     implementation project(":library:navigator")
+    implementation project(":library:search")
 
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_appcompat

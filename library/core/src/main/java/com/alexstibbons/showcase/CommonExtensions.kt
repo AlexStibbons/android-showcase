@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
 /**
@@ -50,6 +51,11 @@ inline fun Context.showToast(@StringRes messageRes: Int) {
 fun <T : Any> FragmentActivity.argumentOrThrow(key: String): Lazy<T> = lazy {
     intent.extras?.get(key) as? T
         ?: throw IllegalStateException("Bundle needs to have argument with id: $key")
+}
+
+fun <T : Any> Fragment.argumentOrThrow(key: String): Lazy<T> = lazy {
+    arguments?.get(key) as? T
+        ?: throw IllegalStateException("Arguments needs to have argument with id: $key")
 }
 
 /**

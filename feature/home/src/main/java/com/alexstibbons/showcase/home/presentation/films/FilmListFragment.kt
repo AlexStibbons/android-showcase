@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.injectFeature
@@ -18,6 +19,9 @@ import com.alexstibbons.showcase.home.presentation.BaseFragment
 import com.alexstibbons.showcase.home.presentation.Search
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.navigator.NavigateTo
+import com.alexstibbons.showcase.search.NotifySearchSelected
+import com.alexstibbons.showcase.search.OpenSearch
+import com.alexstibbons.showcase.search.OpenSearchImpl
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -29,9 +33,10 @@ internal interface SearchFilm: Search {
     fun scrollToTop()
 }
 
-internal class FilmListFragment : BaseFragment() {
+internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
 
     private val filmViewModel: FilmListViewModel by viewModel()
+    private val searchDialogue: OpenSearch = OpenSearchImpl()
 
     companion object {
         fun newInstance() = FilmListFragment()
@@ -39,6 +44,7 @@ internal class FilmListFragment : BaseFragment() {
 
     override val search: Search= object: SearchFilm {
         override fun open() {
+            searchDialogue.newInstance(MediaType.FILM).show(childFragmentManager, "sklsksl")
             requireActivity().showToast("Search film film film")
         }
 

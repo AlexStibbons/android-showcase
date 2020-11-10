@@ -48,4 +48,15 @@
         <item name="android:backgroundTint">@color/light_green</item>
     </style>
 
+    <style name="SearchDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/cornered_dialog_background</item>
+    </style>
+
 </resources>
