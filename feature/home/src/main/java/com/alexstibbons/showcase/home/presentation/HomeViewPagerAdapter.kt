@@ -19,6 +19,6 @@ internal class HomeViewPagerAdapter(host: AppCompatActivity) : FragmentStateAdap
         MediaType.FILM -> FilmListFragment.newInstance()
         MediaType.TV -> TvListFragment.newInstance()
         MediaType.FAVE -> FaveListFragment.newInstance()
-    }.exhaustive
+    }.exhaustive as Fragment
 
 }

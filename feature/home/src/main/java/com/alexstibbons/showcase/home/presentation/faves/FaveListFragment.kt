@@ -4,12 +4,14 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.presentation.AttachListener
@@ -19,6 +21,8 @@ import com.alexstibbons.showcase.home.presentation.recyclerView.FaveRecyclerAdap
 import com.alexstibbons.showcase.home.presentation.recyclerView.ItemViewHolder
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapterBase
+import com.alexstibbons.showcase.search.NotifySearchSelected
+import com.alexstibbons.showcase.search.SearchTerms
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -29,7 +33,7 @@ internal interface SearchFaves: Search {
     fun scrollToTop()
 }
 
-internal class FaveListFragment : BaseFragment() {
+internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
 
     private val faveVm: FaveListViewModel by viewModel()
 
@@ -38,7 +42,7 @@ internal class FaveListFragment : BaseFragment() {
     }
     override val search: Search = object: SearchFaves {
         override fun open() {
-            requireActivity().showToast("fave fave fave")
+            searchDialogue.newInstance(MediaType.FAVE).show(childFragmentManager, "Fave search")
         }
 
         override fun scrollToTop() {
@@ -102,5 +106,9 @@ internal class FaveListFragment : BaseFragment() {
         val error = getString(message)
         hideLoading()
         requireActivity().showToast("error: $error")
+    }
+
+    override fun onSearchTermsFilled(data: SearchTerms) {
+        Log.e("in fave search terms", "$data")
     }
 }

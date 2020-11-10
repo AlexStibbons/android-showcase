@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/dialogue_base">
+    android:id="@+id/dialogue_base"
+    android:paddingTop="8dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_title_layout"
@@ -15,14 +16,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/ic_search"
         android:hint="Title"
-        app:hintTextColor="@color/dark_blue"
-        app:boxStrokeWidthFocused="0dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeColor="@color/transparent">
+        style="@style/com.showcase.RoundedInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_title_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="askldkldkldlksdkl"/>
 
@@ -37,5 +35,15 @@
         app:layout_constraintStart_toStartOf="@id/search_title_layout"
         app:layout_constraintEnd_toEndOf="@id/search_title_layout">
     </com.google.android.material.chip.ChipGroup>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dialogue_btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        app:layout_constraintTop_toBottomOf="@id/dialogue_genre_chips"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

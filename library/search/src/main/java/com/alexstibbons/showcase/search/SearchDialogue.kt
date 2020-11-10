@@ -9,14 +9,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.argumentOrThrow
+import com.alexstibbons.showcase.doAfterTextChange
+import com.alexstibbons.showcase.hideKeyboard
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.dialogue_search.*
 import kotlin.math.roundToInt
 
 
@@ -24,6 +31,8 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
 
     private var notifySelected: NotifySearchSelected? = null
     private val mediaType: Int by argumentOrThrow(MEDIA_TYPE_ID)
+
+    private var searchTerms = SearchTerms(MediaType.TV)
 
     companion object {
         fun newInstance(mediaTypeId: Int): SearchDialogue {
@@ -57,7 +66,15 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // logic
+        searchTerms = searchTerms.copy(mediaType = MediaType.from(mediaType))
+
+        search_title_input.setText(MediaType.from(mediaType).name)
+
+        search_title_input.doAfterTextChange { text ->
+            searchTerms = searchTerms.copy(title = text ?: "")
+        }
+
+        dialogue_btn_search.setOnClickListener { onSearchDone(searchTerms) }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -85,5 +102,15 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
         (requireContext() as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
         return displayMetrics.heightPixels
     }
+
+    override fun onSearchDone(data: SearchTerms) {
+        notifySelected?.onSearchTermsFilled(data)
+
+        requireActivity().hideKeyboard()
+
+        dismissAllowingStateLoss()
+    }
+
+
 }
 

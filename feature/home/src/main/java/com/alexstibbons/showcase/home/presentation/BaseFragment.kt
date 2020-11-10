@@ -18,6 +18,8 @@ import com.alexstibbons.showcase.home.presentation.recyclerView.ItemViewHolder
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapterBase
 import com.alexstibbons.showcase.navigator.NavigateTo
+import com.alexstibbons.showcase.search.OpenSearch
+import com.alexstibbons.showcase.search.OpenSearchImpl
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -30,6 +32,8 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
     protected var attachListener: AttachListener? = null
 
     protected val baseViewModel: HomeViewModel by sharedViewModel()
+
+    protected val searchDialogue: OpenSearch = OpenSearchImpl()
 
     protected val recyclerLayoutManager: LinearLayoutManager by lazy {
         LinearLayoutManager(

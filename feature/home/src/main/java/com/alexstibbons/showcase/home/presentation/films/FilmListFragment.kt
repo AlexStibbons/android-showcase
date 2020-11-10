@@ -2,6 +2,7 @@ package com.alexstibbons.showcase.home.presentation.films
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.search.NotifySearchSelected
 import com.alexstibbons.showcase.search.OpenSearch
 import com.alexstibbons.showcase.search.OpenSearchImpl
+import com.alexstibbons.showcase.search.SearchTerms
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -36,7 +38,6 @@ internal interface SearchFilm: Search {
 internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
 
     private val filmViewModel: FilmListViewModel by viewModel()
-    private val searchDialogue: OpenSearch = OpenSearchImpl()
 
     companion object {
         fun newInstance() = FilmListFragment()
@@ -45,7 +46,6 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
     override val search: Search= object: SearchFilm {
         override fun open() {
             searchDialogue.newInstance(MediaType.FILM).show(childFragmentManager, "sklsksl")
-            requireActivity().showToast("Search film film film")
         }
 
         override fun scrollToTop() {
@@ -97,5 +97,9 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
     }
 
     private fun showLoading() {
+    }
+
+    override fun onSearchTermsFilled(data: SearchTerms) {
+        Log.e("in film search terms", "$data")
     }
 }
