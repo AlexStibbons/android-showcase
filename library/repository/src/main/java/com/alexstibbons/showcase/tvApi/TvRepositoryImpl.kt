@@ -61,13 +61,14 @@ internal class TvRepositoryImpl(
 
     private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<TvListResponse> {
 
+        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = ",")
+
         return if (!searchTerms.title.isNullOrBlank()) {
             fetchByTitle(page, searchTerms)
         } else {
-            Log.e("in GET POPULAR", "get p")
             try {
                 api
-                    .getPopularTvShows(apiKey = apiKey, page = page)
+                    .searchByGenre(apiKey = apiKey, page = page, genres = genreIdString)
                     .parseResponse()
             } catch (e: Exception) {
                 return NetworkResponse.ErrorResponse("Error", 500)

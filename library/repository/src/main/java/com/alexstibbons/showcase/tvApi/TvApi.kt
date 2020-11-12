@@ -2,7 +2,6 @@ package com.alexstibbons.showcase.tvApi
 
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
 import com.alexstibbons.showcase.tvApi.model.TvShowDetailsEntity
-import com.alexstibbons.showcase.tvApi.model.TvShowListItemEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -28,5 +27,14 @@ interface TvApi {
         @Query("api_key") apiKey: String,
         @Query("page") page: Int,
         @Query("query") query: String
+    ): Response<TvListResponse>
+
+    @GET("discover/tv")
+    suspend fun searchByGenre(
+        @Query("sort_by") sort: String = "popularity.desc",
+        @Query("include_adult") isAdult: Boolean = false,
+        @Query("page") page: Int,
+        @Query("api_key") apiKey: String,
+        @Query("with_genres") genres: String
     ): Response<TvListResponse>
 }
