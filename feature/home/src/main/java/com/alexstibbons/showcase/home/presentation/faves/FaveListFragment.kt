@@ -95,13 +95,6 @@ internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
         hideLoading()
     }
 
-    private fun hideLoading() {
-
-    }
-
-    private fun showLoading() {
-    }
-
     private fun showError(message: Int) {
         val error = getString(message)
         hideLoading()

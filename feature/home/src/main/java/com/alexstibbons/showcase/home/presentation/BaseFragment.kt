@@ -128,4 +128,14 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
         super.onDestroyView()
         requireActivity().unregisterReceiver(broadcastReceiver)
     }
+
+    protected fun hideLoading() {
+        fragment_loading.isVisible = false
+        fragment_recycler.isVisible = true
+    }
+
+    protected fun showLoading() {
+        fragment_recycler.isVisible = false
+        fragment_loading.isVisible = true
+    }
 }

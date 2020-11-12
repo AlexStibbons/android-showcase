@@ -91,13 +91,6 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
         hideLoading()
     }
 
-    private fun hideLoading() {
-
-    }
-
-    private fun showLoading() {
-    }
-
     override fun onSearchTermsFilled(data: SearchTerms) {
         Log.e("in tv search terms", "$data")
     }
