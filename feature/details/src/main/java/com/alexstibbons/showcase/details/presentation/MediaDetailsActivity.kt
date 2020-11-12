@@ -90,6 +90,7 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
             Glide
                 .with(this@MediaDetailsActivity)
                 .asBitmap()
+                .error(R.drawable.ic_logo_big)
                 .load(BASE_IMG_URL+url)
                 .centerInside()
                 .into(details_image)
