@@ -23,14 +23,16 @@ internal class TvRepositoryImpl(
 
     override suspend fun getPopular(page: Int, searchTerms: SearchTermsRepo?): Response<Failure, TvListResponse> {
 
-        if (searchTerms != null) fetchSearch(page, searchTerms)
-
-        val networkResponse: NetworkResponse<TvListResponse> = try {
-            api
-                .getPopularTvShows(apiKey = apiKey, page = page)
-                .parseResponse()
-        } catch (e: Exception) {
-            return Response.failure(Failure.ServerError)
+        val networkResponse: NetworkResponse<TvListResponse> = if (searchTerms != null) {
+            fetchSearch(page, searchTerms)
+        } else {
+            try {
+                api
+                    .getPopularTvShows(apiKey = apiKey, page = page)
+                    .parseResponse()
+            } catch (e: Exception) {
+                return Response.failure(Failure.ServerError)
+            }
         }
 
         return when (networkResponse) {
@@ -57,9 +59,9 @@ internal class TvRepositoryImpl(
         }.exhaustive
     }
 
-    private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): Response<Failure, TvListResponse> {
+    private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<TvListResponse> {
 
-        val networkResponse: NetworkResponse<TvListResponse> = if (!searchTerms.title.isNullOrBlank()) {
+        return if (!searchTerms.title.isNullOrBlank()) {
             fetchByTitle(page, searchTerms)
         } else {
             Log.e("in GET POPULAR", "get p")
@@ -68,17 +70,9 @@ internal class TvRepositoryImpl(
                     .getPopularTvShows(apiKey = apiKey, page = page)
                     .parseResponse()
             } catch (e: Exception) {
-                return Response.failure(Failure.ServerError)
+                return NetworkResponse.ErrorResponse("Error", 500)
             }
         }
-
-        Log.e("fetch search RESPONSE", "''$networkResponse")
-
-        return when (networkResponse) {
-            is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
-            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.EmptyMediaList)
-            is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
-        }.exhaustive
     }
 
     private suspend fun fetchByTitle(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<TvListResponse>  {
