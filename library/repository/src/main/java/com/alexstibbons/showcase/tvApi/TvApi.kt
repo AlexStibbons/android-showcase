@@ -22,4 +22,11 @@ interface TvApi {
         @Query("append_to_response") videos: String = "videos",
         @Query("api_key") apiKey: String
     ): Response<TvShowDetailsEntity>
+
+    @GET("search/tv")
+    suspend fun searchByTitle(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Response<TvListResponse>
 }
