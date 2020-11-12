@@ -2,6 +2,7 @@ package com.alexstibbons.showcase.movieApi
 
 import com.alexstibbons.showcase.movieApi.model.FilmDetailsEntity
 import com.alexstibbons.showcase.movieApi.model.FilmListResponse
+import com.alexstibbons.showcase.tvApi.model.TvListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,4 +24,11 @@ interface MovieApi {
         @Query("api_key") apiKey: String,
         @Query("append_to_response") videos: String = "videos"
     ): Response<FilmDetailsEntity>
+
+    @GET("search/movie")
+    suspend fun searchByTitle(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Response<FilmListResponse>
 }

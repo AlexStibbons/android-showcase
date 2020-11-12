@@ -76,7 +76,6 @@ internal class TvRepositoryImpl(
     }
 
     private suspend fun fetchByTitle(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<TvListResponse>  {
-        Log.e("in fetch by title", "BY TITLE")
         val genreIds: List<Int> = searchTerms.genreList.map { it.id }
 
         val networkResponse: NetworkResponse<TvListResponse> = try {
