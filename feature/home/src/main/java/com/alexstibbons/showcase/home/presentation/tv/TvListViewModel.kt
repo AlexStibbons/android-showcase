@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.home.presentation.tv
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,16 +8,20 @@ import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.MediaList
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.domain.interactors.GetTv
 import com.alexstibbons.showcase.home.domain.interactors.Interactor
+import com.alexstibbons.showcase.home.presentation.films.FilmListViewModel
 import com.alexstibbons.showcase.movieApi.MediaFailure
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
+import com.alexstibbons.showcase.search.SearchTerms
 
 internal class TvListViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
     private var currentPage = 0
+    private var searchTerms: SearchTerms? = null
 
     private val _state = MutableLiveData<TvListState>()
     fun observeFilms(): LiveData<TvListState> = _state
@@ -33,7 +38,7 @@ internal class TvListViewModel(
 
     fun fetchTv() {
         currentPage += 1
-        interactor.getTv(currentPage) { response ->
+        interactor.getTv(GetTv.Params(currentPage, searchTerms)) { response ->
             when (response) {
                 is Response.Failure -> renderError(response.failure)
                 is Response.Success -> renderSuccess(response.success)
@@ -56,9 +61,23 @@ internal class TvListViewModel(
         _state.value = state
     }
 
+    fun onClearSearch() {
+        currentPage = 0
+        searchTerms = null
+        fetchTv()
+    }
+
+    fun onStartSearch(data: SearchTerms) {
+        _state.value = TvListState.OnStartSearch
+        currentPage = 0
+        searchTerms = data
+        fetchTv()
+    }
+
 
     sealed class TvListState {
         object Loading: TvListState()
+        object OnStartSearch : TvListState()
         data class Success(val data: MediaList): TvListState()
         sealed class Error(@StringRes val message: Int) : TvListState() {
             object NoInternet : Error(R.string.error_no_internet)

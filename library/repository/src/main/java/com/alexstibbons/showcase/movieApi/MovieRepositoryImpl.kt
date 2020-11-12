@@ -1,16 +1,14 @@
 package com.alexstibbons.showcase.movieApi
 
-import android.util.Log
 import com.alexstibbons.showcase.BuildConfig
-import com.alexstibbons.showcase.network.NetworkResponse
-import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
+import com.alexstibbons.showcase.SearchTermsRepo
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.movieApi.model.FilmDetailsEntity
-import com.alexstibbons.showcase.movieApi.model.FilmListItemEntity
 import com.alexstibbons.showcase.movieApi.model.FilmListResponse
+import com.alexstibbons.showcase.network.NetworkResponse
+import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
-import java.lang.Exception
 
 internal class MovieRepositoryImpl(
     private val movieApi: MovieApi
@@ -20,9 +18,7 @@ internal class MovieRepositoryImpl(
 
     override suspend fun getMovie(id: Int): Response<Failure, FilmDetailsEntity> {
 
-        Log.e("in repo", "id: $id")
         val networkResponse = try {
-            Log.e("in try", "id: $id")
             movieApi
                 .getMovie(id = id, apiKey = apiKey)
                 .parseResponse()
@@ -37,14 +33,18 @@ internal class MovieRepositoryImpl(
         }.exhaustive
     }
 
-    override suspend fun getFilms(page: Int): Response<Failure, FilmListResponse> {
+    override suspend fun getFilms(page: Int, searchTerms: SearchTermsRepo?): Response<Failure, FilmListResponse> {
 
-        val networkResponse = try {
-            movieApi
-                .getPopularMovies(page = page, apiKey = apiKey)
-                .parseResponse()
-        } catch (e: Exception) {
-            return Response.failure(Failure.ServerError)
+        val networkResponse = if (searchTerms != null) {
+            fetchSearch(page, searchTerms)
+        } else {
+            try {
+                movieApi
+                    .getPopularMovies(page = page, apiKey = apiKey)
+                    .parseResponse()
+            } catch (e: Exception) {
+                return Response.failure(Failure.ServerError)
+            }
         }
 
         return when (networkResponse) {
@@ -54,4 +54,47 @@ internal class MovieRepositoryImpl(
         }.exhaustive
     }
 
+    private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<FilmListResponse> {
+
+        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = "|")
+
+        return if (!searchTerms.title.isNullOrBlank()) {
+            fetchByTitle(page, searchTerms)
+        } else {
+            try {
+                movieApi
+                    .searchByGenre(page = page, apiKey = apiKey, genres = genreIdString)
+                    .parseResponse()
+            } catch (e: Exception) {
+                return NetworkResponse.ErrorResponse("Error", 500)
+            }
+        }
+    }
+
+    private suspend fun fetchByTitle(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<FilmListResponse> {
+        val genreIds: List<Int> = searchTerms.genreList.map { it.id }
+
+        val networkResponse = try {
+            movieApi
+                .searchByTitle(page = page, apiKey = apiKey, query = searchTerms.title)
+                .parseResponse()
+        } catch (e: Exception) {
+            return  NetworkResponse.ErrorResponse("Error", 500)
+        }
+
+        return when (networkResponse) {
+            is NetworkResponse.SuccessResponse -> networkResponse.toFilteredResults(genreIds)
+            is NetworkResponse.EmptyBodySuccess -> networkResponse
+            is NetworkResponse.ErrorResponse -> networkResponse
+        }.exhaustive
+    }
+
+    private fun NetworkResponse.SuccessResponse<FilmListResponse>.toFilteredResults(genreIds: List<Int>): NetworkResponse.SuccessResponse<FilmListResponse> = NetworkResponse.SuccessResponse<FilmListResponse>(
+        value = FilmListResponse(
+            value.page,
+            value.total_results,
+            value.total_pages,
+            if (genreIds.isNotEmpty()) value.results.filter { item -> item.genre_ids.any { it in genreIds } } else value.results
+        ),
+        responseCode = 200)
 }

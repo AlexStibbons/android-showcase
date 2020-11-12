@@ -7,16 +7,19 @@ import androidx.lifecycle.ViewModel
 import com.alexstibbons.showcase.MediaList
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.domain.interactors.GetFilms
 import com.alexstibbons.showcase.home.domain.interactors.Interactor
 import com.alexstibbons.showcase.movieApi.MediaFailure
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
+import com.alexstibbons.showcase.search.SearchTerms
 
 internal class FilmListViewModel(
     private val interactor: Interactor
 ) : ViewModel() {
 
     private var currentPage = 0
+    private var searchTerms: SearchTerms? = null
 
     private val _state = MutableLiveData<FilmListState>()
     fun observeFilms(): LiveData<FilmListState> = _state
@@ -33,7 +36,7 @@ internal class FilmListViewModel(
 
     fun fetchFilms() {
         currentPage += 1
-        interactor.getFilms(currentPage) { response ->
+        interactor.getFilms(GetFilms.Params(currentPage, searchTerms)) { response ->
             when (response) {
                 is Response.Failure -> renderError(response.failure)
                 is Response.Success -> renderSuccess(response.success)
@@ -56,8 +59,22 @@ internal class FilmListViewModel(
         _state.value = state
     }
 
+    fun onStartSearch(data: SearchTerms) {
+        _state.value = FilmListState.OnStartSearch
+        currentPage = 0
+        searchTerms = data
+        fetchFilms()
+    }
+
+    fun onClearSearch() {
+        currentPage = 0
+        searchTerms = null
+        fetchFilms()
+    }
+
     sealed class FilmListState {
         object Loading: FilmListState()
+        object OnStartSearch: FilmListState()
         data class Success(val data: MediaList): FilmListState()
         sealed class Error(@StringRes val message: Int) : FilmListState() {
             object NoInternet : Error(R.string.error_no_internet)

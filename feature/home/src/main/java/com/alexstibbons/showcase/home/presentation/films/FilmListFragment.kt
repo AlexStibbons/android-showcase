@@ -65,6 +65,8 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
 
         infiniteScroll(recyclerLayoutManager) { filmViewModel.fetchFilms() }
 
+        fragment_clear_search.setOnClickListener { clearSearch() }
+
         filmViewModel.observeFilms().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
 
@@ -77,7 +79,21 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
             is FilmListViewModel.FilmListState.Loading -> showLoading()
             is FilmListViewModel.FilmListState.Error -> showError(state.message)
             is FilmListViewModel.FilmListState.Success -> populateRecycler(state.data.data)
+            is FilmListViewModel.FilmListState.OnStartSearch -> prepareForSearch()
         }.exhaustive
+    }
+
+    private fun clearSearch() {
+        showLoading()
+        fragment_clear_search.isVisible = false
+        recyclerAdapter.clearMedia()
+        filmViewModel.onClearSearch()
+    }
+
+    private fun prepareForSearch() {
+        showLoading()
+        fragment_clear_search.isVisible = true
+        recyclerAdapter.clearMedia()
     }
 
     private fun showError(message: Int) {
@@ -91,15 +107,8 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
         hideLoading()
     }
 
-
-    private fun hideLoading() {
-
-    }
-
-    private fun showLoading() {
-    }
-
     override fun onSearchTermsFilled(data: SearchTerms) {
         Log.e("in film search terms", "$data")
+        filmViewModel.onStartSearch(data)
     }
 }

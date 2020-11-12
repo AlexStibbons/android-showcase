@@ -74,12 +74,21 @@ internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
         super.onViewCreated(view, savedInstanceState)
 
 
+        fragment_clear_search.setOnClickListener { onClearSearch() }
+
         faveVm.observeState().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
 
             renderState(state)
         })
 
+    }
+
+    private fun onClearSearch() {
+        showLoading()
+        fragment_clear_search.isVisible = false
+        recyclerAdapter.clearMedia()
+        faveVm.updateFaves()
     }
 
     private fun renderState(state: FaveListViewModel.ViewState) {
@@ -95,13 +104,6 @@ internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
         hideLoading()
     }
 
-    private fun hideLoading() {
-
-    }
-
-    private fun showLoading() {
-    }
-
     private fun showError(message: Int) {
         val error = getString(message)
         hideLoading()
@@ -109,6 +111,7 @@ internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
     }
 
     override fun onSearchTermsFilled(data: SearchTerms) {
-        Log.e("in fave search terms", "$data")
+        (recyclerAdapter as FaveRecyclerAdapter).filterMediaBy(data)
+        fragment_clear_search.isVisible = true
     }
 }

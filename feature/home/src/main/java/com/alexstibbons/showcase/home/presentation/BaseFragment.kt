@@ -113,7 +113,7 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
                 val totalItems = layoutManager.itemCount
                 val scrollOutItems = layoutManager.findFirstVisibleItemPosition()
 
-                if (currentItem + scrollOutItems == totalItems - 5) {
+                if (currentItem + scrollOutItems == totalItems - 1) {
                     action.invoke()
                 }
             }
@@ -127,5 +127,15 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().unregisterReceiver(broadcastReceiver)
+    }
+
+    protected fun hideLoading() {
+        fragment_loading.isVisible = false
+        fragment_recycler.isVisible = true
+    }
+
+    protected fun showLoading() {
+        fragment_recycler.isVisible = false
+        fragment_loading.isVisible = true
     }
 }

@@ -33,3 +33,9 @@ fun MediaModel.toFaveEntity() = FaveEntity(
     imageUrl,
     type.id
 )
+
+data class SearchTermsRepo(
+    val mediaType: MediaType,
+    val title: String = "",
+    val genreList: List<Genre> = emptyList()
+)

@@ -63,6 +63,8 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
 
         infiniteScroll(recyclerLayoutManager) { tvViewModel.fetchTv() }
 
+        fragment_clear_search.setOnClickListener { clearSearch() }
+
         tvViewModel.observeFilms().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
 
@@ -76,6 +78,7 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
             is TvListViewModel.TvListState.Loading -> showLoading()
             is TvListViewModel.TvListState.Error -> showError(state.message)
             is TvListViewModel.TvListState.Success -> populateRecycler(state.data.data)
+            TvListViewModel.TvListState.OnStartSearch -> prepareForSearch()
         }.exhaustive
     }
 
@@ -91,14 +94,21 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
         hideLoading()
     }
 
-    private fun hideLoading() {
-
-    }
-
-    private fun showLoading() {
-    }
-
     override fun onSearchTermsFilled(data: SearchTerms) {
         Log.e("in tv search terms", "$data")
+        tvViewModel.onStartSearch(data)
+    }
+
+    private fun clearSearch() {
+        showLoading()
+        fragment_clear_search.isVisible = false
+        recyclerAdapter.clearMedia()
+        tvViewModel.onClearSearch()
+    }
+
+    private fun prepareForSearch() {
+        showLoading()
+        fragment_clear_search.isVisible = true
+        recyclerAdapter.clearMedia()
     }
 }
