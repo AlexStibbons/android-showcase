@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase.tvApi
 
 import com.alexstibbons.showcase.BuildConfig
+import com.alexstibbons.showcase.SearchTermsRepo
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.movieApi.MediaFailure
 import com.alexstibbons.showcase.network.NetworkResponse
@@ -18,8 +19,26 @@ internal class TvRepositoryImpl(
 
     private val apiKey = BuildConfig.MOVIE_DB_KEY
 
-    override suspend fun getPopular(page: Int): Response<Failure, TvListResponse> {
+    override suspend fun getPopular(page: Int, searchTerms: SearchTermsRepo?): Response<Failure, TvListResponse> {
 
+        if (searchTerms != null) fetchSearch(page, searchTerms)
+
+        val networkResponse: NetworkResponse<TvListResponse> = try {
+            api
+                .getPopularTvShows(apiKey = apiKey, page = page)
+                .parseResponse()
+        } catch (e: Exception) {
+            return Response.failure(Failure.ServerError)
+        }
+
+        return when (networkResponse) {
+            is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.EmptyMediaList)
+            is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
+        }.exhaustive
+    }
+
+    private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): Response<Failure, TvListResponse> {
         val networkResponse: NetworkResponse<TvListResponse> = try {
             api
                 .getPopularTvShows(apiKey = apiKey, page = page)
