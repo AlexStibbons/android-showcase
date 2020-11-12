@@ -61,7 +61,7 @@ internal class TvRepositoryImpl(
 
     private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<TvListResponse> {
 
-        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = ",")
+        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = "|")
 
         return if (!searchTerms.title.isNullOrBlank()) {
             fetchByTitle(page, searchTerms)

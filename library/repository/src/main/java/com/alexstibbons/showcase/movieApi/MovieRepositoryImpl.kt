@@ -56,7 +56,7 @@ internal class MovieRepositoryImpl(
 
     private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<FilmListResponse> {
 
-        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = ",")
+        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = "|")
 
         return if (!searchTerms.title.isNullOrBlank()) {
             fetchByTitle(page, searchTerms)
