@@ -3,6 +3,7 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 import android.view.ViewGroup
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.home.presentation.AddRemoveFave
+import com.alexstibbons.showcase.search.SearchTerms
 
 internal class FaveRecyclerAdapter(
     override val onMediaClicked: (Int, Int) -> Unit,
@@ -53,6 +54,19 @@ internal class FaveRecyclerAdapter(
     override fun updateFaves(newFaves: List<Int>) {
         favesListLocal.clear()
         favesListLocal.addAll(newFaves)
+        notifyDataSetChanged()
+    }
+
+    fun filterMediaBy(data: SearchTerms) {
+
+        val filtered : List<MediaModel> = mediaList.asSequence()
+            .filter { it.title.contains(data.title, ignoreCase = true) }
+            .filter { mediaModel -> mediaModel.genreList?.any { it in data.genreList } ?: true}
+            .toList()
+
+        mediaList.clear()
+        mediaList.addAll(filtered)
+
         notifyDataSetChanged()
     }
 }
