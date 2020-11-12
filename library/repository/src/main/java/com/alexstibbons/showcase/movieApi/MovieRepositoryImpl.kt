@@ -58,6 +58,24 @@ internal class MovieRepositoryImpl(
 
     private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): Response<Failure, FilmListResponse> {
 
+        if (!searchTerms.title.isNullOrBlank()) fetchByTitle(page, searchTerms)
+
+        val networkResponse = try {
+            movieApi
+                .getPopularMovies(page = page, apiKey = apiKey)
+                .parseResponse()
+        } catch (e: Exception) {
+            return Response.failure(Failure.ServerError)
+        }
+
+        return when (networkResponse) {
+            is NetworkResponse.SuccessResponse -> Response.success(networkResponse.value)
+            is NetworkResponse.EmptyBodySuccess -> Response.failure(MediaFailure.NoSuchMedia)
+            is NetworkResponse.ErrorResponse -> Response.failure(Failure.ServerError)
+        }.exhaustive
+    }
+
+    private suspend fun fetchByTitle(page: Int, searchTerms: SearchTermsRepo): Response<Failure, FilmListResponse> {
         val networkResponse = try {
             movieApi
                 .getPopularMovies(page = page, apiKey = apiKey)
