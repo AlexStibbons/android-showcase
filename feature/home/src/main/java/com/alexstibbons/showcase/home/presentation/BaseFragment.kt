@@ -113,7 +113,7 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
                 val totalItems = layoutManager.itemCount
                 val scrollOutItems = layoutManager.findFirstVisibleItemPosition()
 
-                if (currentItem + scrollOutItems == totalItems - 5) {
+                if (currentItem + scrollOutItems == totalItems - 1) {
                     action.invoke()
                 }
             }
