@@ -55,18 +55,20 @@ internal class MovieRepositoryImpl(
     }
 
     private suspend fun fetchSearch(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<FilmListResponse> {
+
+        val genreIdString: String = searchTerms.genreList.map { it.id }.joinToString(separator = ",")
+
         return if (!searchTerms.title.isNullOrBlank()) {
             fetchByTitle(page, searchTerms)
         } else {
             try {
                 movieApi
-                    .getPopularMovies(page = page, apiKey = apiKey)
+                    .searchByGenre(page = page, apiKey = apiKey, genres = genreIdString)
                     .parseResponse()
             } catch (e: Exception) {
                 return NetworkResponse.ErrorResponse("Error", 500)
             }
         }
-
     }
 
     private suspend fun fetchByTitle(page: Int, searchTerms: SearchTermsRepo): NetworkResponse<FilmListResponse> {

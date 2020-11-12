@@ -31,4 +31,13 @@ interface MovieApi {
         @Query("page") page: Int,
         @Query("query") query: String
     ): Response<FilmListResponse>
+
+    @GET("discover/movie")
+    suspend fun searchByGenre(
+        @Query("sort_by") sort: String = "popularity.desc",
+        @Query("include_adult") isAdult: Boolean = false,
+        @Query("page") page: Int,
+        @Query("api_key") apiKey: String,
+        @Query("with_genres") genres: String
+    ): Response<FilmListResponse>
 }
