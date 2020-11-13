@@ -59,9 +59,12 @@ internal class FaveRecyclerAdapter(
 
     fun filterMediaBy(data: SearchTerms) {
 
-        val filtered : List<MediaModel> = mediaList.asSequence()
+        val base = mediaList.asSequence()
             .filter { it.title.contains(data.title, ignoreCase = true) }
-            .filter { mediaModel -> mediaModel.genreList?.any { it in data.genreList } ?: true}
+            .toList()
+
+        val filtered = if (data.genreList.isEmpty()) base else base.asSequence()
+            .filter { mediaModel -> mediaModel.genreList!!.any { it in data.genreList } }
             .toList()
 
         mediaList.clear()
