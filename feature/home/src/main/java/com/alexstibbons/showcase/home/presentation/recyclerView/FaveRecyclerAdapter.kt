@@ -64,6 +64,7 @@ internal class FaveRecyclerAdapter(
             .toList()
 
         val filtered = if (data.genreList.isEmpty()) base else base.asSequence()
+            .filter { mediaModel -> mediaModel.genreList != null }
             .filter { mediaModel -> mediaModel.genreList!!.any { it in data.genreList } }
             .toList()
 
