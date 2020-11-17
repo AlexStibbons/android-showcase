@@ -4,7 +4,8 @@
 
     <application>
         <activity android:name=".AboutActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.alexstibbons.showcase.about.open"/>
                 <category android:name="android.intent.category.DEFAULT"/>
