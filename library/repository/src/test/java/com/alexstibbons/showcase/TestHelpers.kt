@@ -8,6 +8,9 @@ import com.alexstibbons.showcase.movieApi.model.FilmListResponse
 import com.alexstibbons.showcase.movieApi.model.VideoWrapper
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
+import com.alexstibbons.showcase.tvApi.model.TvListResponse
+import com.alexstibbons.showcase.tvApi.model.TvShowDetailsEntity
+import com.alexstibbons.showcase.tvApi.model.TvShowListItemEntity
 import org.junit.Assert
 
 
@@ -63,6 +66,34 @@ internal val mockFilmList = FilmListResponse(
     2,
     2,
     listOf(mockFilmItem)
+)
+
+@VisibleForTesting(otherwise = VisibleForTesting.NONE)
+internal val mockTvDetails = TvShowDetailsEntity(
+    1,
+    "title",
+    "tagline",
+    emptyList(),
+    "poster",
+    VideoWrapper(emptyList())
+)
+
+
+@VisibleForTesting(otherwise = VisibleForTesting.NONE)
+internal val mockTvListEntity = TvShowListItemEntity(
+    1,
+    "title",
+    "tagline",
+    "poster",
+    emptyList()
+)
+
+@VisibleForTesting(otherwise = VisibleForTesting.NONE)
+internal val mockTvList = TvListResponse(
+    1,
+    2,
+    2,
+    listOf(mockTvListEntity)
 )
 
 
