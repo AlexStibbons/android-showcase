@@ -1,18 +1,15 @@
 package com.alexstibbons.showcase.tvApi
 
-import android.util.Log
 import com.alexstibbons.showcase.BuildConfig
 import com.alexstibbons.showcase.SearchTermsRepo
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.movieApi.MediaFailure
-import com.alexstibbons.showcase.movieApi.model.FilmListResponse
 import com.alexstibbons.showcase.network.NetworkResponse
 import com.alexstibbons.showcase.network.NetworkResponse.Companion.parseResponse
 import com.alexstibbons.showcase.responses.Failure
 import com.alexstibbons.showcase.responses.Response
 import com.alexstibbons.showcase.tvApi.model.TvListResponse
 import com.alexstibbons.showcase.tvApi.model.TvShowDetailsEntity
-import com.alexstibbons.showcase.tvApi.model.TvShowListItemEntity
 import java.lang.Exception
 
 internal class TvRepositoryImpl(
