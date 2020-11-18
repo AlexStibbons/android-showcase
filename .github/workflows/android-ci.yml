@@ -17,7 +17,7 @@ jobs:
         java-version: 1.8
     - name: Secrets
       run: 
-        cat << EOF > apikey.properties
+        cat <<EOF > apikey.properties
         MOVIE_DB_KEY="some-key"
         EOF
     - name: Unit tests
