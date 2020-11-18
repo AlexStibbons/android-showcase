@@ -138,4 +138,5 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
         fragment_recycler.isVisible = false
         fragment_loading.isVisible = true
     }
+    
 }
