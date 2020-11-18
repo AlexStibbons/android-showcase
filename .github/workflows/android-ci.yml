@@ -15,5 +15,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Secrets
+      run: 
+        cat > apikey.properties << ENDOFFILE
+        MOVIE_DB_KEY="some-key"
+        ENDOFFILE
     - name: Unit tests
       run: bash ./gradlew test --stacktrace
