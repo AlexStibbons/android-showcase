@@ -17,8 +17,8 @@ jobs:
         java-version: 1.8
     - name: Secrets
       run: 
-        cat > apikey.properties << ENDOFFILE
+        cat << EOF > apikey.properties
         MOVIE_DB_KEY="some-key"
-        ENDOFFILE
+        EOF
     - name: Unit tests
       run: bash ./gradlew test --stacktrace
