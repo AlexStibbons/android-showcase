@@ -42,13 +42,7 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
     }
 
     protected val onMediaClick: (Int, Int) -> Unit = { mediaType, mediaId ->
-        startActivity(
-            NavigateTo.mediaDetails(
-                requireActivity(),
-                mediaType,
-                mediaId
-            )
-        )
+        startActivity(NavigateTo.mediaDetails(requireActivity(), mediaType, mediaId))
     }
 
     protected open val broadcastReceiver = object : BroadcastReceiver() {
