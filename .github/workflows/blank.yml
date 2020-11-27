@@ -21,6 +21,4 @@ jobs:
           message: |
             checklist should go here
             and here
-            and here
-            and here
           repo-token: ${{ secrets.GITHUB_TOKEN }}
