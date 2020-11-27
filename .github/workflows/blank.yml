@@ -16,6 +16,22 @@ jobs:
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            checklist should go here
-            and here
+            When reviewing, make sure that:
+
+            - [ ] package names -> in module, then in actions module
+            - [ ] naming in xml and naming in general 
+            - [ ] check architectural flow of the features
+            - [ ] make sure features are startable only via Actions component
+            - [ ] features components are internal by default 
+            - [ ] view model is disposing resources in onCleared method
+            - [ ] view models are not using Activity context
+            - [ ] we aren't making memory leaks
+            - [ ] Activity is disposing resources in onDestory/onStop method
+            - [ ] we aren't using any obsolete libraries
+            - [ ] we are not leaking any sensitive data
+            - [ ] we are handling no internet use case
+            - [ ] we are handling error scenarios
+            - [ ] we are properly validating data inputs
+            - [ ] common components are pulled out to corresponding module
+            - [ ] components are unit tested
           repo-token: ${{ secrets.GITHUB_TOKEN }}
