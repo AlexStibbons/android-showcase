@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "810325624453",
+    "project_id": "showcase-20d27",
+    "storage_bucket": "showcase-20d27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810325624453:android:5e749a1f90c82c798e0bec",
+        "android_client_info": {
+          "package_name": "com.alexstibbons.showcase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810325624453-bdbp6q8ai1q16f8ts1okugppsk137sv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzNDbp8V6Q2H8m_k8z3JblN5Wer1ATH-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810325624453-bdbp6q8ai1q16f8ts1okugppsk137sv8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
