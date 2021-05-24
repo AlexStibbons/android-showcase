@@ -57,7 +57,7 @@ internal object DependencyVersions {
     const val stetho = "1.5.1"
     const val timber = "4.7.1"
 
-    const val gradleandroid = "3.5.3"
+    const val gradleandroid = "4.1.3"
     const val kotlin = "1.3.72"
     const val gradleversions = "0.21.0"
 
