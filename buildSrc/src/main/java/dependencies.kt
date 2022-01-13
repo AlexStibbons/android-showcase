@@ -38,7 +38,6 @@ internal object DependencyVersions {
 
     const val okhttp = "4.3.1"
     const val gson = "2.8.6"
-    const val opentok = "2.16.3"
 
     const val support_compat = "28.1.1"
     const val daimajia_easing = "2.0@aar"
@@ -74,8 +73,6 @@ internal object DependencyVersions {
     const val glide_transformations = "4.1.0"
 
     const val room = "2.4.1"
-
-    const val biometric = "1.0.1"
 }
 
 
@@ -178,24 +175,22 @@ object Dependencies {
 
     const val leakCanary =
         "com.squareup.leakcanary:leakcanary-android:${DependencyVersions.leakCanaryVersion}"
-    val stetho = "com.facebook.stetho:stetho:${DependencyVersions.stetho}"
-    val stethoOkhttp = "com.facebook.stetho:stetho-okhttp3:${DependencyVersions.stetho}"
-    val timber = "com.jakewharton.timber:timber:${DependencyVersions.timber}"
-    val androidx_card_view = "androidx.cardview:cardview:${DependencyVersions.androidx_card_view}"
-    val glide = "com.github.bumptech.glide:glide:${DependencyVersions.glide}"
-    val glide_transformations =
+    const val stetho = "com.facebook.stetho:stetho:${DependencyVersions.stetho}"
+    const val stethoOkhttp = "com.facebook.stetho:stetho-okhttp3:${DependencyVersions.stetho}"
+    const val timber = "com.jakewharton.timber:timber:${DependencyVersions.timber}"
+    const val androidx_card_view = "androidx.cardview:cardview:${DependencyVersions.androidx_card_view}"
+    const val glide = "com.github.bumptech.glide:glide:${DependencyVersions.glide}"
+    const val glide_transformations =
         "jp.wasabeef:glide-transformations:${DependencyVersions.glide_transformations}"
 
-    val room_runtime = "androidx.room:room-runtime:${DependencyVersions.room}"
-    val room_ktx = "androidx.room:room-ktx:${DependencyVersions.room}"
-    val room_compiler = "androidx.room:room-compiler:${DependencyVersions.room}"
-    val room_persistence_compiler =
+    const val room_runtime = "androidx.room:room-runtime:${DependencyVersions.room}"
+    const val room_ktx = "androidx.room:room-ktx:${DependencyVersions.room}"
+    const val room_compiler = "androidx.room:room-compiler:${DependencyVersions.room}"
+    const val room_persistence_compiler =
         "android.arch.persistence.room:compiler:${DependencyVersions.room}"
-    val room_testing = "androidx.room:room-testing:${DependencyVersions.room}"
-    val testandroidx_test_core = "androidx.test:core:${DependencyVersions.androidx_testing}"
+    const val room_testing = "androidx.room:room-testing:${DependencyVersions.room}"
+    const val testandroidx_test_core = "androidx.test:core:${DependencyVersions.androidx_testing}"
 
-    val kotlin_extensions =
+    const val kotlin_extensions =
         "org.jetbrains.kotlin:kotlin-android-extensions:${DependencyVersions.kotlin_version}"
-
-    val biometric = "androidx.biometric:biometric:${DependencyVersions.biometric}"
 }

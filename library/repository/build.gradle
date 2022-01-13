@@ -25,7 +25,7 @@ dependencies {
     implementation Dependencies.room_runtime
     annotationProcessor Dependencies.room_compiler
     kapt Dependencies.room_compiler
-    implementation "androidx.room:room-ktx:2.4.1"
+    implementation Dependencies.room_ktx
 
     androidTestImplementation Dependencies.room_testing
 
