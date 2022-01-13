@@ -7,7 +7,7 @@ import com.alexstibbons.showcase.home.presentation.HomeViewModel
 import com.alexstibbons.showcase.home.presentation.faves.FaveListViewModel
 import com.alexstibbons.showcase.home.presentation.films.FilmListViewModel
 import com.alexstibbons.showcase.home.presentation.tv.TvListViewModel
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 

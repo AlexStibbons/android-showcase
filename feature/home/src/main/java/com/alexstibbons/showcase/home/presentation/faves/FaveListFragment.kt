@@ -18,14 +18,12 @@ import com.alexstibbons.showcase.home.presentation.AttachListener
 import com.alexstibbons.showcase.home.presentation.BaseFragment
 import com.alexstibbons.showcase.home.presentation.Search
 import com.alexstibbons.showcase.home.presentation.recyclerView.FaveRecyclerAdapter
-import com.alexstibbons.showcase.home.presentation.recyclerView.ItemViewHolder
-import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapterBase
 import com.alexstibbons.showcase.search.NotifySearchSelected
 import com.alexstibbons.showcase.search.SearchTerms
 import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 internal interface SearchFaves: Search {

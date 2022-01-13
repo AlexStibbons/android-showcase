@@ -2,8 +2,8 @@ import org.gradle.api.JavaVersion
 
 object Config {
     const val minSdk = 21
-    const val compileSdk = 29
-    const val targetSdk = 29
+    const val compileSdk = 31
+    const val targetSdk = 30
     val javaVersion = JavaVersion.VERSION_1_8
     const val buildTools = "29.0.2"
 }
@@ -15,6 +15,7 @@ internal object DependencyVersions {
     const val androidx_constraintLayout = "2.1.2"
     const val material = "1.6.0-alpha01"
     const val ktx_lifecycle = "2.4.0"
+    const val androidx_appCompat  = "1.4.1"
 
     const val pin_view = "1.4.3"
 
@@ -45,8 +46,8 @@ internal object DependencyVersions {
 
     const val androidx_testing = "1.1.1"
     const val androidx_core_testing = "2.1.0"
-    const val androidx_espresso = "3.3.0-rc01"
-    const val androidx_junit = "1.1.2-rc01"
+    const val androidx_espresso = "3.5.0-alpha03"
+    const val androidx_junit = "1.1.4-alpha03"
     const val junit = "4.13"
     const val hamcrest = "1.3"
     const val robolectric = "4.3.1"
@@ -60,7 +61,7 @@ internal object DependencyVersions {
 
     const val gradleandroid = "4.1.3"
     const val kotlin = "1.3.72"
-    const val gradleversions = "0.21.0"
+    const val gradleversions = "0.28.0"
 
     const val google_services = "4.3.3"
     const val firebase_analytics = "17.2.2"
@@ -72,7 +73,7 @@ internal object DependencyVersions {
     const val glide = "4.11.0"
     const val glide_transformations = "4.1.0"
 
-    const val room = "2.2.4"
+    const val room = "2.4.1"
 
     const val biometric = "1.0.1"
 }
@@ -82,7 +83,7 @@ object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${DependencyVersions.kotlin_version}"
     const val androidx_core = "androidx.core:core-ktx:${DependencyVersions.androidx_core}"
     const val androidx_appcompat =
-        "androidx.appcompat:appcompat:${DependencyVersions.androidx_core}"
+        "androidx.appcompat:appcompat:${DependencyVersions.androidx_appCompat}"
     const val androidx_constraintlayout =
         "androidx.constraintlayout:constraintlayout:${DependencyVersions.androidx_constraintLayout}"
     const val androidx_material =
@@ -131,7 +132,9 @@ object Dependencies {
     const val mockitoAndroid = "org.mockito:mockito-android:${DependencyVersions.mockito_android}"
     const val mockk = "io.mockk:mockk:${DependencyVersions.mockk}"
 
+    const val koin_core = "io.insert-koin:koin-core:${DependencyVersions.koin_version}"
     const val koin_android = "io.insert-koin:koin-android:${DependencyVersions.koin_version}"
+    const val koin_compat = "io.insert-koin:koin-android-compat:${DependencyVersions.koin_version}"
     const val koin_test = "org.koin:koin-test:${DependencyVersions.koin_version}"
 
     const val coil_imageloading = "io.coil-kt:coil:${DependencyVersions.coil}"

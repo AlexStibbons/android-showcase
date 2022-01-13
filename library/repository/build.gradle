@@ -10,7 +10,9 @@ dependencies {
     implementation Dependencies.androidx_appcompat
     implementation Dependencies.androidx_core
 
+    implementation Dependencies.koin_core
     implementation Dependencies.koin_android
+    implementation Dependencies.koin_compat
 
     implementation Dependencies.retrofit
     implementation Dependencies.retrofit_gson_converter
@@ -21,9 +23,10 @@ dependencies {
     implementation Dependencies.dateLib
 
     implementation Dependencies.room_runtime
-    implementation Dependencies.room_ktx
+    annotationProcessor Dependencies.room_compiler
     kapt Dependencies.room_compiler
-    kapt Dependencies.room_persistence_compiler
+    implementation "androidx.room:room-ktx:2.4.1"
+
     androidTestImplementation Dependencies.room_testing
 
     testImplementation Dependencies.robolectric

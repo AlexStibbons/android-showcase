@@ -12,7 +12,7 @@ import com.alexstibbons.showcase.home.presentation.tv.SearchTv
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.FAVE_IDS_ARRAY
 import kotlinx.android.synthetic.main.activity_home.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import kotlinx.android.synthetic.main.activity_home.activity_home_search as searchIcon
 

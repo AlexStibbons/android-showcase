@@ -7,13 +7,13 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.alexstibbons.showcase"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -49,7 +49,9 @@ dependencies {
     implementation Dependencies.android_viewmodel_ktx
     implementation Dependencies.lifecycle_extensions_ktx
 
+    implementation Dependencies.koin_core
     implementation Dependencies.koin_android
+    implementation Dependencies.koin_compat
 
     implementation Dependencies.dateLib
 
