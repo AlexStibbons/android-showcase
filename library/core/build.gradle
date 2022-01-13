@@ -16,7 +16,6 @@ dependencies {
     implementation Dependencies.lifecycle_viewmodel_ktx
     implementation Dependencies.lifecycle_runtime_ktx
 
-    implementation Dependencies.koin_scope
     implementation Dependencies.koin_android
 
     implementation Dependencies.gson

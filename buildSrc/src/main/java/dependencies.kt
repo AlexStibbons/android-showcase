@@ -10,24 +10,25 @@ object Config {
 
 internal object DependencyVersions {
     const val androidx_arch_testing_core = "2.1.0"
-    const val androidx_core = "1.3.0-alpha01"
-    const val androidx_recyclerview = "1.0.0"
-    const val androidx_constraintLayout = "2.0.0-beta7"
-    const val material = "1.3.0-alpha03"
-    const val ktx_lifecycle = "2.2.0"
+    const val androidx_core = "1.8.0-alpha02"
+    const val androidx_recyclerview = "1.2.1"
+    const val androidx_constraintLayout = "2.1.2"
+    const val material = "1.6.0-alpha01"
+    const val ktx_lifecycle = "2.4.0"
 
     const val pin_view = "1.4.3"
 
-    const val view_pager_two = "1.1.0-alpha01"
+    const val view_pager_two = "1.1.0-beta01"
 
-    const val ktx_core: String = "1.2.0"
-    const val ktx_preference: String = "1.1.0"
-    const val kotlin_version = "1.3.72"
+    const val ktx_core: String = "1.7.0"
+    const val ktx_preference: String = "1.1.1"
+    const val kotlin_version = "1.5.31"
 
-    const val kotlin_coroutines = "1.3.3"
-    const val kotlinx_coroutines_test = "1.4.0"
+    const val kotlin_coroutines_core = "1.3.8"
+    const val kotlin_coroutines = "1.4.1"
+    const val kotlinx_coroutines_test = "1.6.0"
 
-    const val koin_version = "2.2.0-rc-4"
+    const val koin_version = "3.1.5"
 
     const val dateLib = "1.2.3"
 
@@ -99,7 +100,7 @@ object Dependencies {
     const val android_viewmodel_ktx =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${DependencyVersions.ktx_lifecycle}"
     const val coroutines_core =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.kotlin_coroutines}"
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.kotlin_coroutines_core}"
     const val coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependencyVersions.kotlin_coroutines}"
     const val lifecycle_viewmodel_ktx =
@@ -130,9 +131,7 @@ object Dependencies {
     const val mockitoAndroid = "org.mockito:mockito-android:${DependencyVersions.mockito_android}"
     const val mockk = "io.mockk:mockk:${DependencyVersions.mockk}"
 
-    const val koin_android = "org.koin:koin-android:${DependencyVersions.koin_version}"
-    const val koin_scope = "org.koin:koin-android-scope:${DependencyVersions.koin_version}"
-    const val koin_viewmodel = "org.koin:koin-android-viewmodel:${DependencyVersions.koin_version}"
+    const val koin_android = "io.insert-koin:koin-android:${DependencyVersions.koin_version}"
     const val koin_test = "org.koin:koin-test:${DependencyVersions.koin_version}"
 
     const val coil_imageloading = "io.coil-kt:coil:${DependencyVersions.coil}"
@@ -146,8 +145,6 @@ object Dependencies {
     const val okhttp_logging_interceptor =
         "com.squareup.okhttp3:logging-interceptor:${DependencyVersions.okhttp}"
     const val gson = "com.google.code.gson:gson:${DependencyVersions.gson}"
-
-    const val opentok = "com.opentok.android:opentok-android-sdk:${DependencyVersions.opentok}"
 
     const val support_compat =
         "com.android.support:support-compat:${DependencyVersions.support_compat}"

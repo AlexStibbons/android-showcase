@@ -50,8 +50,6 @@ dependencies {
     implementation Dependencies.lifecycle_extensions_ktx
 
     implementation Dependencies.koin_android
-    implementation Dependencies.koin_scope
-    implementation Dependencies.koin_viewmodel
 
     implementation Dependencies.dateLib
 

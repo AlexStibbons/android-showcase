@@ -10,7 +10,6 @@ dependencies {
     implementation Dependencies.androidx_appcompat
     implementation Dependencies.androidx_core
 
-    implementation Dependencies.koin_scope
     implementation Dependencies.koin_android
 
     implementation Dependencies.retrofit
