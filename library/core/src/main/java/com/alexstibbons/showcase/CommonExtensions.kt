@@ -18,6 +18,7 @@ import androidx.core.content.getSystemService
 import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.textfield.TextInputEditText
 
 /**

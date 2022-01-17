@@ -3,6 +3,7 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.home.databinding.ItemMediaBinding
 import com.alexstibbons.showcase.home.presentation.AddRemoveFave
 
 internal interface ToggleFaves {
@@ -46,7 +47,8 @@ internal class RecyclerAdapter(
         favesListLocal.contains(mediaId) || isMediaInFaveCache(mediaId)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent, onMediaClicked, faveListener, isMediaFave)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> =
+        MediaViewHolder(parent, onMediaClicked, faveListener, isMediaFave)
 
     override fun getItemCount(): Int = mediaList.size
 

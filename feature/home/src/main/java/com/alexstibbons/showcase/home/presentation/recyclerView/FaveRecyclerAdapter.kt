@@ -2,6 +2,7 @@ package com.alexstibbons.showcase.home.presentation.recyclerView
 
 import android.view.ViewGroup
 import com.alexstibbons.showcase.MediaModel
+import com.alexstibbons.showcase.home.databinding.ItemMediaBinding
 import com.alexstibbons.showcase.home.presentation.AddRemoveFave
 import com.alexstibbons.showcase.search.SearchTerms
 
@@ -31,7 +32,8 @@ internal class FaveRecyclerAdapter(
         favesListLocal.contains(mediaId) || isMediaInFaveCache(mediaId)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> = MediaViewHolder(parent, onMediaClicked, faveListener, isMediaFave)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> =
+        MediaViewHolder(parent, onMediaClicked, faveListener, isMediaFave)
 
     override fun getItemCount(): Int = mediaList.size
 
