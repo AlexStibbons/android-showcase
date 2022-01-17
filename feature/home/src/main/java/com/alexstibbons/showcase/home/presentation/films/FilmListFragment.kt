@@ -19,12 +19,6 @@ import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-internal interface SearchFilm: Search {
-    fun open()
-    fun scrollToTop()
-}
-
 internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
 
     private val filmViewModel: FilmListViewModel by viewModel()
@@ -33,7 +27,7 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
         fun newInstance() = FilmListFragment()
     }
 
-    override val search: Search= object: SearchFilm {
+    override val search: Search = object: Search.SearchFilm {
         override fun open() {
             searchDialogue.newInstance(MediaType.FILM).show(childFragmentManager, "sklsksl")
         }

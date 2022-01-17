@@ -26,11 +26,6 @@ import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-internal interface SearchFaves: Search {
-    fun open()
-    fun scrollToTop()
-}
-
 internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
 
     private val faveVm: FaveListViewModel by viewModel()
@@ -38,7 +33,7 @@ internal class FaveListFragment : BaseFragment(), NotifySearchSelected {
     override val recyclerAdapter: RecyclerAdapterBase by lazy {
         FaveRecyclerAdapter(onMediaClick, addRemoveFave, isMediaInFaveCache)
     }
-    override val search: Search = object: SearchFaves {
+    override val search: Search = object: Search.SearchFaves {
         override fun open() {
             searchDialogue.newInstance(MediaType.FAVE).show(childFragmentManager, "Fave search")
         }

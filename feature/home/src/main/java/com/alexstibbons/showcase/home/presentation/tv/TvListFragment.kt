@@ -19,13 +19,6 @@ import com.alexstibbons.showcase.showToast
 import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-internal interface SearchTv: Search {
-    fun open()
-    fun scrollToTop()
-}
-
-
 internal class TvListFragment : BaseFragment(), NotifySearchSelected {
 
     private val tvViewModel: TvListViewModel by viewModel()
@@ -34,7 +27,7 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
         fun newInstance() = TvListFragment()
     }
 
-    override val search: Search = object : SearchTv {
+    override val search: Search = object : Search.SearchTv {
         override fun open() {
             searchDialogue.newInstance(MediaType.TV).show(childFragmentManager, "Tv search")
         }

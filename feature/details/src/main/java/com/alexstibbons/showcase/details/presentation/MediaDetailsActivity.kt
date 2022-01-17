@@ -10,18 +10,19 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.details.R
+import com.alexstibbons.showcase.details.databinding.ActivityMediaDetailsBinding
 import com.alexstibbons.showcase.details.domain.MediaDetailsModel
 import com.alexstibbons.showcase.details.injectFeature
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_ID
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_media_details.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-
 internal class MediaDetailsActivity : ColoredSysBarActivity() {
+
+    private lateinit var detailsBinding: ActivityMediaDetailsBinding
 
     override val systemBarColor: Int
         get() = R.color.transparent
@@ -35,12 +36,13 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_media_details)
+        detailsBinding = ActivityMediaDetailsBinding.inflate(layoutInflater)
+        setContentView(detailsBinding.root)
         setTransparentSystemBar()
 
         injectFeature()
 
-        details_back.setOnClickListener { super.onBackPressed() }
+        detailsBinding.detailsBack.setOnClickListener { super.onBackPressed() }
 
         detailsViewModel.observeViewState().observe(this, Observer { state ->
             state ?: return@Observer
@@ -65,25 +67,25 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
         }.exhaustive
     }
 
-    private fun populateViews(data: MediaDetailsModel) {
-        details_title.text = data.title
-        details_overview.text = data.overview
+    private fun populateViews(data: MediaDetailsModel) = with(detailsBinding) {
+        detailsTitle.text = data.title
+        detailsOverview.text = data.overview
         data.tagline?.let {
-            details_tagline.text = it
-            details_tagline.isVisible = true
+            detailsTagline.text = it
+            detailsTagline.isVisible = true
         }
         data.imdbUrl?.let {
-            details_imdb.setOnClickListener { onLinkClick.openInBrowser(data.imdbUrl!!) }
-            details_imdb.isVisible = true
+            detailsImdb.setOnClickListener { onLinkClick.openInBrowser(data.imdbUrl!!) }
+            detailsImdb.isVisible = true
         }
         data.trailer?.let {
-            details_youtube.setOnClickListener { onLinkClick.openInBrowser(data!!.trailer!!.youtubeLink) }
-            details_youtube.isVisible = true
+            detailsYoutube.setOnClickListener { onLinkClick.openInBrowser(data!!.trailer!!.youtubeLink) }
+            detailsYoutube.isVisible = true
         }
 
         data.genres?.let { genres ->
-            details_genres.text = genres.joinToString { it.title }
-            details_genres.isVisible = true
+            detailsGenres.text = genres.joinToString { it.title }
+            detailsGenres.isVisible = true
         }
 
         data.imageUrl?.let {url ->
@@ -93,19 +95,19 @@ internal class MediaDetailsActivity : ColoredSysBarActivity() {
                 .error(R.drawable.ic_logo_big)
                 .load(BASE_IMG_URL+url)
                 .centerInside()
-                .into(details_image)
+                .into(detailsImage)
         }
 
-        if (detailsViewModel.isFave()) details_btn_fave.isChecked = true
+        if (detailsViewModel.isFave()) detailsBtnFave.isChecked = true
 
-        details_btn_fave.setOnCheckedChangeListener { buttonView, isChecked ->
+        detailsBtnFave.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 detailsViewModel.addFave(data)
-                details_btn_fave.isChecked = true
+                detailsBtnFave.isChecked = true
                 sendBroadcast(Intent("fave_change"))
             } else {
                 detailsViewModel.removeFave(data.id)
-                details_btn_fave.isChecked = false
+                detailsBtnFave.isChecked = false
                 sendBroadcast(Intent("fave_change"))
             }
         }
