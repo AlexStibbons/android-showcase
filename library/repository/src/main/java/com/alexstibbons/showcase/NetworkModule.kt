@@ -22,7 +22,7 @@ const val CONNECT_TIMEOUT = 20L
 
 val networkModule = module(override = true) {
     factory<Converter.Factory> { GsonConverterFactory.create(get()) }
-    factory<NetworkHandler>(override = true) {
+    factory<NetworkHandler> {
         NetworkHandlerImpl(
             androidApplication()
         )

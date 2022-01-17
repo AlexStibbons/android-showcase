@@ -5,34 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.MediaType
 import com.alexstibbons.showcase.exhaustive
-import com.alexstibbons.showcase.home.R
-import com.alexstibbons.showcase.home.injectFeature
 import com.alexstibbons.showcase.home.presentation.*
 import com.alexstibbons.showcase.home.presentation.AttachListener
 import com.alexstibbons.showcase.home.presentation.BaseFragment
 import com.alexstibbons.showcase.home.presentation.Search
-import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
-import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.search.NotifySearchSelected
 import com.alexstibbons.showcase.search.SearchTerms
 import com.alexstibbons.showcase.showToast
-import kotlinx.android.synthetic.main.fragment_base.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
-
-
-internal interface SearchTv: Search {
-    fun open()
-    fun scrollToTop()
-}
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class TvListFragment : BaseFragment(), NotifySearchSelected {
 
@@ -42,13 +26,13 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
         fun newInstance() = TvListFragment()
     }
 
-    override val search: Search = object : SearchTv {
+    override val search: Search = object : Search.SearchTv {
         override fun open() {
             searchDialogue.newInstance(MediaType.TV).show(childFragmentManager, "Tv search")
         }
 
         override fun scrollToTop() {
-            fragment_recycler.smoothScrollToPosition(0)
+            binding.fragmentRecycler.smoothScrollToPosition(0)
         }
     }
 
@@ -63,7 +47,7 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
 
         infiniteScroll(recyclerLayoutManager) { tvViewModel.fetchTv() }
 
-        fragment_clear_search.setOnClickListener { clearSearch() }
+        binding.fragmentClearSearch.setOnClickListener { clearSearch() }
 
         tvViewModel.observeFilms().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
@@ -101,14 +85,14 @@ internal class TvListFragment : BaseFragment(), NotifySearchSelected {
 
     private fun clearSearch() {
         showLoading()
-        fragment_clear_search.isVisible = false
+        binding.fragmentClearSearch.isVisible = false
         recyclerAdapter.clearMedia()
         tvViewModel.onClearSearch()
     }
 
     private fun prepareForSearch() {
         showLoading()
-        fragment_clear_search.isVisible = true
+        binding.fragmentClearSearch.isVisible = true
         recyclerAdapter.clearMedia()
     }
 }

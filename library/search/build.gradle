@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
-apply plugin: 'kotlin-android-extensions'
 
 dependencies {
 
@@ -19,9 +18,9 @@ dependencies {
     implementation Dependencies.android_viewmodel_ktx
     implementation Dependencies.lifecycle_extensions_ktx
 
+    implementation Dependencies.koin_core
     implementation Dependencies.koin_android
-    implementation Dependencies.koin_scope
-    implementation Dependencies.koin_viewmodel
+    implementation Dependencies.koin_compat
 
     implementation Dependencies.dateLib
 

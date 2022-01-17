@@ -2,32 +2,34 @@ import org.gradle.api.JavaVersion
 
 object Config {
     const val minSdk = 21
-    const val compileSdk = 29
-    const val targetSdk = 29
+    const val compileSdk = 31
+    const val targetSdk = 30
     val javaVersion = JavaVersion.VERSION_1_8
     const val buildTools = "29.0.2"
 }
 
 internal object DependencyVersions {
     const val androidx_arch_testing_core = "2.1.0"
-    const val androidx_core = "1.3.0-alpha01"
-    const val androidx_recyclerview = "1.0.0"
-    const val androidx_constraintLayout = "2.0.0-beta7"
-    const val material = "1.3.0-alpha03"
-    const val ktx_lifecycle = "2.2.0"
+    const val androidx_core = "1.8.0-alpha02"
+    const val androidx_recyclerview = "1.2.1"
+    const val androidx_constraintLayout = "2.1.2"
+    const val material = "1.6.0-alpha01"
+    const val ktx_lifecycle = "2.4.0"
+    const val androidx_appCompat  = "1.4.1"
 
     const val pin_view = "1.4.3"
 
-    const val view_pager_two = "1.1.0-alpha01"
+    const val view_pager_two = "1.1.0-beta01"
 
-    const val ktx_core: String = "1.2.0"
-    const val ktx_preference: String = "1.1.0"
-    const val kotlin_version = "1.3.72"
+    const val ktx_core: String = "1.7.0"
+    const val ktx_preference: String = "1.1.1"
+    const val kotlin_version = "1.5.31"
 
-    const val kotlin_coroutines = "1.3.3"
-    const val kotlinx_coroutines_test = "1.4.0"
+    const val kotlin_coroutines_core = "1.3.8"
+    const val kotlin_coroutines = "1.4.1"
+    const val kotlinx_coroutines_test = "1.6.0"
 
-    const val koin_version = "2.2.0-rc-4"
+    const val koin_version = "3.1.5"
 
     const val dateLib = "1.2.3"
 
@@ -36,7 +38,6 @@ internal object DependencyVersions {
 
     const val okhttp = "4.3.1"
     const val gson = "2.8.6"
-    const val opentok = "2.16.3"
 
     const val support_compat = "28.1.1"
     const val daimajia_easing = "2.0@aar"
@@ -44,8 +45,8 @@ internal object DependencyVersions {
 
     const val androidx_testing = "1.1.1"
     const val androidx_core_testing = "2.1.0"
-    const val androidx_espresso = "3.3.0-rc01"
-    const val androidx_junit = "1.1.2-rc01"
+    const val androidx_espresso = "3.5.0-alpha03"
+    const val androidx_junit = "1.1.4-alpha03"
     const val junit = "4.13"
     const val hamcrest = "1.3"
     const val robolectric = "4.3.1"
@@ -57,9 +58,9 @@ internal object DependencyVersions {
     const val stetho = "1.5.1"
     const val timber = "4.7.1"
 
-    const val gradleandroid = "3.5.3"
+    const val gradleandroid = "4.1.3"
     const val kotlin = "1.3.72"
-    const val gradleversions = "0.21.0"
+    const val gradleversions = "0.28.0"
 
     const val google_services = "4.3.3"
     const val firebase_analytics = "17.2.2"
@@ -71,9 +72,7 @@ internal object DependencyVersions {
     const val glide = "4.11.0"
     const val glide_transformations = "4.1.0"
 
-    const val room = "2.2.4"
-
-    const val biometric = "1.0.1"
+    const val room = "2.4.1"
 }
 
 
@@ -81,7 +80,7 @@ object Dependencies {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${DependencyVersions.kotlin_version}"
     const val androidx_core = "androidx.core:core-ktx:${DependencyVersions.androidx_core}"
     const val androidx_appcompat =
-        "androidx.appcompat:appcompat:${DependencyVersions.androidx_core}"
+        "androidx.appcompat:appcompat:${DependencyVersions.androidx_appCompat}"
     const val androidx_constraintlayout =
         "androidx.constraintlayout:constraintlayout:${DependencyVersions.androidx_constraintLayout}"
     const val androidx_material =
@@ -99,7 +98,7 @@ object Dependencies {
     const val android_viewmodel_ktx =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${DependencyVersions.ktx_lifecycle}"
     const val coroutines_core =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.kotlin_coroutines}"
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${DependencyVersions.kotlin_coroutines_core}"
     const val coroutines_android =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${DependencyVersions.kotlin_coroutines}"
     const val lifecycle_viewmodel_ktx =
@@ -130,9 +129,9 @@ object Dependencies {
     const val mockitoAndroid = "org.mockito:mockito-android:${DependencyVersions.mockito_android}"
     const val mockk = "io.mockk:mockk:${DependencyVersions.mockk}"
 
-    const val koin_android = "org.koin:koin-android:${DependencyVersions.koin_version}"
-    const val koin_scope = "org.koin:koin-android-scope:${DependencyVersions.koin_version}"
-    const val koin_viewmodel = "org.koin:koin-android-viewmodel:${DependencyVersions.koin_version}"
+    const val koin_core = "io.insert-koin:koin-core:${DependencyVersions.koin_version}"
+    const val koin_android = "io.insert-koin:koin-android:${DependencyVersions.koin_version}"
+    const val koin_compat = "io.insert-koin:koin-android-compat:${DependencyVersions.koin_version}"
     const val koin_test = "org.koin:koin-test:${DependencyVersions.koin_version}"
 
     const val coil_imageloading = "io.coil-kt:coil:${DependencyVersions.coil}"
@@ -146,8 +145,6 @@ object Dependencies {
     const val okhttp_logging_interceptor =
         "com.squareup.okhttp3:logging-interceptor:${DependencyVersions.okhttp}"
     const val gson = "com.google.code.gson:gson:${DependencyVersions.gson}"
-
-    const val opentok = "com.opentok.android:opentok-android-sdk:${DependencyVersions.opentok}"
 
     const val support_compat =
         "com.android.support:support-compat:${DependencyVersions.support_compat}"
@@ -178,24 +175,22 @@ object Dependencies {
 
     const val leakCanary =
         "com.squareup.leakcanary:leakcanary-android:${DependencyVersions.leakCanaryVersion}"
-    val stetho = "com.facebook.stetho:stetho:${DependencyVersions.stetho}"
-    val stethoOkhttp = "com.facebook.stetho:stetho-okhttp3:${DependencyVersions.stetho}"
-    val timber = "com.jakewharton.timber:timber:${DependencyVersions.timber}"
-    val androidx_card_view = "androidx.cardview:cardview:${DependencyVersions.androidx_card_view}"
-    val glide = "com.github.bumptech.glide:glide:${DependencyVersions.glide}"
-    val glide_transformations =
+    const val stetho = "com.facebook.stetho:stetho:${DependencyVersions.stetho}"
+    const val stethoOkhttp = "com.facebook.stetho:stetho-okhttp3:${DependencyVersions.stetho}"
+    const val timber = "com.jakewharton.timber:timber:${DependencyVersions.timber}"
+    const val androidx_card_view = "androidx.cardview:cardview:${DependencyVersions.androidx_card_view}"
+    const val glide = "com.github.bumptech.glide:glide:${DependencyVersions.glide}"
+    const val glide_transformations =
         "jp.wasabeef:glide-transformations:${DependencyVersions.glide_transformations}"
 
-    val room_runtime = "androidx.room:room-runtime:${DependencyVersions.room}"
-    val room_ktx = "androidx.room:room-ktx:${DependencyVersions.room}"
-    val room_compiler = "androidx.room:room-compiler:${DependencyVersions.room}"
-    val room_persistence_compiler =
+    const val room_runtime = "androidx.room:room-runtime:${DependencyVersions.room}"
+    const val room_ktx = "androidx.room:room-ktx:${DependencyVersions.room}"
+    const val room_compiler = "androidx.room:room-compiler:${DependencyVersions.room}"
+    const val room_persistence_compiler =
         "android.arch.persistence.room:compiler:${DependencyVersions.room}"
-    val room_testing = "androidx.room:room-testing:${DependencyVersions.room}"
-    val testandroidx_test_core = "androidx.test:core:${DependencyVersions.androidx_testing}"
+    const val room_testing = "androidx.room:room-testing:${DependencyVersions.room}"
+    const val testandroidx_test_core = "androidx.test:core:${DependencyVersions.androidx_testing}"
 
-    val kotlin_extensions =
+    const val kotlin_extensions =
         "org.jetbrains.kotlin:kotlin-android-extensions:${DependencyVersions.kotlin_version}"
-
-    val biometric = "androidx.biometric:biometric:${DependencyVersions.biometric}"
 }

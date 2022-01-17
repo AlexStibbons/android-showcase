@@ -6,20 +6,24 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import com.alexstibbons.showcase.ColoredSysBarActivity
-import kotlinx.android.synthetic.main.activity_about.*
+import com.alexstibbons.showcase.about.databinding.ActivityAboutBinding
 
 internal class AboutActivity : ColoredSysBarActivity() {
     override val systemBarColor: Int = R.color.transparent
+    private lateinit var aboutBinding: ActivityAboutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+        aboutBinding = ActivityAboutBinding.inflate(layoutInflater)
+        setContentView(aboutBinding.root)
 
         setTransparentSystemBar()
 
-        about_first_parag.movementMethod = LinkMovementMethod.getInstance()
+        with(aboutBinding) {
+            aboutFirstParag.movementMethod = LinkMovementMethod.getInstance()
+            aboutBack.setOnClickListener { super.onBackPressed() }
+        }
 
-        about_back.setOnClickListener { super.onBackPressed() }
     }
 
     private fun setTransparentSystemBar() {

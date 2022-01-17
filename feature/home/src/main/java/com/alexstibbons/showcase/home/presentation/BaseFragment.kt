@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,19 +15,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
 import com.alexstibbons.showcase.home.R
+import com.alexstibbons.showcase.home.databinding.FragmentBaseBinding
 import com.alexstibbons.showcase.home.injectFeature
-import com.alexstibbons.showcase.home.presentation.recyclerView.ItemViewHolder
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapter
 import com.alexstibbons.showcase.home.presentation.recyclerView.RecyclerAdapterBase
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.search.OpenSearch
 import com.alexstibbons.showcase.search.OpenSearchImpl
-import kotlinx.android.synthetic.main.fragment_base.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 const val BROADCAST_CHANGE = "fave_change"
 
 internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
+
+    private var _binding: FragmentBaseBinding? = null
+    protected val binding get() = _binding!!
 
     protected abstract val search: Search
 
@@ -80,6 +84,16 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
         baseViewModel.cachedIds().contains(mediaId)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentBaseBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -97,7 +111,7 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
     }
 
     private fun initRecycler() {
-        fragment_recycler.apply {
+        binding.fragmentRecycler.apply {
             adapter = recyclerAdapter
             layoutManager = recyclerLayoutManager
             setHasFixedSize(true)
@@ -119,7 +133,7 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
             }
         }
 
-        fragment_recycler.addOnScrollListener(listener)
+        binding.fragmentRecycler.addOnScrollListener(listener)
     }
 
     abstract fun populateRecycler(data: List<MediaModel>)
@@ -127,16 +141,17 @@ internal abstract class BaseFragment : Fragment(R.layout.fragment_base) {
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().unregisterReceiver(broadcastReceiver)
+        _binding = null
     }
 
-    protected fun hideLoading() {
-        fragment_loading.isVisible = false
-        fragment_recycler.isVisible = true
+    protected fun hideLoading() = with(binding) {
+        fragmentLoading.isVisible = false
+        fragmentRecycler.isVisible = true
     }
 
-    protected fun showLoading() {
-        fragment_recycler.isVisible = false
-        fragment_loading.isVisible = true
+    protected fun showLoading() = with(binding) {
+        fragmentRecycler.isVisible = false
+        fragmentLoading.isVisible = true
     }
     
 }

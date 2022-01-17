@@ -14,7 +14,7 @@ class ShowcaseApplication : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger(level = Level.DEBUG)
+            androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
             androidContext(this@ShowcaseApplication)
             androidFileProperties()
             loadKoinModules(

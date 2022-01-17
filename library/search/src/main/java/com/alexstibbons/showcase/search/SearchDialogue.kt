@@ -17,15 +17,17 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.navigator.NavigateTo.BundleKeys.MEDIA_TYPE_ID
+import com.alexstibbons.showcase.search.databinding.DialogueSearchBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.dialogue_search.*
 import kotlin.math.roundToInt
 
-
 internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelectedCallback {
+
+    private var _binding: DialogueSearchBinding? = null
+    private val binding get() = _binding!!
 
     private var notifySelected: NotifySearchSelected? = null
     private val allGenres: List<Genre> = Genre.toList()
@@ -63,11 +65,11 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val rootView = inflater.inflate(R.layout.dialogue_search, container, false)
+        _binding = DialogueSearchBinding.inflate(inflater, container, false)
 
         searchTerms = searchTerms.copy(mediaType = MediaType.from(mediaType))
 
-        return rootView
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,11 +77,11 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
 
         allGenres.forEach { addChipToGroup(it) }
 
-        search_title_input.doAfterTextChange { text ->
+        binding.searchTitleInput.doAfterTextChange { text ->
             searchTerms = searchTerms.copy(title = text ?: "")
         }
 
-        dialogue_btn_search.setOnClickListener { onSearchDone(searchTerms.toSearchTerms()) }
+        binding.dialogueBtnSearch.setOnClickListener { onSearchDone(searchTerms.toSearchTerms()) }
     }
 
     private fun addChipToGroup(genre: Genre) {
@@ -103,7 +105,7 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
             }
         }
 
-        dialogue_genre_chips.addView(chip)
+        binding.dialogueGenreChips.addView(chip)
     }
 
     private fun Chip.styleChecked() {
@@ -152,6 +154,10 @@ internal class SearchDialogue: BottomSheetDialogFragment(), OnSearchTermsSelecte
         dismissAllowingStateLoss()
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 
 }
 
