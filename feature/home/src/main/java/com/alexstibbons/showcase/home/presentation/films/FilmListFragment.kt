@@ -16,7 +16,6 @@ import com.alexstibbons.showcase.home.presentation.Search
 import com.alexstibbons.showcase.search.NotifySearchSelected
 import com.alexstibbons.showcase.search.SearchTerms
 import com.alexstibbons.showcase.showToast
-import kotlinx.android.synthetic.main.fragment_base.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
@@ -33,7 +32,7 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
         }
 
         override fun scrollToTop() {
-            fragment_recycler.smoothScrollToPosition(0)
+            binding.fragmentRecycler.smoothScrollToPosition(0)
         }
     }
 
@@ -49,7 +48,7 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
 
         infiniteScroll(recyclerLayoutManager) { filmViewModel.fetchFilms() }
 
-        fragment_clear_search.setOnClickListener { clearSearch() }
+        binding.fragmentClearSearch.setOnClickListener { clearSearch() }
 
         filmViewModel.observeFilms().observe(viewLifecycleOwner, Observer { state ->
             state ?: return@Observer
@@ -69,14 +68,14 @@ internal class FilmListFragment : BaseFragment(), NotifySearchSelected {
 
     private fun clearSearch() {
         showLoading()
-        fragment_clear_search.isVisible = false
+        binding.fragmentClearSearch.isVisible = false
         recyclerAdapter.clearMedia()
         filmViewModel.onClearSearch()
     }
 
     private fun prepareForSearch() {
         showLoading()
-        fragment_clear_search.isVisible = true
+        binding.fragmentClearSearch.isVisible = true
         recyclerAdapter.clearMedia()
     }
 
