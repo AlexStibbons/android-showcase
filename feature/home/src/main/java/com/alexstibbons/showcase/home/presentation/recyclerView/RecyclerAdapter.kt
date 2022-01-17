@@ -1,5 +1,6 @@
 package com.alexstibbons.showcase.home.presentation.recyclerView
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alexstibbons.showcase.MediaModel
@@ -47,8 +48,10 @@ internal class RecyclerAdapter(
         favesListLocal.contains(mediaId) || isMediaInFaveCache(mediaId)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> =
-        MediaViewHolder(parent, onMediaClicked, faveListener, isMediaFave)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<MediaModel> {
+        val binding = ItemMediaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MediaViewHolder(binding, onMediaClicked, faveListener, isMediaFave)
+    }
 
     override fun getItemCount(): Int = mediaList.size
 
