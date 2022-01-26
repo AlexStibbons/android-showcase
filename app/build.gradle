@@ -44,6 +44,7 @@ dependencies {
     implementation project(":library:repository")
     implementation project(":library:navigator")
     implementation project(":library:search")
+    implementation project(":library:common-domain")
 
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_appcompat
