@@ -39,6 +39,10 @@ internal class LoginActivity : AppCompatActivity() {
                 finish()
             }
 
+            btnReset.setOnClickListener {
+                startResetPassword()
+            }
+
             emailInput.doAfterTextChanged { input ->
                 val text = input.toString()
                 loginViewModel.addLoginData(LoginDataPoint.EMAIL, text)
@@ -65,6 +69,21 @@ internal class LoginActivity : AppCompatActivity() {
                 startLogin()
             }
 
+        }
+    }
+
+    private fun startResetPassword() {
+        val email = loginViewModel.loginData[LoginDataPoint.EMAIL] ?: ""
+        if (!email.isEmailValid) {
+            binding.emailInput.error = getString(R.string.error_email)
+        } else {
+            binding.emailInput.error = null
+            auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showToast("email sent")
+                    }
+                }
         }
     }
 
