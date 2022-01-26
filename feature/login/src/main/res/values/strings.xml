@@ -1,1 +1,9 @@
-<resources></resources>
+<resources>
+
+    <string name="error_email">Email must be valid</string>
+    <string name="error_password">Password must be longer and contain a digit</string>
+    <string name="sign_up">Sign up</string>
+    <string name="log_in">Log in</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+</resources>
