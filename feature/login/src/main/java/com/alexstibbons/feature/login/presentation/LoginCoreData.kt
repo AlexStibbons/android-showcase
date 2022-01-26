@@ -14,4 +14,4 @@ internal val String.isEmailValid: Boolean get() {
     return Pattern.matches(EMAIL_REGEX, this)
 }
 
-internal val String.isPasswordValid: Boolean get() = (this.length > 3 && this.any { it.isDigit() })
+internal val String.isPasswordValid: Boolean get() = (this.length > 5 && this.any { it.isDigit() })
