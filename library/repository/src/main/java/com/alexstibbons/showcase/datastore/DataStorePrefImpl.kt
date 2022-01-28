@@ -40,8 +40,9 @@ internal class DataStorePrefImpl(
     override suspend fun getId(): String? = ds.data.map { it[USER_ID] }.first()
 
     override suspend fun clear() {
-
+        ds.edit { it.clear() }
     }
+
 
     companion object {
         private val USER_ID = stringPreferencesKey("userId")

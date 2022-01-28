@@ -6,4 +6,5 @@ val commonDomainModule = module {
 
     factory { GetUserId(get()) }
     factory { SaveUserId(get()) }
+    factory { Logout(get(), get()) }
 }

@@ -7,6 +7,7 @@ interface FaveCache {
     suspend fun getFavesIds(): List<Int>
     suspend fun addToFave(fave: FaveEntity): Long
     suspend fun removeFave(id: Int)
+    suspend fun clear()
 }
 
 @Database(
@@ -23,4 +24,6 @@ internal abstract class FaveCacheImpl : RoomDatabase(), FaveCache {
     override suspend fun getFavesIds(): List<Int> = faveDao().getFavesIds()
 
     override suspend fun removeFave(id: Int) = faveDao().removeFave(id)
+
+    override suspend fun clear() = faveDao().clear()
 }

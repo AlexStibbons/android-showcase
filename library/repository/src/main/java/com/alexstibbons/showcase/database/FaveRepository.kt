@@ -9,6 +9,7 @@ interface FaveRepository {
     suspend fun getFavesIds(): Response<Failure, List<Int>>
     suspend fun addToFave(fave: FaveEntity): Response<Failure, Unit>
     suspend fun removeFave(id: Int): Response<Failure, Unit>
+    suspend fun clear()
 }
 
 internal class FaveRepositoryImpl(
@@ -40,5 +41,7 @@ internal class FaveRepositoryImpl(
 
         return Response.success(Unit)
     }
+
+    override suspend fun clear() = cache.clear()
 
 }
