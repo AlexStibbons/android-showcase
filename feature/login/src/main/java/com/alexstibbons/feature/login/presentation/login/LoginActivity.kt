@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
 import com.alexstibbons.feature.login.databinding.ActivityLoginBinding
 import com.alexstibbons.feature.login.injectFeature
@@ -11,6 +12,7 @@ import com.alexstibbons.feature.login.presentation.LoginDataPoint
 import com.alexstibbons.feature.login.presentation.isEmailValid
 import com.alexstibbons.feature.login.presentation.isPasswordValid
 import com.alexstibbons.showcase.doAfterTextChange
+import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -31,6 +33,12 @@ internal class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         injectFeature()
+
+        loginViewModel.observeState().observe(this, Observer { state ->
+            state ?: return@Observer
+
+            renderState(state)
+        })
 
         with(binding) {
 
@@ -72,6 +80,11 @@ internal class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun renderState(state: LoginViewModel.LoginState) = when (state) {
+        LoginViewModel.LoginState.Failure -> showToast("failure to save")
+        LoginViewModel.LoginState.UserIdSaved -> showToast("login saved")
+    }.exhaustive
+
     private fun startResetPassword() {
         val email = loginViewModel.loginData[LoginDataPoint.EMAIL] ?: ""
         if (!email.isEmailValid) {
@@ -100,6 +113,7 @@ internal class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     Log.e("login", "${user?.uid ?: "no uid"}")
                     showToast("success")
+                    loginViewModel.onLoginSuccess(user)
                 } else {
                     showToast("failure")
                 }

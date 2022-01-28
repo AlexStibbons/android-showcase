@@ -8,6 +8,7 @@ dependencies {
     implementation project(":library:ui-common")
     implementation project(":library:repository")
     implementation project(":library:navigator")
+    implementation project(":library:common-domain")
 
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_appcompat

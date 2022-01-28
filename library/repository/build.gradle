@@ -26,6 +26,11 @@ dependencies {
     kapt Dependencies.room_compiler
     implementation Dependencies.room_ktx
 
+    implementation Dependencies.data_store
+    implementation Dependencies.data_store_core
+    implementation Dependencies.data_store_pref
+    implementation Dependencies.data_store_pref_core
+
     androidTestImplementation Dependencies.room_testing
 
     testImplementation Dependencies.robolectric

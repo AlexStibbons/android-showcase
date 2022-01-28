@@ -9,6 +9,12 @@ object Config {
 }
 
 internal object DependencyVersions {
+
+    const val data_store = "1.0.0"
+    const val data_store_core = "1.0.0"
+    const val data_store_preferences = "1.0.0"
+    const val data_store_preferences_core = "1.0.0"
+
     const val androidx_arch_testing_core = "2.1.0"
     const val androidx_core = "1.8.0-alpha02"
     const val androidx_recyclerview = "1.2.1"
@@ -107,6 +113,11 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-runtime-ktx:${DependencyVersions.ktx_lifecycle}"
     const val lifecycle_extensions_ktx =
         "android.arch.lifecycle:extensions:${DependencyVersions.ktx_lifecycle}"
+
+    const val data_store = "androidx.datastore:datastore:${DependencyVersions.data_store}"
+    const val data_store_core = "androidx.datastore:datastore-core:${DependencyVersions.data_store_core}"
+    const val data_store_pref = "androidx.datastore:datastore-preferences:${DependencyVersions.data_store_preferences}"
+    const val data_store_pref_core = "androidx.datastore:datastore-preferences-core:${DependencyVersions.data_store_preferences_core}"
 
     const val kotlinx_coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${DependencyVersions.kotlinx_coroutines_test}"
     const val testandroidx_core = "androidx.arch.core:core-testing:${DependencyVersions.androidx_arch_testing_core}"

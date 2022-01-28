@@ -51,6 +51,13 @@ internal class HomeViewModel(
         }
     }
 
+    fun getUserId() = interactor.getUserId { response ->
+        when (response) {
+            is Response.Failure -> Log.e("home vm", "user id failed")
+            is Response.Success -> Log.e("home vm", "user id is ${response.success}")
+        }.exhaustive
+    }
+
     sealed class ViewState {
         object Loading: ViewState()
         data class NewFaves(val data: List<Int>): ViewState()
