@@ -82,7 +82,10 @@ internal class LoginActivity : AppCompatActivity() {
 
     private fun renderState(state: LoginViewModel.LoginState) = when (state) {
         LoginViewModel.LoginState.Failure -> showToast("failure to save")
-        LoginViewModel.LoginState.UserIdSaved -> showToast("login saved")
+        is LoginViewModel.LoginState.OpenHome -> {
+            startActivity(NavigateTo.movieList(this, state.faceIds))
+            finish()
+        }
     }.exhaustive
 
     private fun startResetPassword() {
