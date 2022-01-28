@@ -36,6 +36,7 @@ internal class LoginViewModel(
 
     override fun onCleared() {
         saveUserId.cancel()
+        getCachedFaves.cancel()
         super.onCleared()
     }
 
@@ -66,7 +67,7 @@ internal class LoginViewModel(
 
     sealed class LoginState {
         object Failure : LoginState()
-        class OpenHome(val faceIds: ArrayList<Int>): LoginState()
+        class OpenHome(val faveIds: ArrayList<Int>): LoginState()
     }
 
 }

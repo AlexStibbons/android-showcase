@@ -25,5 +25,5 @@ private val loginDomain = module {
 
 private val loginPresentation = module {
     viewModel { LoginViewModel(get(), get()) }
-    viewModel { SigninViewModel() }
+    viewModel { SigninViewModel(get()) }
 }

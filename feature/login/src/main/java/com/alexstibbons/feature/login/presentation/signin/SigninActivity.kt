@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
 import com.alexstibbons.feature.login.databinding.ActivitySigninBinding
 import com.alexstibbons.feature.login.injectFeature
 import com.alexstibbons.feature.login.presentation.LoginDataPoint
 import com.alexstibbons.feature.login.presentation.isEmailValid
 import com.alexstibbons.feature.login.presentation.isPasswordValid
+import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
 import com.google.firebase.auth.FirebaseAuth
@@ -29,8 +31,13 @@ internal class SigninActivity : AppCompatActivity() {
 
         injectFeature()
 
-        with(binding) {
+        signinViewModel.observeState().observe(this, Observer { state ->
+            state ?: return@Observer
 
+            renderState(state)
+        })
+
+        with(binding) {
 
             emailInput.doAfterTextChanged { input ->
                 val text = input.toString()
@@ -61,6 +68,14 @@ internal class SigninActivity : AppCompatActivity() {
         }
     }
 
+    private fun renderState(state: SigninViewModel.SignupState) = when (state) {
+        SigninViewModel.SignupState.Failure -> showToast("failure")
+        is SigninViewModel.SignupState.OpenHome -> {
+            startActivity(NavigateTo.movieList(this, state.faveIds))
+            finish()
+        }
+    }.exhaustive
+
     private fun onInput() {
         binding.btnSignup.isEnabled = signinViewModel.isInputValid
     }
@@ -73,8 +88,7 @@ internal class SigninActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    Log.e("sign up", "${user?.uid ?: "no uid"} ")
-                    showToast("success")
+                    signinViewModel.onUserSignedUp(user)
                 } else {
                     showToast("failure")
                 }

@@ -2,7 +2,6 @@ package com.alexstibbons.feature.login.presentation.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
@@ -11,13 +10,10 @@ import com.alexstibbons.feature.login.injectFeature
 import com.alexstibbons.feature.login.presentation.LoginDataPoint
 import com.alexstibbons.feature.login.presentation.isEmailValid
 import com.alexstibbons.feature.login.presentation.isPasswordValid
-import com.alexstibbons.showcase.doAfterTextChange
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -83,7 +79,7 @@ internal class LoginActivity : AppCompatActivity() {
     private fun renderState(state: LoginViewModel.LoginState) = when (state) {
         LoginViewModel.LoginState.Failure -> showToast("failure to save")
         is LoginViewModel.LoginState.OpenHome -> {
-            startActivity(NavigateTo.movieList(this, state.faceIds))
+            startActivity(NavigateTo.movieList(this, state.faveIds))
             finish()
         }
     }.exhaustive
@@ -114,8 +110,6 @@ internal class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    Log.e("login", "${user?.uid ?: "no uid"}")
-                    showToast("success")
                     loginViewModel.onLoginSuccess(user)
                 } else {
                     showToast("failure")
