@@ -41,8 +41,8 @@ internal class LoginViewModel(
         user?.let { user ->
             saveUserId(user.uid) { response ->
                 _loginState.value = when (response) {
-                    is Response.Failure -> LoginState.UserIdSaved
-                    is Response.Success -> LoginState.Failure
+                    is Response.Failure -> LoginState.Failure
+                    is Response.Success -> LoginState.UserIdSaved
                 }.exhaustive
             }
         }

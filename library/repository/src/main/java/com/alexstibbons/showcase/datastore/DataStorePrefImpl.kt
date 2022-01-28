@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase.datastore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -8,7 +9,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.alexstibbons.showcase.responses.Failure
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.single
 
 sealed class DataStoreFailure : Failure.FeatureSpecificFailure() {
     object NoUserId : DataStoreFailure()
@@ -16,7 +19,8 @@ sealed class DataStoreFailure : Failure.FeatureSpecificFailure() {
 
 interface DataStorePref {
     suspend fun saveId(id: String)
-    val userId: Flow<String?>
+    suspend fun getId(): String?
+    suspend fun clear()
 }
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth_data_store_pref")
@@ -33,8 +37,10 @@ internal class DataStorePrefImpl(
         }
     }
 
-    override val userId : Flow<String?> get() = ds.data.map { pref ->
-        pref[USER_ID]
+    override suspend fun getId(): String? = ds.data.map { it[USER_ID] }.first()
+
+    override suspend fun clear() {
+
     }
 
     companion object {
