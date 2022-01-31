@@ -2,10 +2,7 @@ package com.alexstibbons.showcase.home.presentation
 
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
-import com.alexstibbons.showcase.ColoredSysBarActivity
-import com.alexstibbons.showcase.MediaModel
-import com.alexstibbons.showcase.argumentOrThrow
-import com.alexstibbons.showcase.exhaustive
+import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.home.R
 import com.alexstibbons.showcase.home.databinding.ActivityHomeBinding
 import com.alexstibbons.showcase.home.injectFeature
@@ -79,6 +76,8 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
             }
 
             activityHomeAbout.setOnClickListener { startActivity(NavigateTo.about(this@HomeActivity)) }
+
+            activityHomeUser.setOnClickListener { baseViewModel.getUserId() }
 
 
             activityHomeBottomNav.setOnNavigationItemReselectedListener { item ->

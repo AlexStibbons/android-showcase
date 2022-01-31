@@ -1,6 +1,7 @@
 package com.alexstibbons.showcase
 
 import android.app.Application
+import com.alexstibbons.library.common_domain.commonDomainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -22,6 +23,7 @@ class ShowcaseApplication : Application() {
                     appModule,
                     networkModule,
                     repositoryModule,
+                    commonDomainModule,
                     openLinkModule
                 )
             )

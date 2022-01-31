@@ -10,6 +10,18 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_search"
+        app:layout_constraintEnd_toStartOf="@id/activity_home_user"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        />
+
+    <ImageView
+        android:id="@+id/activity_home_user"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="12dp"

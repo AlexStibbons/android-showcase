@@ -37,12 +37,14 @@ dependencies {
     implementation project(":feature:home")
     implementation project(":feature:details")
     implementation project(":feature:about")
+    implementation project(":feature:login")
 
     implementation project(":library:core")
     implementation project(":library:ui-common")
     implementation project(":library:repository")
     implementation project(":library:navigator")
     implementation project(":library:search")
+    implementation project(":library:common-domain")
 
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_appcompat
@@ -52,13 +54,19 @@ dependencies {
     implementation Dependencies.android_viewmodel_ktx
     implementation Dependencies.lifecycle_extensions_ktx
 
+    implementation Dependencies.data_store
+    implementation Dependencies.data_store_core
+    implementation Dependencies.data_store_pref
+    implementation Dependencies.data_store_pref_core
+
     implementation Dependencies.koin_core
     implementation Dependencies.koin_android
     implementation Dependencies.koin_compat
 
     implementation Dependencies.dateLib
 
-    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 

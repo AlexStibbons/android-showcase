@@ -8,3 +8,5 @@ include ':library:repository'
 include ':library:core'
 include ':app'
 rootProject.name = "Showcase"
+include ':feature:login'
+include ':library:common-domain'

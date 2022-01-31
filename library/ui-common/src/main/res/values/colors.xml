@@ -9,4 +9,5 @@
     <color name="dark_blue">@color/colorPrimary</color>
     <color name="light_blue">@color/colorAccent</color>
     <color name="transparent">#00000000</color>
+    <color name="gray">#6D737B</color>
 </resources>

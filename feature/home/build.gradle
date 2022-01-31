@@ -23,6 +23,7 @@ dependencies {
     implementation Dependencies.dateLib
 
     implementation Dependencies.glide
+    implementation project(path: ':library:common-domain')
     annotationProcessor Dependencies.glide_compiler
 
     implementation Dependencies.androidx_view_pager_two

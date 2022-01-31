@@ -19,4 +19,7 @@ internal interface FaveDao {
 
     @Query("DELETE FROM faveentity WHERE faveentity.id == :id")
     suspend fun removeFave(id: Int)
+
+    @Query("DELETE FROM faveentity")
+    suspend fun clear()
 }
