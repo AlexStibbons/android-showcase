@@ -2,14 +2,13 @@ package com.alexstibbons.feature.login.presentation.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
 import com.alexstibbons.feature.login.databinding.ActivityLoginBinding
 import com.alexstibbons.feature.login.injectFeature
 import com.alexstibbons.feature.login.presentation.LoginDataPoint
 import com.alexstibbons.feature.login.presentation.isEmailValid
-import com.alexstibbons.feature.login.presentation.isPasswordValid
+import com.alexstibbons.feature.login.presentation.onAfterCredentialsInput
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
@@ -47,26 +46,14 @@ internal class LoginActivity : AppCompatActivity() {
                 startResetPassword()
             }
 
-            emailInput.doAfterTextChanged { input ->
-                val text = input.toString()
+            emailInput.onAfterCredentialsInput(R.string.error_email, LoginDataPoint.EMAIL) { text ->
                 loginViewModel.addLoginData(LoginDataPoint.EMAIL, text)
                 onInput()
-                if (!text.isEmailValid) {
-                    emailInput.error = getString(R.string.error_email)
-                } else {
-                    emailInput.error = null
-                }
             }
 
-            passwordInput.doAfterTextChanged { input ->
-                val text = input.toString()
+            passwordInput.onAfterCredentialsInput(R.string.error_password, LoginDataPoint.PASSWORD) { text ->
                 loginViewModel.addLoginData(LoginDataPoint.PASSWORD, text)
                 onInput()
-                if (!text.isPasswordValid) {
-                    passwordInput.error = getString(R.string.error_password)
-                } else {
-                    passwordInput.error = null
-                }
             }
 
             btnLogin.setOnClickListener {
@@ -77,7 +64,7 @@ internal class LoginActivity : AppCompatActivity() {
     }
 
     private fun renderState(state: LoginViewModel.LoginState) = when (state) {
-        LoginViewModel.LoginState.Failure -> showToast("failure to save")
+        LoginViewModel.LoginState.Failure -> showToast(R.string.error_login_save)
         is LoginViewModel.LoginState.OpenHome -> {
             startActivity(NavigateTo.movieList(this, state.faveIds))
             finish()
@@ -93,7 +80,7 @@ internal class LoginActivity : AppCompatActivity() {
             auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        showToast("email sent")
+                        showToast(R.string.email_sent)
                     }
                 }
         }
@@ -112,7 +99,7 @@ internal class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     loginViewModel.onLoginSuccess(user)
                 } else {
-                    showToast("failure")
+                    showToast(R.string.error_login)
                 }
             }
     }

@@ -11,6 +11,7 @@ import com.alexstibbons.feature.login.injectFeature
 import com.alexstibbons.feature.login.presentation.LoginDataPoint
 import com.alexstibbons.feature.login.presentation.isEmailValid
 import com.alexstibbons.feature.login.presentation.isPasswordValid
+import com.alexstibbons.feature.login.presentation.onAfterCredentialsInput
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.alexstibbons.showcase.showToast
@@ -39,26 +40,14 @@ internal class SigninActivity : AppCompatActivity() {
 
         with(binding) {
 
-            emailInput.doAfterTextChanged { input ->
-                val text = input.toString()
+            emailInput.onAfterCredentialsInput(R.string.error_email, LoginDataPoint.EMAIL) { text ->
                 signinViewModel.addLoginData(LoginDataPoint.EMAIL, text)
                 onInput()
-                if (!text.isEmailValid) {
-                    emailInput.error = getString(R.string.error_email)
-                } else {
-                    emailInput.error = null
-                }
             }
 
-            passwordInput.doAfterTextChanged { input ->
-                val text = input.toString()
+            passwordInput.onAfterCredentialsInput(R.string.error_password, LoginDataPoint.PASSWORD) { text ->
                 signinViewModel.addLoginData(LoginDataPoint.PASSWORD, text)
                 onInput()
-                if (!text.isPasswordValid) {
-                    passwordInput.error = getString(R.string.error_password)
-                } else {
-                    passwordInput.error = null
-                }
             }
 
             btnSignup.setOnClickListener {

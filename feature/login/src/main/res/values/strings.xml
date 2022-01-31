@@ -6,4 +6,7 @@
     <string name="log_in">Log in</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="email_sent">Email sent</string>
+    <string name="error_login">Failed to login</string>
+    <string name="error_login_save">Failed to save credentials</string>
 </resources>
