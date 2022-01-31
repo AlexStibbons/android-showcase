@@ -2,6 +2,7 @@ package com.alexstibbons.feature.login.presentation.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
 import com.alexstibbons.feature.login.databinding.ActivityLoginBinding
@@ -64,11 +65,16 @@ internal class LoginActivity : AppCompatActivity() {
     }
 
     private fun renderState(state: LoginViewModel.LoginState) = when (state) {
-        LoginViewModel.LoginState.Failure -> showToast(R.string.error_login_save)
+        LoginViewModel.LoginState.Failure -> {
+            hideLoading()
+            showToast(R.string.error_login_save)
+        }
         is LoginViewModel.LoginState.OpenHome -> {
+            hideLoading()
             startActivity(NavigateTo.movieList(this, state.faveIds))
             finish()
         }
+        LoginViewModel.LoginState.Loading -> showLoading()
     }.exhaustive
 
     private fun startResetPassword() {
@@ -86,11 +92,16 @@ internal class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun hideLoading() = with(binding) { loading.isVisible = false }
+
+    private fun showLoading() = with(binding) { loading.isVisible = true }
+
     private fun onInput() {
         binding.btnLogin.isEnabled = loginViewModel.isInputValid
     }
 
     private fun startLogin() {
+        loginViewModel.onStartLogin()
         val email = loginViewModel.loginData[LoginDataPoint.EMAIL] ?: ""
         val password = loginViewModel.loginData[LoginDataPoint.PASSWORD] ?: ""
         auth.signInWithEmailAndPassword(email, password)

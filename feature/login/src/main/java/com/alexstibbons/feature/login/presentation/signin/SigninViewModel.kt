@@ -50,7 +50,12 @@ internal class SigninViewModel(
         }
     }
 
+    fun onStartSignup() {
+        _signupState.value = SignupState.Loading
+    }
+
     sealed class SignupState {
+        object Loading : SignupState()
         object Failure : SignupState()
         class OpenHome(val faveIds: ArrayList<Int> = ArrayList()): SignupState()
     }

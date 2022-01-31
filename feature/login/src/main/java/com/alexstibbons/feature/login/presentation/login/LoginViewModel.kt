@@ -65,7 +65,12 @@ internal class LoginViewModel(
 
     }
 
+    fun onStartLogin() {
+        _loginState.value = LoginState.Loading
+    }
+
     sealed class LoginState {
+        object Loading: LoginState()
         object Failure : LoginState()
         class OpenHome(val faveIds: ArrayList<Int>): LoginState()
     }

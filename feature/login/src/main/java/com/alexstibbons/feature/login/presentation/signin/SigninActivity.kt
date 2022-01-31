@@ -3,6 +3,7 @@ package com.alexstibbons.feature.login.presentation.signin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
@@ -58,20 +59,31 @@ internal class SigninActivity : AppCompatActivity() {
     }
 
     private fun renderState(state: SigninViewModel.SignupState) = when (state) {
-        SigninViewModel.SignupState.Failure -> showToast("failure")
+        SigninViewModel.SignupState.Failure -> {
+            hideLoading()
+            showToast("failure")
+        }
         is SigninViewModel.SignupState.OpenHome -> {
+            hideLoading()
             startActivity(NavigateTo.movieList(this, state.faveIds))
             finish()
         }
+        SigninViewModel.SignupState.Loading -> showLoading()
     }.exhaustive
 
     private fun onInput() {
         binding.btnSignup.isEnabled = signinViewModel.isInputValid
     }
 
+    private fun hideLoading() = with(binding) { loading.isVisible = false }
+
+    private fun showLoading() = with(binding) { loading.isVisible = true }
+
     private fun startSignup() {
         val email = signinViewModel.loginData[LoginDataPoint.EMAIL] ?: ""
         val password = signinViewModel.loginData[LoginDataPoint.PASSWORD] ?: ""
+
+        signinViewModel.onStartSignup()
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
