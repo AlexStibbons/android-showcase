@@ -54,6 +54,7 @@ dependencies {
     implementation project(":feature:details")
     implementation project(":feature:about")
     implementation project(":feature:login")
+    implementation project(":feature:profile")
 
     implementation project(":library:core")
     implementation project(":library:ui-common")

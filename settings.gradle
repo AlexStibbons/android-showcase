@@ -10,3 +10,4 @@ include ':app'
 rootProject.name = "Showcase"
 include ':feature:login'
 include ':library:common-domain'
+include ':feature:profile'
