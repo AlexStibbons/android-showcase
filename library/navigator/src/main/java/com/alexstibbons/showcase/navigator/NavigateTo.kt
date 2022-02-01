@@ -34,6 +34,10 @@ object NavigateTo {
         context: Context
     ) = internalIntent(context, "com.alexstibbons.showcase.signin.open")
 
+    fun profile(
+        context: Context
+    ) = internalIntent(context, "com.alexstibbons.showcase.profile.open")
+
     private fun internalIntent(context: Context, action: String): Intent =
         Intent(action).setPackage(context.packageName)
 
