@@ -1,5 +1,7 @@
 package com.alexstibbons.feature.profile
 
+import com.alexstibbons.feature.profile.presentation.ProfileViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
@@ -17,5 +19,5 @@ private val domainModule = module {
 }
 
 private val presentationModule = module {
-
+    viewModel { ProfileViewModel(get()) }
 }

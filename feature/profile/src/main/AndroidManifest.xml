@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".presentation.ProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

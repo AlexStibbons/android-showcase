@@ -77,7 +77,7 @@ internal class HomeActivity : ColoredSysBarActivity(), AttachListener {
 
             activityHomeAbout.setOnClickListener { startActivity(NavigateTo.about(this@HomeActivity)) }
 
-            activityHomeUser.setOnClickListener { baseViewModel.getUserId() }
+            activityHomeUser.setOnClickListener { startActivity(NavigateTo.profile(this@HomeActivity)) }
 
 
             activityHomeBottomNav.setOnNavigationItemReselectedListener { item ->
