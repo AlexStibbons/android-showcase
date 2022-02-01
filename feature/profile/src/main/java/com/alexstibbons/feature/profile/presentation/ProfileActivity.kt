@@ -33,25 +33,30 @@ internal class ProfileActivity : AppCompatActivity() {
         with(binding) {
             back.setOnClickListener { onBackPressed() }
 
-            logout.setOnClickListener { viewModel.onLogout() }
+            logout.setOnClickListener { viewModel.onLogout(doDeleteUser = false) }
 
-            deleteData.setOnClickListener { onDeleteData() }
+            deleteData.setOnClickListener { viewModel.onLogout(doDeleteUser = true) }
         }
     }
 
     private fun renderState(state: ProfileViewModel.ViewState) = when (state) {
         ProfileViewModel.ViewState.Loading -> showLoading()
-        ProfileViewModel.ViewState.LogoutSuccess -> {
+        is ProfileViewModel.ViewState.LogoutSuccess -> {
             hideLoading()
-            openLogin()
+            if (!state.doDeleteUser) openLogin() else startDeleteUser()
         }
     }.exhaustive
+
+    private fun startDeleteUser() {
+        //TODO remove all films saved in remote database, then
+        onDeleteUserData()
+    }
 
     private fun hideLoading() = with(binding) {}
 
     private fun showLoading() = with(binding) {}
 
-    private fun onDeleteData() {
+    private fun onDeleteUserData() {
         val user = auth.currentUser!!
 
         user.delete()

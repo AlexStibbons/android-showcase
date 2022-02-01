@@ -70,7 +70,7 @@
         android:id="@+id/delete_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete all my data"
+        android:text="@string/delete_all_my_data"
         style="@style/com.showcase.BoldText"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/logout"

@@ -12,16 +12,16 @@ internal class ProfileViewModel(
     private var _state: MutableLiveData<ViewState> = MutableLiveData()
     fun observeState(): LiveData<ViewState> = _state
 
-    fun onLogout() {
+    fun onLogout(doDeleteUser: Boolean) {
         _state.value = ViewState.Loading
         logout { response ->
             // response can only be a success
-            _state.value = ViewState.LogoutSuccess
+            _state.value = ViewState.LogoutSuccess(doDeleteUser)
         }
     }
 
     sealed class ViewState {
-        object LogoutSuccess: ViewState()
+        class LogoutSuccess(val doDeleteUser: Boolean): ViewState()
         object Loading: ViewState()
     }
 }
