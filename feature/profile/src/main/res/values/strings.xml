@@ -5,4 +5,7 @@
     <string name="no">No</string>
     <string name="delete_data">Are you sure you want to delete all your data?</string>
     <string name="logout_data">Are you sure you want to logout?</string>
+    <string name="error_input">Invalid input</string>
+    <string name="change_email">Change email</string>
+    <string name="change_pass">Change password</string>
 </resources>

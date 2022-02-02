@@ -1,6 +1,9 @@
 package com.alexstibbons.feature.profile
 
 import com.alexstibbons.feature.profile.presentation.ProfileViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
@@ -15,7 +18,7 @@ private val loadModules by lazy {
 }
 
 private val domainModule = module {
-
+    single<FirebaseAuth> { Firebase.auth }
 }
 
 private val presentationModule = module {

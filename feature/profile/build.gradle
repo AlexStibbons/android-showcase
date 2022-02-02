@@ -19,12 +19,12 @@ dependencies {
     implementation Dependencies.android_viewmodel_ktx
     implementation Dependencies.lifecycle_extensions_ktx
 
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
     implementation Dependencies.koin_core
     implementation Dependencies.koin_android
     implementation Dependencies.koin_compat
-
-    implementation platform('com.google.firebase:firebase-bom:29.0.4')
-    implementation 'com.google.firebase:firebase-auth-ktx'
 
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockk
