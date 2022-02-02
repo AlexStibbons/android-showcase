@@ -3,8 +3,11 @@ package com.alexstibbons.feature.profile.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import com.alexstibbons.feature.profile.R
 import com.alexstibbons.feature.profile.databinding.ActivityProfileBinding
 import com.alexstibbons.feature.profile.injectFeature
+import com.alexstibbons.feature.profile.presentation.dialog.InputDialog
+import com.alexstibbons.feature.profile.presentation.dialog.InputDialogData
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
 import com.google.firebase.auth.FirebaseAuth
@@ -33,10 +36,23 @@ internal class ProfileActivity : AppCompatActivity() {
         with(binding) {
             back.setOnClickListener { onBackPressed() }
 
-            logout.setOnClickListener { viewModel.onLogout(doDeleteUser = false) }
+            logout.setOnClickListener {
+                val dialogData = InputDialogData(R.string.logout_data) { viewModel.onLogout(doDeleteUser = false) }
 
-            deleteData.setOnClickListener { viewModel.onLogout(doDeleteUser = true) }
+                startDialog(dialogData)
+            }
+
+            deleteData.setOnClickListener {
+                val dialogData = InputDialogData(R.string.delete_data) { viewModel.onLogout(doDeleteUser = true) }
+
+                startDialog(dialogData)
+            }
         }
+    }
+
+    private fun startDialog(dialogData: InputDialogData) {
+        val dialog = InputDialog.newInstance(dialogData).apply { isCancelable = false }
+        dialog.show(supportFragmentManager, "Input Dialog")
     }
 
     private fun renderState(state: ProfileViewModel.ViewState) = when (state) {
