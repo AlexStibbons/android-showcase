@@ -2,19 +2,15 @@ package com.alexstibbons.feature.login.presentation.signin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.view.isVisible
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
 import com.alexstibbons.feature.login.databinding.ActivitySigninBinding
 import com.alexstibbons.feature.login.injectFeature
-import com.alexstibbons.feature.login.presentation.LoginDataPoint
-import com.alexstibbons.feature.login.presentation.isEmailValid
-import com.alexstibbons.feature.login.presentation.isPasswordValid
-import com.alexstibbons.feature.login.presentation.onAfterCredentialsInput
+import com.alexstibbons.showcase.LoginDataPoint
 import com.alexstibbons.showcase.exhaustive
 import com.alexstibbons.showcase.navigator.NavigateTo
+import com.alexstibbons.showcase.onAfterCredentialsInput
 import com.alexstibbons.showcase.showToast
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject

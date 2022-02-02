@@ -3,12 +3,11 @@ package com.alexstibbons.feature.login.presentation.signin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.alexstibbons.feature.login.presentation.LoginDataPoint
-import com.alexstibbons.feature.login.presentation.isEmailValid
-import com.alexstibbons.feature.login.presentation.isPasswordValid
-import com.alexstibbons.feature.login.presentation.login.LoginViewModel
 import com.alexstibbons.library.common_domain.SaveUserId
+import com.alexstibbons.showcase.LoginDataPoint
 import com.alexstibbons.showcase.exhaustive
+import com.alexstibbons.showcase.isEmailValid
+import com.alexstibbons.showcase.isPasswordValid
 import com.alexstibbons.showcase.responses.Response
 import com.google.firebase.auth.FirebaseUser
 
