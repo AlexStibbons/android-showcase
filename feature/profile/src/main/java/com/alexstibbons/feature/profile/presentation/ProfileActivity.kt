@@ -15,7 +15,10 @@ import com.alexstibbons.showcase.navigator.NavigateTo
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+/**
+ *  There is NO reauthentication here
+ *  there kind of should be, when changing sensitive data (email, password)
+ * */
 internal class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
