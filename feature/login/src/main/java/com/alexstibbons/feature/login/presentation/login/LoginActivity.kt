@@ -7,12 +7,8 @@ import androidx.lifecycle.Observer
 import com.alexstibbons.feature.login.R
 import com.alexstibbons.feature.login.databinding.ActivityLoginBinding
 import com.alexstibbons.feature.login.injectFeature
-import com.alexstibbons.feature.login.presentation.LoginDataPoint
-import com.alexstibbons.feature.login.presentation.isEmailValid
-import com.alexstibbons.feature.login.presentation.onAfterCredentialsInput
-import com.alexstibbons.showcase.exhaustive
+import com.alexstibbons.showcase.*
 import com.alexstibbons.showcase.navigator.NavigateTo
-import com.alexstibbons.showcase.showToast
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

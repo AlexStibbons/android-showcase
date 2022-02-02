@@ -2,7 +2,23 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.protobuf'
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.10.0"
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
 
 
 android {
@@ -38,6 +54,7 @@ dependencies {
     implementation project(":feature:details")
     implementation project(":feature:about")
     implementation project(":feature:login")
+    implementation project(":feature:profile")
 
     implementation project(":library:core")
     implementation project(":library:ui-common")
@@ -58,6 +75,8 @@ dependencies {
     implementation Dependencies.data_store_core
     implementation Dependencies.data_store_pref
     implementation Dependencies.data_store_pref_core
+
+    implementation 'com.google.protobuf:protobuf-lite:3.0.1'
 
     implementation Dependencies.koin_core
     implementation Dependencies.koin_android

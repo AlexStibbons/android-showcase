@@ -1,6 +1,23 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.10.0"
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
 
 
 dependencies {
@@ -25,6 +42,8 @@ dependencies {
     annotationProcessor Dependencies.room_compiler
     kapt Dependencies.room_compiler
     implementation Dependencies.room_ktx
+
+    implementation 'com.google.protobuf:protobuf-lite:3.0.1'
 
     implementation Dependencies.data_store
     implementation Dependencies.data_store_core

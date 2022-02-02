@@ -1,9 +1,5 @@
 package com.alexstibbons.showcase
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import com.alexstibbons.showcase.database.FaveCache
 import com.alexstibbons.showcase.database.FaveCacheImpl
@@ -23,7 +19,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
-
 
 val repositoryModule = module {
 
