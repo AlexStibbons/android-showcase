@@ -11,10 +11,15 @@ import com.alexstibbons.showcase.database.domain.RemoveFave
 import com.alexstibbons.showcase.database.domain.SaveFave
 import com.alexstibbons.showcase.datastore.DataStorePref
 import com.alexstibbons.showcase.datastore.DataStorePrefImpl
+import com.alexstibbons.showcase.firestore.FirestoreDb
+import com.alexstibbons.showcase.firestore.FirestoreImpl
 import com.alexstibbons.showcase.movieApi.MovieRepository
 import com.alexstibbons.showcase.movieApi.MovieRepositoryImpl
 import com.alexstibbons.showcase.tvApi.TvRepository
 import com.alexstibbons.showcase.tvApi.TvRepositoryImpl
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -23,6 +28,12 @@ import retrofit2.Retrofit
 val repositoryModule = module {
 
     single<DataStorePref> { DataStorePrefImpl(androidContext()) }
+
+    single { Firebase.firestore } // db itself
+
+    factory { Firebase.firestore.collection(USER_FAVE_COL) } // collection
+
+    factory<FirestoreDb> { FirestoreImpl(get()) }
 
     factory<MovieRepository> {
         MovieRepositoryImpl(
@@ -47,3 +58,6 @@ val repositoryModule = module {
     factory { RemoveFave(get()) }
 
 }
+
+private const val USER_FAVE_COL = "user-faves"
+private const val MEDIA = "media"

@@ -45,6 +45,9 @@ dependencies {
 
     implementation 'com.google.protobuf:protobuf-lite:3.0.1'
 
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
     implementation Dependencies.data_store
     implementation Dependencies.data_store_core
     implementation Dependencies.data_store_pref
