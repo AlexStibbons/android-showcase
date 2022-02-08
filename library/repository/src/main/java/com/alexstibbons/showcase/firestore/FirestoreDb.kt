@@ -1,7 +1,6 @@
 package com.alexstibbons.showcase.firestore
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 
 interface FirestoreDb {
     suspend fun getFavesForUser(id: String)
@@ -18,7 +17,6 @@ internal data class FirestoreImpl(
 
     override suspend fun getFavesForUser(id: String) {
         userFaveCollection.document(id).collection(MEDIA).get() // get all docs from subcollection media
-            
     }
 
 
