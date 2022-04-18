@@ -112,7 +112,7 @@ object Dependencies {
     const val lifecycle_runtime_ktx =
         "androidx.lifecycle:lifecycle-runtime-ktx:${DependencyVersions.ktx_lifecycle}"
     const val lifecycle_extensions_ktx =
-        "android.arch.lifecycle:extensions:${DependencyVersions.ktx_lifecycle}"
+        "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
     const val data_store = "androidx.datastore:datastore:${DependencyVersions.data_store}"
     const val data_store_core = "androidx.datastore:datastore-core:${DependencyVersions.data_store_core}"

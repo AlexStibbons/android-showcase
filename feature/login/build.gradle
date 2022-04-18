@@ -18,6 +18,9 @@ dependencies {
     implementation Dependencies.android_viewmodel_ktx
     implementation Dependencies.lifecycle_extensions_ktx
 
+    implementation "androidx.compose.runtime:runtime:1.1.1"
+    implementation "androidx.compose.compiler:compiler:1.1.1"
+
     implementation Dependencies.koin_core
     implementation Dependencies.koin_android
     implementation Dependencies.koin_compat

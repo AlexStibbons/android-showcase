@@ -19,6 +19,9 @@ dependencies {
     implementation Dependencies.android_viewmodel_ktx
     implementation Dependencies.lifecycle_extensions_ktx
 
+    implementation "androidx.compose.runtime:runtime:1.1.1"
+    implementation "androidx.compose.compiler:compiler:1.1.1"
+
     implementation platform('com.google.firebase:firebase-bom:29.0.4')
     implementation 'com.google.firebase:firebase-auth-ktx'
 

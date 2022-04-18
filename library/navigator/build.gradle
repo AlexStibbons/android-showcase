@@ -7,6 +7,9 @@ dependencies {
     implementation Dependencies.kotlin
     implementation Dependencies.androidx_core
 
+    implementation "androidx.compose.runtime:runtime:1.1.1"
+    implementation "androidx.compose.compiler:compiler:1.1.1"
+
     testImplementation Dependencies.junit
     testImplementation Dependencies.androidx_junit
     testImplementation Dependencies.mockito_kotlin

@@ -2,15 +2,18 @@
 buildscript {
     ext {
         kotlin_version = '1.5.31'
+        compose_version = '1.0.1'
     }
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
 
-        classpath Dependencies.tools_gradleversions
-        classpath Dependencies.tools_gradleandroid
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.42.0"//Dependencies.tools_gradleversions
+        classpath "com.android.tools.build:gradle:7.0.4"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"//Dependencies.tools_kotlin
         classpath Dependencies.kotlin_extensions
         classpath 'com.google.gms:google-services:4.3.8'
@@ -28,6 +31,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 
@@ -61,10 +65,17 @@ subprojects {
                 }
                 kotlinOptions {
                     jvmTarget = "1.8"
+                    useIR = true
                 }
 
                 buildFeatures {
                     viewBinding true
+                    compose true
+                }
+
+                composeOptions {
+                    kotlinCompilerExtensionVersion '1.1.1'
+                    kotlinCompilerVersion '1.5.21'
                 }
 
                 packagingOptions {
